@@ -113,8 +113,8 @@ class Article(models.Model):
     type_choices = [
         (1, "Python"),
         (2, "Linux"),
-        (3, "OpenStack"),
-        (4, "GoLang"),
+        (3, "容器"),
+        (4, "数据库"),
     ]
 
     article_type_id = models.IntegerField(choices=type_choices, default=None)
