@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="/static/css/common.css">
     <link rel="stylesheet" href="/static/plugin/bootstrap-3.3.7-dist/css/bootstrap.css">
 </head>
 <body>
@@ -22,18 +23,98 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">全部 <span class="sr-only">(current)</span></a></li>
+      {%  if type_id %}
+          <li><a href="/">全部</a></li>
+      {% else %}
+           <li class="active"><a href="/">全部</a></li>
+      {% endif %}
           {% for item in type_choice_list  %}
-            <li><a href="#">{{ item.1 }}</a></li>
+              {% if item.0 == type_id %}
+                  <li class="active"><a href="/all/{{ item.0 }}">{{ item.1 }}</a></li>
+              {% else %}
+                  <li><a href="/all/{{ item.0 }}">{{ item.1 }}</a></li>
+              {% endif %}
           {% endfor %}
       </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">登陆</a></li>
-        <li><a href="#">注册</a></li>
+
+    {% if session_stat %}
+    <ul class="nav navbar-nav navbar-right">
+        <li><a href="/login/">{{ nickname }}</a></li>
+        <li><a href="/login/">我的博客</a></li>
+        <li><a href="/login/">管理</a></li>
+        <li><a href="/login/">退出</a></li>
       </ul>
+    {% else %}
+    <ul class="nav navbar-nav navbar-right">
+        <li><a href="/login/">登陆</a></li>
+        <li><a href="/register/">注册</a></li>
+      </ul>
+    {% endif %}
+
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
+<div>
+    <div class="container">
+        <div class="col-md-8">
+{#            <div  class="article-item">#}
+{#                <h3 class="art-head"><a href="">java-并发编程</a></h3>#}
+{#                <div class="art-body clearfix">#}
+{#                    <a class="left"><img src="/static/images/head.png" alt=""></a>#}
+{#                    1、并发编程 并发通常能提高单处理器的程序性能。可是，看到这句话有些违背直觉。多线程的运行增加了线程间切换的开销，仅仅从这个角度看，单线程运行总比多线程的性能好。#}
+{#                </div>#}
+{#                <div class="art-footer">#}
+{#                    <a href="">#}
+{#                        <span class="glyphicon glyphicon-user"></span>#}
+{#                        蚂蚁#}
+{#                    </a>#}
+{#                </div>#}
+{#            </div>#}
+            <div>
+                {% for article in article_list_page %}
+                    <div class="article-item">
+                        <h3 class="art-head"><a href="">{{ article.title }}</a></h3>
+                    <div class="art-body clearfix">
+                        <a class="left" href=""><img src={{ article.blog.user.avatar }} alt=""></a>
+                        {{ article.summary }}
+                    </div>
+                    <div class="art-foot">
+                        <a href="">
+                            <span class="glyphicon glyphicon-user"></span>
+                            {{ article.blog.user.nickname }}
+                        </a>
+                    </div>
+                    </div>
+                {% endfor %}
+            </div>
+            {% if article_list_page %}
+            <nav aria-label="Page navigation">
+              <ul class="pagination">
+                {{ page_info.pager | safe }}
+              </ul>
+            </nav>
+            {% endif %}
 
+
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-default">
+              <div class="panel-heading">Panel heading without title</div>
+              <div class="panel-body">
+                Panel content
+              </div>
+            </div>
+
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Panel title</h3>
+              </div>
+              <div class="panel-body">
+                Panel content
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

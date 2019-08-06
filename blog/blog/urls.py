@@ -20,5 +20,9 @@ from app01 import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'^',views.index)
+    url(r'all/(?P<type_id>\d+)',views.index),
+    url(r'^login',views.login),
+    url(r'^check_code',views.check_code),
+    url(r'^register',views.register),
+    url(r'^',views.index),
 ]
