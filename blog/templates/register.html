@@ -27,7 +27,7 @@
   <div class="form-group">
     <label class="col-sm-2 control-label">用户名</label>
     <div class="col-sm-10">
-      {{ obj.username }} {{ obj.errors.username.0 }}
+         {{ obj.username }} {{ obj.errors.username.0 }}
     </div>
   </div>
   <div class="form-group">
@@ -63,7 +63,7 @@
         <div>{{ msg }}</div>
     </div>
     <div class="col-sm-5">
-        <img style="width: 120px;height: 30px;" src="/check_code/" title="点击更新图片">
+        <img onclick="changeCode(this)" style="width: 120px;height: 30px;" src="/check_code/" title="点击更新图片">
     </div>
   </div>
   <div class="form-group">
@@ -73,6 +73,73 @@
   </div>
 </form>
 </div>
+<script src="/static/jquery-1.12.4.js"></script>
+<script src="/static/jquery.cookie.js"></script>
+<script>
+        $(function () {
+            bindAvatar();
+        });
 
+        function bindAvatar() {
+            if (window.URL.createObjectURL){
+                bindAvatar2();
+            }else if(window.FileReader){
+                bindAvatar3();
+            }else{
+                bindAvatar1()
+            }
+        }
+
+        /*ajax 上传*/
+        function bindAvatar1() {
+            $('#imgSelect').change(function () {
+                var formData = new FormData();
+                formData.append('avatar',$(this)[0].files[0]);
+                var token = $.cookie('csrftoken');
+
+                $.ajax({
+                    url:'/register/',
+                    type:'POST',
+                    headers:{'X-CSRFToken':token},
+                    data:formData,
+                    contentType:false,
+                    processData:false,
+                    success:function (arg) {
+                        console.log(arg)
+                    }
+                })
+            })
+        }
+
+        /*本地上传预览1*/
+        function bindAvatar2() {
+            $('#imgSelect').change(function () {
+                /* 相同, 不需要两次转换
+                console.log(this);
+                console.log($(this)[0]);*/
+                var obj = $(this)[0].files[0];
+                var v = window.URL.createObjectURL(obj);
+                $('#previewImg').attr('src',v);
+                $('#previewImg').load(function () {
+                    window.URL.revokeObjectURL(v);
+                })
+            })
+        }
+
+        /*本地上传预览2*/
+        function bindAvatar3() {
+            $('#imgSelect').change(function () {
+                var obj = this.files[0];
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#previewImg').attr('src',this.result);
+                };
+                reader.readAsDataURL(obj);
+            })
+        }
+    function changeCode(ths) {
+        ths.src = ths.src + "?";
+    }
+</script>
 </body>
 </html>

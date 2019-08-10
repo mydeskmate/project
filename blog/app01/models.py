@@ -10,7 +10,7 @@ class UserInfo(models.Model):
     password = models.CharField(verbose_name='密码', max_length=64)
     nickname = models.CharField(verbose_name='昵称', max_length=32)
     email = models.EmailField(verbose_name='邮箱', unique=True)
-    avatar = models.ImageField(verbose_name='头像')
+    avatar = models.ImageField(verbose_name='头像',upload_to='static/images')
 
     create_time = models.DateTimeField(verbose_name='创建时间', auto_now_add=True)
 
@@ -20,6 +20,12 @@ class UserInfo(models.Model):
                                   related_name='f',
                                   through_fields=('user', 'follower'))
 
+    def __str__(self):
+        """
+        输入对象时，显示昵称，后台管理中方便查看
+        :return:
+        """
+        return self.nickname
 
 class Blog(models.Model):
     """
@@ -31,6 +37,8 @@ class Blog(models.Model):
     theme = models.CharField(verbose_name='博客主题', max_length=32)
     user = models.OneToOneField(to='UserInfo', to_field='nid',on_delete=True)
 
+    def __str__(self):
+        return self.site
 
 class UserFans(models.Model):
     """
@@ -54,6 +62,8 @@ class Category(models.Model):
 
     blog = models.ForeignKey(verbose_name='所属博客', to='Blog', to_field='nid',on_delete=True)
 
+    def __str__(self):
+        return "%s-%s" % (self.blog.title,self.title)
 
 class ArticleDetail(models.Model):
     """
@@ -63,6 +73,8 @@ class ArticleDetail(models.Model):
 
     article = models.OneToOneField(verbose_name='所属文章', to='Article', to_field='nid',on_delete=True)
 
+    def __str__(self):
+        return self.article.title
 
 class UpDown(models.Model):
     """
@@ -96,6 +108,8 @@ class Tag(models.Model):
     title = models.CharField(verbose_name='标签名称', max_length=32)
     blog = models.ForeignKey(verbose_name='所属博客', to='Blog', to_field='nid',on_delete=True)
 
+    def __str__(self):
+        return "%s-%s" %(self.blog.title,self.title)
 
 class Article(models.Model):
     nid = models.BigAutoField(primary_key=True)
@@ -125,6 +139,8 @@ class Article(models.Model):
         through_fields=('article', 'tag'),
     )
 
+    def __str__(self):
+        return "%s-%s" %(self.blog.title,self.title)
 
 class Article2Tag(models.Model):
     article = models.ForeignKey(verbose_name='文章', to="Article", to_field='nid',on_delete=True)

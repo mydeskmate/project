@@ -17,12 +17,29 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url
 from app01 import views
+from app02 import views as views2
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'all/(?P<type_id>\d+)',views.index),
     url(r'^login',views.login),
+    url(r'^auth_login',views2.login),
+    url(r'^auth_index.html$',views2.index),
     url(r'^check_code',views.check_code),
     url(r'^register',views.register),
+    url(r'^up.html$',views.up),
+
+    url(r'^article_tijiao.html$', views.article_tijiao),
+    url(r'^upload_img.html$', views.upload_img),
+    url(r'^comments-(\d+).html$', views.comments),
+
+
+    url(r'^shaixuan-(?P<article_type_id>\d+)-(?P<category_id>\d+)-(?P<tags__nid>\d+).html$', views.shaixuan),
+
+
+
+    url(r'^(?P<site>\w+)/(?P<nid>\d+).html$',views.article),
+    url(r'^(?P<site>\w+)/(?P<key>((tag)|(date)|(category)))/(?P<val>\w+-*\w*)/', views.filter),
+    url(r'^(\w+)/',views.home),
     url(r'^',views.index),
 ]
