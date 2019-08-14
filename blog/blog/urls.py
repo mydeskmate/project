@@ -25,6 +25,8 @@ urlpatterns = [
     url(r'^login',views.login),
     url(r'^auth_login',views2.login),
     url(r'^auth_index.html$',views2.index),
+    url(r'^auth-menu.html$', views2.menu),
+
     url(r'^check_code',views.check_code),
     url(r'^register',views.register),
     url(r'^up.html$',views.up),

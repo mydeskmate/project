@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app01.apps.App01Config',
-    'app02.apps.App02Config'
+    'app02.apps.App02Config',
+    'rbac',
 ]
 
 MIDDLEWARE = [
@@ -49,7 +50,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'middleware.md.M1',
+    # 'middleware.md.M1',
+    # 'rbac.middleware.md.RbacMiddleware',
 ]
 
 ROOT_URLCONF = 'blog.urls'

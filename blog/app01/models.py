@@ -1,4 +1,5 @@
 from django.db import models
+from rbac.models import User as RbacUser
 
 
 class UserInfo(models.Model):
@@ -19,6 +20,7 @@ class UserInfo(models.Model):
                                   through='UserFans',
                                   related_name='f',
                                   through_fields=('user', 'follower'))
+    user = models.OneToOneField(RbacUser,on_delete=True)
 
     def __str__(self):
         """
