@@ -4,21 +4,42 @@
 <head>
     <meta charset="UTF-8">
     <title></title>
+    <link rel="stylesheet" href="/static/css/common.css">
+    <link rel="stylesheet" href="/static/plugin/bootstrap-3.3.7-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/plugin/font-awesome-4.7.0/css/font-awesome.css" />
     <style>
         body{
             margin: 0;
         }
         .pd-header{
-            height: 48px;
-            background-color: brown;
+            {#height: 48px;#}
+            background-color: #FFFFFF;
+        }
+        .pd-body{
+            margin-top: -20px;
         }
         .pd-body .menu{
             float: left;
-            width: 20%;
+            width: 300px;
+            background-color: #FFFFFF;
+            margin: 20px;
         }
         .pd-body .content{
             float: left;
-            width: 80%;
+            width: 1000px;
+            margin-top: 20px;
+        }
+        .brand {
+            color: #FF6A00!important;
+        }
+        .navbar-default .navbar-nav li a {
+            color: rgb(51, 51, 51);
+        }
+
+        .head-right {
+            float: right;
+            width: 100px;
+            line-height: 52px;
         }
 
         {% rbac_css %}
@@ -26,7 +47,24 @@
     {% block css %}{% endblock %}
 </head>
 <body>
-    <div class="pd-header"></div>
+{#    <div class="pd-header"></div>#}
+
+<nav class="navbar navbar-default pd-header">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <a class="navbar-brand brand" href="#">运维管理平台</a>
+    </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+
+      {% if request.session.user_info %}
+          <div class="head-right">
+             <a href="/logout.html">注销</a>
+          </div>
+      {% endif %}
+  </div><!-- /.container-fluid -->
+</nav>
+
     <div class="pd-body">
         <div class="menu">{% rbac_menu request %}</div>
         <div class="content">{% block content %}{% endblock %}</div>
@@ -36,6 +74,7 @@
     <script>
         {% rbac_js %}
     </script>
-    {% block js %}{% endblock %}
+    {% block js %}
+    {% endblock %}
 </body>
 </html>

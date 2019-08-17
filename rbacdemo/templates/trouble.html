@@ -2,16 +2,24 @@
 
 {% block content %}
     <div>
+    <div style="margin: 20px 0">
         {% if "POST" in request.permission_code_list %}
-            <a href="/trouble.html?md=post">添加</a>
+            <a class="btn btn-primary" href="/trouble.html?md=post">添加</a>
         {% endif %}
     </div>
     <div>
-        <table border="1">
-            {% for row in trouble_list%}
+        <table class="table table-bordered table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>标题</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            {% for row in trouble_list_page%}
                 <tr>
                     <td>{{ row.title }}</td>
-                    <td>{{ row.status }}</td>
+                    <td>{{ row.get_status_display }}</td>
                     <td>
                         {% if 'EDIT' in request.permission_code_list %}
                             <a href="/trouble.html?md=edit&nid={{ row.id }}">编辑</a>
@@ -27,5 +35,14 @@
                 </tr>
             {% endfor %}
         </table>
+
+          {% if trouble_list_page %}
+            <nav aria-label="Page navigation">
+              <ul class="pagination">
+                {{ page_info.pager | safe }}
+              </ul>
+            </nav>
+            {% endif %}
+    </div>
     </div>
 {% endblock %}

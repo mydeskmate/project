@@ -1,17 +1,41 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-    <table border="1">
-        {% for row in trouble_list %}
+    <div>
+    <table class="table table-bordered table-striped table-hover">
+        <thead>
+                <tr>
+                    <th>标题</th>
+                    <th>提交人</th>
+                    <th>提交时间</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+
+        {% for row in trouble_list_page %}
             <tr>
                 <td>{{ row.title }}</td>
                 <td>{{ row.create_user.nickname }}</td>
                 <td>{{ row.ctime|date:"Y-m-d H:i:s" }}</td>
                 <td>{{ row.get_status_display }}</td>
                 {% if "EDIT" in request.permission_code_list %}
-                    <td> <a href="/trouble-kill.html?md=edit&nid={{ row.id }}">处理</a> </td>
+                    <td>
+                        <a href="/trouble-kill.html?md=edit&nid={{ row.id }}">处理</a>
+                        <a href="/trouble-kill.html?md=detail&nid={{ row.id }}">查看详细</a>
+                        <a href="/trouble-kill.html?md=del&nid={{ row.id }}">删除</a>
+                    </td>
                 {% endif %}
             </tr>
         {% endfor %}
     </table>
+
+     {% if trouble_list_page %}
+            <nav aria-label="Page navigation">
+              <ul class="pagination">
+                {{ page_info.pager | safe }}
+              </ul>
+            </nav>
+            {% endif %}
+    </div>
 {% endblock %}

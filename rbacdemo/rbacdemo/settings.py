@@ -130,6 +130,7 @@ STATICFILES_DIRS = (
 # # 无需权限控制的URL
 RBAC_NO_AUTH_URL = [
     '/login.html',
+    '/logout.html',
     '/index.html',
     '/register.html',
     '/admin.*',

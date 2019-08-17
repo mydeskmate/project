@@ -21,8 +21,10 @@ from web import views
 urlpatterns = [
     url('admin/', admin.site.urls),
     url('^login.html$', views.login),
+    url(r'^logout.html$', views.logout),
     url('^index.html$', views.index),
     url('^trouble.html$', views.trouble),
     url('^trouble-kill.html$', views.trouble_kill),
     url('^report.html$', views.report),
+    url('^register.html$', views.register),
 ]

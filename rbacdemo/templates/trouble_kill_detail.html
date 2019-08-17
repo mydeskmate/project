@@ -1,0 +1,34 @@
+{% extends 'layout.html' %}
+{% block css %}
+    <style>
+        .content-sub {
+            margin: 20px;
+            width: 800px;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="content-sub">
+        <div>
+            <p>
+                <label>标题:</label>
+                {{ obj.title }}
+            </p>
+            <p>
+                <label>详细描述:</label>
+                {{ obj.detail }}
+            </p>
+            <p>
+                <label>提交时间:</label>
+                {{ obj.ctime }}
+            </p>
+        </div>
+        <label>处理方案:</label><br>
+        {% if obj.solution %}
+              {{ obj.solution }}
+        {% endif %}
+
+
+    </div>
+
+{% endblock %}

@@ -1,14 +1,34 @@
 {% extends 'layout.html' %}
-
+{% block css %}
+    <style>
+        .content-sub {
+            margin: 20px;
+            width: 800px;
+        }
+    </style>
+{% endblock %}
 {% block content %}
+    <div class="content-sub">
     <form action="/trouble-kill.html?md=edit&nid={{ obj.id }}" method="POST">
         {% csrf_token %}
         <div>
-            <p>{{ obj.title }}</p>
-            <p>{{ obj.detail }}</p>
-            <p>{{ obj.ctime }}</p>
+            <p>
+                <label for="exampleInputEmail1">标题: </label>
+                {{ obj.title }}
+            </p>
+            <p>
+                <label>详细描述:</label>
+                {{ obj.detail }}
+            </p>
+            <p>
+                <label>提交时间:</label>
+                {{ obj.ctime }}
+            </p>
         </div>
-        <textarea name="solution"></textarea>
+        <label>处理方案:</label><br>
+         <textarea class="form-control" rows="6"  name="solution"></textarea>
         <input type="submit" value="提交" />
     </form>
+    </div>
+
 {% endblock %}

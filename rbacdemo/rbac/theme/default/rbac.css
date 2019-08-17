@@ -6,11 +6,15 @@
 .rbac-menu-item .rbac-menu-body {
     margin-left: 20px;
 }
+.rbac-menu-header{
+    color: rgb(51, 51, 51);
+    font-weight: bold;
+}
 
 .rbac-menu-body a {
     display: block;
 }
 
 .rbac-menu-body a.rbac-active {
-    color: red;
+    color: rgb(51, 51, 51);
 }

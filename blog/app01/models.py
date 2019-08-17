@@ -20,7 +20,8 @@ class UserInfo(models.Model):
                                   through='UserFans',
                                   related_name='f',
                                   through_fields=('user', 'follower'))
-    user = models.OneToOneField(RbacUser,on_delete=True)
+    # 因为时后加的，有些问题，先注释掉
+    # user = models.OneToOneField(RbacUser,on_delete=True)
 
     def __str__(self):
         """

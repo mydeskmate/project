@@ -1,6 +1,18 @@
 {% extends 'layout.html' %}
+{% block css %}
+    <style>
+        .welcome {
+            margin-top: 20px;
+        }
+        .nickname {
+            font-weight: bold;
+        }
+    </style>
+{% endblock %}
 
 {% block content %}
-    欢迎登录：{{ request.session.user_info.nickname }}
+    <div class="welcome">
+        欢迎登录：<span class="nickname">{{ request.session.user_info.nickname }}</span>
+    </div>
 {% endblock %}
 
