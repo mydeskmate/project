@@ -284,7 +284,7 @@ def comments(request,nid):
         # 修改列名 以符合上面的格式
         msg_list_queryset = models.Comment.objects.filter(article_id=nid).extra(select={'parent_id':'reply_id','id':'nid'}).values('id','content','parent_id')
         msg_list = list(msg_list_queryset)
-        print(msg_list)
+        # print(msg_list)
 
 
         msg_list_dict = {}

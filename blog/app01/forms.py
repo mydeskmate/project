@@ -6,7 +6,7 @@ class RegisterForm(Form):
     username = fields.CharField(
         widget=widgets.TextInput(attrs={'class':'form-control'}),
         required=True,  #默认True
-        max_length=8,
+        max_length=32,
         min_length=2,
         error_messages = {
             'required': '不能为空',
