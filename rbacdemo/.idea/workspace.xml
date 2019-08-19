@@ -2,284 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f3b28105-e1fc-4c39-97fc-1e3917c2c86f" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/css/common.css" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/bootstrap-3.3.7-dist/css/bootstrap-theme.css" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/bootstrap-3.3.7-dist/css/bootstrap-theme.css.map" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/bootstrap-3.3.7-dist/css/bootstrap-theme.min.css" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/bootstrap-3.3.7-dist/css/bootstrap-theme.min.css.map" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/bootstrap-3.3.7-dist/css/bootstrap.css" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/bootstrap-3.3.7-dist/css/bootstrap.css.map" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/bootstrap-3.3.7-dist/css/bootstrap.min.css" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/bootstrap-3.3.7-dist/css/bootstrap.min.css.map" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/bootstrap-3.3.7-dist/fonts/glyphicons-halflings-regular.eot" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/bootstrap-3.3.7-dist/fonts/glyphicons-halflings-regular.svg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/bootstrap-3.3.7-dist/fonts/glyphicons-halflings-regular.ttf" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/bootstrap-3.3.7-dist/fonts/glyphicons-halflings-regular.woff" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/bootstrap-3.3.7-dist/fonts/glyphicons-halflings-regular.woff2" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/bootstrap-3.3.7-dist/js/bootstrap.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/bootstrap-3.3.7-dist/js/bootstrap.min.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/bootstrap-3.3.7-dist/js/npm.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/font-awesome-4.7.0/HELP-US-OUT.txt" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/font-awesome-4.7.0/css/font-awesome.css" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/font-awesome-4.7.0/css/font-awesome.min.css" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/font-awesome-4.7.0/fonts/FontAwesome.otf" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/font-awesome-4.7.0/fonts/fontawesome-webfont.eot" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/font-awesome-4.7.0/fonts/fontawesome-webfont.svg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/font-awesome-4.7.0/fonts/fontawesome-webfont.ttf" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/font-awesome-4.7.0/fonts/fontawesome-webfont.woff" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/font-awesome-4.7.0/fonts/fontawesome-webfont.woff2" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/font-awesome-4.7.0/less/animated.less" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/font-awesome-4.7.0/less/bordered-pulled.less" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/font-awesome-4.7.0/less/core.less" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/font-awesome-4.7.0/less/fixed-width.less" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/font-awesome-4.7.0/less/font-awesome.less" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/font-awesome-4.7.0/less/icons.less" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/font-awesome-4.7.0/less/larger.less" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/font-awesome-4.7.0/less/list.less" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/font-awesome-4.7.0/less/mixins.less" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/font-awesome-4.7.0/less/path.less" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/font-awesome-4.7.0/less/rotated-flipped.less" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/font-awesome-4.7.0/less/screen-reader.less" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/font-awesome-4.7.0/less/stacked.less" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/font-awesome-4.7.0/less/variables.less" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/font-awesome-4.7.0/scss/_animated.scss" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/font-awesome-4.7.0/scss/_bordered-pulled.scss" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/font-awesome-4.7.0/scss/_core.scss" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/font-awesome-4.7.0/scss/_fixed-width.scss" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/font-awesome-4.7.0/scss/_icons.scss" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/font-awesome-4.7.0/scss/_larger.scss" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/font-awesome-4.7.0/scss/_list.scss" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/font-awesome-4.7.0/scss/_mixins.scss" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/font-awesome-4.7.0/scss/_path.scss" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/font-awesome-4.7.0/scss/_rotated-flipped.scss" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/font-awesome-4.7.0/scss/_screen-reader.scss" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/font-awesome-4.7.0/scss/_stacked.scss" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/font-awesome-4.7.0/scss/_variables.scss" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/font-awesome-4.7.0/scss/font-awesome.scss" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/kindeditor-all-min.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/kindeditor-all.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/kindeditor-min.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/kindeditor.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/lang/ar.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/lang/en.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/lang/ko.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/lang/zh_CN.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/lang/zh_TW.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/license.txt" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/anchor/anchor.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/autoheight/autoheight.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/baidumap/baidumap.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/baidumap/index.html" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/baidumap/map.html" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/clearhtml/clearhtml.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/code/code.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/code/prettify.css" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/code/prettify.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/emoticons.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/0.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/1.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/10.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/100.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/101.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/102.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/103.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/104.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/105.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/106.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/107.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/108.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/109.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/11.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/110.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/111.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/112.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/113.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/114.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/115.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/116.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/117.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/118.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/119.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/12.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/120.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/121.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/122.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/123.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/124.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/125.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/126.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/127.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/128.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/129.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/13.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/130.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/131.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/132.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/133.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/134.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/14.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/15.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/16.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/17.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/18.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/19.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/2.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/20.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/21.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/22.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/23.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/24.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/25.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/26.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/27.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/28.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/29.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/3.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/30.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/31.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/32.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/33.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/34.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/35.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/36.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/37.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/38.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/39.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/4.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/40.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/41.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/42.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/43.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/44.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/45.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/46.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/47.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/48.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/49.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/5.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/50.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/51.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/52.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/53.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/54.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/55.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/56.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/57.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/58.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/59.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/6.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/60.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/61.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/62.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/63.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/64.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/65.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/66.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/67.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/68.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/69.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/7.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/70.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/71.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/72.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/73.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/74.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/75.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/76.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/77.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/78.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/79.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/8.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/80.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/81.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/82.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/83.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/84.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/85.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/86.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/87.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/88.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/89.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/9.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/90.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/91.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/92.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/93.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/94.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/95.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/96.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/97.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/98.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/99.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/emoticons/images/static.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/filemanager/filemanager.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/filemanager/images/file-16.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/filemanager/images/file-64.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/filemanager/images/folder-16.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/filemanager/images/folder-64.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/filemanager/images/go-up.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/flash/flash.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/image/image.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/image/images/align_left.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/image/images/align_right.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/image/images/align_top.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/image/images/refresh.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/insertfile/insertfile.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/lineheight/lineheight.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/link/link.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/map/map.html" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/map/map.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/media/media.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/multiimage/images/image.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/multiimage/images/select-files-en.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/multiimage/images/select-files-zh_CN.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/multiimage/images/swfupload.swf" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/multiimage/multiimage.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/pagebreak/pagebreak.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/plainpaste/plainpaste.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/preview/preview.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/quickformat/quickformat.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/table/table.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/template/html/1.html" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/template/html/2.html" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/template/html/3.html" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/template/template.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/plugins/wordpaste/wordpaste.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/themes/common/anchor.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/themes/common/blank.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/themes/common/flash.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/themes/common/loading.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/themes/common/media.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/themes/common/rm.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/themes/default/background.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/themes/default/default.css" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/themes/default/default.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/themes/qq/editor.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/themes/qq/qq.css" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/plugin/kindeditor-4.1.10/themes/simple/simple.css" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/templates/register.html" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/templates/trouble_detail.html" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/templates/trouble_edit.html" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/templates/trouble_kill_detail.html" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/utils/pager.py" />
-      <change beforePath="$PROJECT_DIR$/../blog/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../blog/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/../blog/app01/models.py" afterPath="$PROJECT_DIR$/../blog/app01/models.py" />
-      <change beforePath="$PROJECT_DIR$/../blog/db.sqlite3" afterPath="$PROJECT_DIR$/../blog/db.sqlite3" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
-      <change beforePath="$PROJECT_DIR$/rbac/theme/default/rbac.css" afterPath="$PROJECT_DIR$/rbac/theme/default/rbac.css" />
-      <change beforePath="$PROJECT_DIR$/rbacdemo/settings.py" afterPath="$PROJECT_DIR$/rbacdemo/settings.py" />
-      <change beforePath="$PROJECT_DIR$/rbacdemo/urls.py" afterPath="$PROJECT_DIR$/rbacdemo/urls.py" />
-      <change beforePath="$PROJECT_DIR$/readme" afterPath="$PROJECT_DIR$/readme" />
-      <change beforePath="$PROJECT_DIR$/templates/index.html" afterPath="$PROJECT_DIR$/templates/index.html" />
-      <change beforePath="$PROJECT_DIR$/templates/layout.html" afterPath="$PROJECT_DIR$/templates/layout.html" />
-      <change beforePath="$PROJECT_DIR$/templates/login.html" afterPath="$PROJECT_DIR$/templates/login.html" />
-      <change beforePath="$PROJECT_DIR$/templates/report.html" afterPath="$PROJECT_DIR$/templates/report.html" />
-      <change beforePath="$PROJECT_DIR$/templates/trouble.html" afterPath="$PROJECT_DIR$/templates/trouble.html" />
-      <change beforePath="$PROJECT_DIR$/templates/trouble_add.html" afterPath="$PROJECT_DIR$/templates/trouble_add.html" />
-      <change beforePath="$PROJECT_DIR$/templates/trouble_kill_edit.html" afterPath="$PROJECT_DIR$/templates/trouble_kill_edit.html" />
-      <change beforePath="$PROJECT_DIR$/templates/trouble_kill_look.html" afterPath="$PROJECT_DIR$/templates/trouble_kill_look.html" />
-      <change beforePath="$PROJECT_DIR$/web/views.py" afterPath="$PROJECT_DIR$/web/views.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -337,7 +60,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="trouble_kill_look.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="trouble_kill_look.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/trouble_kill_look.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="471">
@@ -407,7 +130,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="readme" pinned="false" current-in-tab="false">
+      <file leaf-file-name="readme" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/readme">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="266">
@@ -510,6 +233,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -536,15 +261,13 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../blog" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../我的坚果云/oldboy/全栈4班课上笔记/八：Django Web框架3/s4day93课上所有/autoclient" />
     <property name="com.intellij.database.dataSource.DataSourceTemplate" value="Sqlite (Xerial)" />
     <property name="SearchEverywhereHistoryKey" value="fetch_permission_code&#9;null&#9;null&#10;permission_code&#9;null&#9;null&#10;get_status&#9;null&#9;null" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
@@ -613,6 +336,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1912" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -962,14 +686,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/readme">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="14" column="13" lean-forward="false" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="das://table:/a81272ac/2227542c-9d5d-4596-b339-261b6417eb9b/main.web_order">
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state>
@@ -1013,6 +729,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="471">
           <caret line="26" column="25" lean-forward="false" selection-start-line="26" selection-start-column="25" selection-end-line="26" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/readme">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="14" column="13" lean-forward="false" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
           <folding />
         </state>
       </provider>
