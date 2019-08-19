@@ -45,10 +45,10 @@ def index(request,*args,**kwargs):
 class LoginForm(Form):
     username = fields.CharField(
         max_length=18,
-        min_length=6,
+        min_length=5,
         error_messages={
             'required':'用户名不能为空',
-            'min_length':'长度不能小于6位',
+            'min_length':'长度不能小于5位',
             'max_length':'长度不能多余18位'
         },
         widget=widgets.TextInput(attrs={'class':'form-control'})
@@ -59,7 +59,7 @@ class LoginForm(Form):
             'required':'密码不能为空',
             'min_length':'密码不能少于6位'
         },
-        widget=widgets.TextInput(attrs={'class':'form-control'})
+        widget=widgets.TextInput(attrs={'class':'form-control','type':'password'})
     )
     code = fields.CharField(widget=widgets.TextInput(attrs={'class':'form-control'}))
 
@@ -83,7 +83,9 @@ def login(request):
                     request.session['user_id'] = res.nid
                     request.session['username'] = res.username
                     request.session['nickname'] = res.nickname
-                    request.session['blog_id'] = res.blog.nid
+                    # 有可能未创建博客
+                    if hasattr(res,'blog'):
+                        request.session['blog_id'] = res.blog.nid
                     return redirect('/')
                 else:
                     return render(request,'login.html',{'obj':obj})
@@ -113,10 +115,12 @@ def register(request):
     else:
         obj = RegisterForm(request,request.POST,request.FILES)
         if obj.is_valid():
-            pass
+            obj.cleaned_data.pop('code')
+            obj.cleaned_data.pop('password2')
+            models.UserInfo.objects.create(**obj.cleaned_data)
+            return redirect('/login/')
         else:
-            # print(obj)
-            pass
+            print(obj.errors)
         return render(request,'register.html',{'obj':obj})
 
 
@@ -266,16 +270,23 @@ def comments(request,nid):
     """
     response = {'status':True,'data':None,'msg':None}
     try:
-        msg_list = [
-            {'id':1,'content':'写的太好了','parent_id':None},
-            {'id':2,'content':'你说得对','parent_id':None},
-            {'id':3,'content':'顶楼上','parent_id':None},
-            {'id':4,'content':'你眼瞎吗','parent_id':1},
-            {'id':5,'content':'我看是','parent_id':4},
-            {'id':6,'content':'鸡毛','parent_id':2},
-            {'id':7,'content':'你是没呀','parent_id':5},
-            {'id':8,'content':'惺惺惜惺惺想寻','parent_id':3},
-        ]
+        # msg_list = [
+        #     {'id':1,'content':'写的太好了','parent_id':None},
+        #     {'id':2,'content':'你说得对','parent_id':None},
+        #     {'id':3,'content':'顶楼上','parent_id':None},
+        #     {'id':4,'content':'你眼瞎吗','parent_id':1},
+        #     {'id':5,'content':'我看是','parent_id':4},
+        #     {'id':6,'content':'鸡毛','parent_id':2},
+        #     {'id':7,'content':'你是没呀','parent_id':5},
+        #     {'id':8,'content':'惺惺惜惺惺想寻','parent_id':3},
+        # ]
+
+        # 修改列名 以符合上面的格式
+        msg_list_queryset = models.Comment.objects.filter(article_id=nid).extra(select={'parent_id':'reply_id','id':'nid'}).values('id','content','parent_id')
+        msg_list = list(msg_list_queryset)
+        print(msg_list)
+
+
         msg_list_dict = {}
         for item in msg_list:
             item['child'] = []
