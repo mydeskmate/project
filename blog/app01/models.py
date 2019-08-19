@@ -101,9 +101,12 @@ class Comment(models.Model):
     content = models.CharField(verbose_name='评论内容', max_length=255)
     create_time = models.DateTimeField(verbose_name='创建时间', auto_now_add=True)
 
-    reply = models.ForeignKey(verbose_name='回复评论', to='self', related_name='back', null=True,on_delete=True)
+    reply = models.ForeignKey(verbose_name='回复评论', to='self', related_name='back', null=True,blank=True,on_delete=True)
     article = models.ForeignKey(verbose_name='评论文章', to='Article', to_field='nid',on_delete=True)
     user = models.ForeignKey(verbose_name='评论者', to='UserInfo', to_field='nid',on_delete=True)
+
+    def __str__(self):
+        return "%s-%s" % (self.user.nickname,self.content)
 
 
 class Tag(models.Model):

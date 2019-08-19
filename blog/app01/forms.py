@@ -4,21 +4,30 @@ from django.forms import widgets
 from django.core.exceptions import ValidationError
 class RegisterForm(Form):
     username = fields.CharField(
-        widget=widgets.TextInput(attrs={'class':'form-control'})
+        widget=widgets.TextInput(attrs={'class':'form-control'}),
+        required=True,  #默认True
+        max_length=8,
+        min_length=2,
+        error_messages = {
+            'required': '不能为空',
+            'max_length': '太长',
+            'min_length': '太短',
+        }
     )
     nickname = fields.CharField(
         widget=widgets.TextInput(attrs={'class': 'form-control'})
     )
     password = fields.CharField(
-        widget=widgets.TextInput(attrs={'class':'form-control'})
+        widget=widgets.TextInput(attrs={'class':'form-control','type':'password'})
     )
     password2 = fields.CharField(
-        widget=widgets.TextInput(attrs={'class': 'form-control'})
+        widget=widgets.TextInput(attrs={'class': 'form-control','type':'password'})
     )
     email = fields.EmailField(
         widget=widgets.EmailInput(attrs={'class': 'form-control'})
     )
     avatar = fields.FileField(
+        required=False,
         widget=widgets.FileInput(attrs={'id':'imgSelect','class':'f1'})
     )
     code = fields.CharField(
