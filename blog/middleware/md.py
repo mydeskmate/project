@@ -10,7 +10,7 @@ class M1(MiddlewareMixin):
 
         if request.path_info not in valid:
             print(request.path_info)
-            action = request.GET.get('md') # GET
+            action = request.GET.get('md').upper() # GET
             user_permission_dict = request.session.get('user_permission_dict')
             if not user_permission_dict:
                 return HttpResponse('无权限')
