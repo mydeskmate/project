@@ -15,16 +15,23 @@ class RbacMiddleware(MiddlewareMixin):
 
         # 后台用户定义的url
         action = request.GET.get('md') # GET
+        if action:
+            action = action.upper()
         user_permission_dict = request.session.get('user_permission_dict')
+        # print(user_permission_dict)
         if not user_permission_dict:
+            # print(user_permission_dict)
             return HttpResponse('无权限')
 
         # print(user_permission_dict)
         #正则匹配
         # action_list = user_permission_dict.get(request.path_info)
         flag = False
+        print(user_permission_dict)
         for k,v in user_permission_dict.items():
             if re.match(k,request.path_info):
+                # print(v)
+                # print(action)
                 if action in v:
                     flag = True
                     break
