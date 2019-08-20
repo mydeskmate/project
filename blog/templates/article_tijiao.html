@@ -1,11 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<form method="POST" action="/article_tijiao.html" novalidate>
+{% extends 'layout.html' %}
+
+{% block xx %}
+    <form method="POST" action="/article_tijiao.html" novalidate>
         {% csrf_token %}
         <p>
             文章标题
@@ -20,17 +16,22 @@
         </div>
         <input type="submit" value="提交" />
     </form>
-<script src="/static/kindeditor-4.1.10/kindeditor-all.js"></script>
-<script>
-    KindEditor.create('#i1',{
-        width: "700px",
-        height: "300px",
-        resizeType:1,
-        uploadJson:'/upload_img.html',
-        extraFileUploadParams:{
-                "csrfmiddlewaretoken":"{{ csrf_token }}"
-            }
-    })
-</script>
-</body>
-</html>
+{% endblock %}
+
+{% block js %}
+    <script src="/static/kindeditor-4.1.10/kindeditor-all.js"></script>
+    <script>
+        KindEditor.create('#i1',{
+            width: "700px",
+            height: "300px",
+            resizeType:1,
+            uploadJson:'/upload_img.html',
+            extraFileUploadParams:{
+                    "csrfmiddlewaretoken":"{{ csrf_token }}"
+                }
+        })
+    </script>
+{% endblock %}
+
+
+
