@@ -31,12 +31,12 @@ urlpatterns = [
     url(r'^register',views.register),
     url(r'^up.html$',views.up),
 
-    url(r'^article_tijiao.html$', views.article_tijiao),
+    url(r'^back/article_tijiao.html$', views.article_tijiao),
     url(r'^upload_img.html$', views.upload_img),
     url(r'^comments-(\d+).html$', views.comments),
 
 
-    url(r'^shaixuan-(?P<article_type_id>\d+)-(?P<category_id>\d+)-(?P<tags__nid>\d+).html$', views.shaixuan),
+    url(r'^back/shaixuan-(?P<article_type_id>\d+)-(?P<category_id>\d+)-(?P<tags__nid>\d+).html$', views.shaixuan),
 
 
 

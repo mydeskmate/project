@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="/static/plugin/bootstrap-3.3.7-dist/css/bootstrap.css">
     <link rel="stylesheet" href="/static/plugin/font-awesome-4.7.0/css/font-awesome.css">
     <link rel="stylesheet" href="/static/css/common.css">
+
     {% block css %}{% endblock %}
 </head>
 <body>
@@ -26,16 +27,12 @@
     </div>
     <div class="pg-body">
         <div class="menus">
-            <a href="#"><i class="fa fa-building" aria-hidden="true"></i>文章管理</a>
+            <a href="shaixuan-0-0-0.html"><i class="fa fa-building" aria-hidden="true"></i>文章管理</a>
             <a href="#"><i class="fa fa-address-book-o" aria-hidden="true"></i>分类管理</a>
             <a href="#"><i class="fa fa-barcode" aria-hidden="true"></i>标签管理</a>
             <a href="#"><i class="fa fa-barcode" aria-hidden="true"></i>个人信息</a>
         </div>
-        <div class="content">
-            <ol class="breadcrumb">
-              <li><a href="#">文章管理</a></li>
-              <li class="active">添加文章</li>
-            </ol>
+        <div  class="content">
             {% block xx %}{% endblock %}
         </div>
     </div>

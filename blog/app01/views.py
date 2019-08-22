@@ -4,6 +4,7 @@ from django.forms import fields
 from django.forms import widgets
 from django.db.models import Count
 from django.db.models import F
+from django.db import transaction
 from app01 import models
 from utils.pager import PageInfo
 import json
@@ -317,7 +318,7 @@ def up(request):
         else:
             # print(val)
             # print(user_id,article_id)
-            from django.db import transaction
+
             with transaction.atomic():
                 if val:
                     models.UpDown.objects.create(user_id=user_id, article_id=article_id, up=True)
@@ -340,6 +341,8 @@ def shaixuan(request,**kwargs):
     :return:
     """
     # print(kwargs)
+
+    path = request.path_info
     condition = {}
     for k,v in kwargs.items():
         kwargs[k] = int(v)    #类型转换， 否则前端比较时，不相等
@@ -360,14 +363,21 @@ def shaixuan(request,**kwargs):
     condition['blog_id'] = blog_id
     article_list = models.Article.objects.filter(**condition)
 
+    # 分页
+    all_count = article_list.count()
+    page_info = PageInfo(request.GET.get('page'), all_count, 5,path, 11)
+    article_list_page = article_list[page_info.start():page_info.end()]
+
     return render(
         request,
-        'shaixuan.html',
+        'back/shaixuan.html',
         {
             'type_list':type_list,
             'category_list':category_list,
             'tag_list':tag_list,
-            'article_list':article_list,
+            # 'article_list':article_list,
+            'article_list_page': article_list_page,
+            'page_info':page_info,
             'kwargs':kwargs
         }
     )
@@ -375,16 +385,34 @@ def shaixuan(request,**kwargs):
 ## kindeditor使用
 from app01.forms import ArticleForm
 def article_tijiao(request):
+    blog_id = request.session.get('blog_id')
     if request.method == 'GET':
-        obj = ArticleForm()
-        return render(request,'article_tijiao.html',{'obj':obj})
-    else:
-        obj = ArticleForm(request.POST)
+        obj = ArticleForm(request)
         # print(obj)
+        # return  HttpResponse("4444444444444")
+        return render(request, 'back/article_tijiao.html', {'obj':obj})
+    else:
+        obj = ArticleForm(request,request.POST)
         if obj.is_valid():
-            content = obj.cleaned_data['content']
-            print(content)
-            return HttpResponse('dddddd')
+            # content = obj.cleaned_data['content']
+            # print(content)
+            article_title = obj.cleaned_data['title']
+            article_summary = obj.cleaned_data['summary']
+            type_id = obj.cleaned_data['type']
+            category_id = obj.cleaned_data['category']
+            tags_id = obj.cleaned_data['tags']
+            article_detail = obj.cleaned_data['content']
+
+            with transaction.atomic():
+                article = models.Article.objects.create(blog_id=blog_id,title=article_title,summary=article_summary,
+                                                        article_type_id=type_id,category_id=category_id)
+                models.ArticleDetail.objects.create(article_id=article.nid,content=article_detail)
+                for tag in tags_id:
+                    models.Article2Tag.objects.create(article_id=article.nid,tag_id=tag)
+            return redirect("shaixuan-0-0-0.html")
+            return HttpResponse('ddddd')
+
+
 
 
 def upload_img(request):
