@@ -1,0 +1,31 @@
+{% extends 'back/layout.html' %}
+
+
+{% block css %}
+    <style>
+        .content-detail {
+            margin: 20px;
+        }
+        li {
+           list-style: none;
+            display: inline-block;
+            margin-right: 5px;
+        }
+    </style>
+{% endblock %}
+
+{% block xx %}
+    <div class="content-detail">
+        <p>
+            文章标题:
+            {{ obj.title }}
+        </p>
+
+        <div>
+            <div>文章内容:</div>
+            <div>
+                {{ obj.content }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -382,9 +382,26 @@ def shaixuan(request,**kwargs):
         }
     )
 
+def del_article(request,nid):
+    blog_id = request.session.get('blog_id')
+    obj = models.Article.objects.filter(nid=nid,blog_id=blog_id)
+    print(obj)
+    models.Article.objects.filter(nid=nid,blog_id=blog_id).delete()
+    return redirect("../shaixuan-0-0-0.html")
+
+def article_detail(request,nid):
+    obj = models.Article.objects.filter(nid=nid).first()
+    return render(request,'article_detail.html',{'obj':obj})
+
+
 ## kindeditor使用
 from app01.forms import ArticleForm
 def article_tijiao(request):
+    """
+    提交文章
+    :param request:
+    :return:
+    """
     blog_id = request.session.get('blog_id')
     if request.method == 'GET':
         obj = ArticleForm(request)
@@ -410,7 +427,6 @@ def article_tijiao(request):
                 for tag in tags_id:
                     models.Article2Tag.objects.create(article_id=article.nid,tag_id=tag)
             return redirect("shaixuan-0-0-0.html")
-            return HttpResponse('ddddd')
 
 
 

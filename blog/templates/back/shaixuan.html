@@ -88,8 +88,8 @@
     {% for row in article_list_page %}
         <div>
                 <tr>
-                    <td> <a href="">{{ row.title }}</a></td>
-                    <td><a href="">删除</a>|<a href="">编辑</a></td>
+                    <td> <a href="article_detail/{{ row.nid }}.html">{{ row.title }}</a></td>
+                    <td><a href="del_article/{{ row.nid }}.html">删除</a>|<a href="">编辑</a></td>
                 </tr>
         </div>
     {% endfor %}

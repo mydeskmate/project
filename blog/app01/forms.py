@@ -83,10 +83,11 @@ class ArticleForm(Form):
 
 
     def __init__(self,request,*args,**kwargs):
+        # 封装 request  从session中获取数据
         super(ArticleForm,self).__init__(*args,**kwargs)
         self.request = request
-        self.fields['category'].choices = models.Category.objects.filter(blog_id=1).values_list('nid', 'title')
-        self.fields['tags'].choices = models.Tag.objects.filter(blog_id=1).values_list('nid', 'title')
+        self.fields['category'].choices = models.Category.objects.filter(blog_id=request.session.get('blog_id')).values_list('nid', 'title')
+        self.fields['tags'].choices = models.Tag.objects.filter(blog_id=request.session.get('blog_id')).values_list('nid', 'title')
 
 
 

@@ -24,7 +24,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('caption', models.CharField(max_length=32, verbose_name='菜单名称')),
-                ('parent', models.ForeignKey(blank=True, null=True, on_delete=True, related_name='p', to='app02.Menu', verbose_name='父菜单')),
+                ('parent', models.ForeignKey(blank=True, null=True, on_delete=models.CASCADE, related_name='p', to='app02.Menu', verbose_name='父菜单')),
             ],
         ),
         migrations.CreateModel(
@@ -33,7 +33,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('caption', models.CharField(max_length=32, verbose_name='权限')),
                 ('url', models.CharField(max_length=128, verbose_name='URL正则')),
-                ('menu', models.ForeignKey(blank=True, null=True, on_delete=True, related_name='permissions', to='app02.Menu', verbose_name='所属菜单')),
+                ('menu', models.ForeignKey(blank=True, null=True, on_delete=models.CASCADE, related_name='permissions', to='app02.Menu', verbose_name='所属菜单')),
             ],
         ),
         migrations.CreateModel(
@@ -56,17 +56,17 @@ class Migration(migrations.Migration):
             name='User2Role',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('role', models.ForeignKey(on_delete=True, related_name='users', to='app02.Role', verbose_name='角色')),
-                ('user', models.ForeignKey(on_delete=True, related_name='roles', to='app02.User', verbose_name='用户')),
+                ('role', models.ForeignKey(on_delete=models.CASCADE, related_name='users', to='app02.Role', verbose_name='角色')),
+                ('user', models.ForeignKey(on_delete=models.CASCADE, related_name='roles', to='app02.User', verbose_name='用户')),
             ],
         ),
         migrations.CreateModel(
             name='Permission2Action2Role',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('action', models.ForeignKey(on_delete=True, related_name='permissions', to='app02.Action', verbose_name='操作')),
-                ('permission', models.ForeignKey(on_delete=True, related_name='actions', to='app02.Permission', verbose_name='权限URL')),
-                ('role', models.ForeignKey(on_delete=True, related_name='p2as', to='app02.Role', verbose_name='角色')),
+                ('action', models.ForeignKey(on_delete=models.CASCADE, related_name='permissions', to='app02.Action', verbose_name='操作')),
+                ('permission', models.ForeignKey(on_delete=models.CASCADE, related_name='actions', to='app02.Permission', verbose_name='权限URL')),
+                ('role', models.ForeignKey(on_delete=models.CASCADE, related_name='p2as', to='app02.Role', verbose_name='角色')),
             ],
             options={
                 'unique_together': {('permission', 'action', 'role')},

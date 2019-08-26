@@ -56,19 +56,19 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='userfans',
             name='follower',
-            field=models.ForeignKey(on_delete=True, related_name='followers', to='app01.UserInfo', verbose_name='粉丝'),
+            field=models.ForeignKey(on_delete=models.CASCADE, related_name='followers', to='app01.UserInfo', verbose_name='粉丝'),
         ),
         migrations.AddField(
             model_name='userfans',
             name='user',
-            field=models.ForeignKey(on_delete=True, related_name='users', to='app01.UserInfo', verbose_name='博主'),
+            field=models.ForeignKey(on_delete=models.CASCADE, related_name='users', to='app01.UserInfo', verbose_name='博主'),
         ),
         migrations.CreateModel(
             name='Tag',
             fields=[
                 ('nid', models.AutoField(primary_key=True, serialize=False)),
                 ('title', models.CharField(max_length=32, verbose_name='标签名称')),
-                ('blog', models.ForeignKey(on_delete=True, to='app01.Blog', verbose_name='所属博客')),
+                ('blog', models.ForeignKey(on_delete=models.CASCADE, to='app01.Blog', verbose_name='所属博客')),
             ],
         ),
         migrations.CreateModel(
@@ -77,9 +77,9 @@ class Migration(migrations.Migration):
                 ('nid', models.BigAutoField(primary_key=True, serialize=False)),
                 ('content', models.CharField(max_length=255, verbose_name='评论内容')),
                 ('create_time', models.DateTimeField(auto_now_add=True, verbose_name='创建时间')),
-                ('article', models.ForeignKey(on_delete=True, to='app01.Article', verbose_name='评论文章')),
-                ('reply', models.ForeignKey(blank=True, null=True, on_delete=True, related_name='back', to='app01.Comment', verbose_name='回复评论')),
-                ('user', models.ForeignKey(on_delete=True, to='app01.UserInfo', verbose_name='评论者')),
+                ('article', models.ForeignKey(on_delete=models.CASCADE, to='app01.Article', verbose_name='评论文章')),
+                ('reply', models.ForeignKey(blank=True, null=True, on_delete=models.CASCADE, related_name='back', to='app01.Comment', verbose_name='回复评论')),
+                ('user', models.ForeignKey(on_delete=models.CASCADE, to='app01.UserInfo', verbose_name='评论者')),
             ],
         ),
         migrations.CreateModel(
@@ -87,28 +87,28 @@ class Migration(migrations.Migration):
             fields=[
                 ('nid', models.AutoField(primary_key=True, serialize=False)),
                 ('title', models.CharField(max_length=32, verbose_name='分类标题')),
-                ('blog', models.ForeignKey(on_delete=True, to='app01.Blog', verbose_name='所属博客')),
+                ('blog', models.ForeignKey(on_delete=models.CASCADE, to='app01.Blog', verbose_name='所属博客')),
             ],
         ),
         migrations.AddField(
             model_name='blog',
             name='user',
-            field=models.OneToOneField(on_delete=True, to='app01.UserInfo'),
+            field=models.OneToOneField(on_delete=models.CASCADE, to='app01.UserInfo'),
         ),
         migrations.CreateModel(
             name='ArticleDetail',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('content', models.TextField(verbose_name='文章内容')),
-                ('article', models.OneToOneField(on_delete=True, to='app01.Article', verbose_name='所属文章')),
+                ('article', models.OneToOneField(on_delete=models.CASCADE, to='app01.Article', verbose_name='所属文章')),
             ],
         ),
         migrations.CreateModel(
             name='Article2Tag',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('article', models.ForeignKey(on_delete=True, to='app01.Article', verbose_name='文章')),
-                ('tag', models.ForeignKey(on_delete=True, to='app01.Tag', verbose_name='标签')),
+                ('article', models.ForeignKey(on_delete=models.CASCADE, to='app01.Article', verbose_name='文章')),
+                ('tag', models.ForeignKey(on_delete=models.CASCADE, to='app01.Tag', verbose_name='标签')),
             ],
             options={
                 'unique_together': {('article', 'tag')},
@@ -117,12 +117,12 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='article',
             name='blog',
-            field=models.ForeignKey(on_delete=True, to='app01.Blog', verbose_name='所属博客'),
+            field=models.ForeignKey(on_delete=models.CASCADE, to='app01.Blog', verbose_name='所属博客'),
         ),
         migrations.AddField(
             model_name='article',
             name='category',
-            field=models.ForeignKey(null=True, on_delete=True, to='app01.Category', verbose_name='文章类型'),
+            field=models.ForeignKey(null=True, on_delete=models.CASCADE, to='app01.Category', verbose_name='文章类型'),
         ),
         migrations.AddField(
             model_name='article',
@@ -138,8 +138,8 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('up', models.BooleanField(verbose_name='是否赞')),
-                ('article', models.ForeignKey(on_delete=True, to='app01.Article', verbose_name='文章')),
-                ('user', models.ForeignKey(on_delete=True, to='app01.UserInfo', verbose_name='赞或踩用户')),
+                ('article', models.ForeignKey(on_delete=models.CASCADE, to='app01.Article', verbose_name='文章')),
+                ('user', models.ForeignKey(on_delete=models.CASCADE, to='app01.UserInfo', verbose_name='赞或踩用户')),
             ],
             options={
                 'unique_together': {('article', 'user')},

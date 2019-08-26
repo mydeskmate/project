@@ -21,7 +21,7 @@ class UserInfo(models.Model):
                                   related_name='f',
                                   through_fields=('user', 'follower'))
     # 因为时后加的，有些问题，先注释掉
-    # user = models.OneToOneField(RbacUser,on_delete=True)
+    # user = models.OneToOneField(RbacUser,on_delete=models.CASCADE)
 
     def __str__(self):
         """
@@ -38,7 +38,7 @@ class Blog(models.Model):
     title = models.CharField(verbose_name='个人博客标题', max_length=64)
     site = models.CharField(verbose_name='个人博客前缀', max_length=32, unique=True)
     theme = models.CharField(verbose_name='博客主题', max_length=32)
-    user = models.OneToOneField(to='UserInfo', to_field='nid',on_delete=True)
+    user = models.OneToOneField(to='UserInfo', to_field='nid',on_delete=models.CASCADE)
 
     def __str__(self):
         return self.site
@@ -47,8 +47,8 @@ class UserFans(models.Model):
     """
     互粉关系表
     """
-    user = models.ForeignKey(verbose_name='博主', to='UserInfo', to_field='nid', related_name='users',on_delete=True)
-    follower = models.ForeignKey(verbose_name='粉丝', to='UserInfo', to_field='nid', related_name='followers',on_delete=True)
+    user = models.ForeignKey(verbose_name='博主', to='UserInfo', to_field='nid', related_name='users',on_delete=models.CASCADE)
+    follower = models.ForeignKey(verbose_name='粉丝', to='UserInfo', to_field='nid', related_name='followers',on_delete=models.CASCADE)
 
     class Meta:
         unique_together = [
@@ -63,7 +63,7 @@ class Category(models.Model):
     nid = models.AutoField(primary_key=True)
     title = models.CharField(verbose_name='分类标题', max_length=32)
 
-    blog = models.ForeignKey(verbose_name='所属博客', to='Blog', to_field='nid',on_delete=True)
+    blog = models.ForeignKey(verbose_name='所属博客', to='Blog', to_field='nid',on_delete=models.CASCADE)
 
     def __str__(self):
         return "%s-%s" % (self.blog.title,self.title)
@@ -74,7 +74,7 @@ class ArticleDetail(models.Model):
     """
     content = models.TextField(verbose_name='文章内容', )
 
-    article = models.OneToOneField(verbose_name='所属文章', to='Article', to_field='nid',on_delete=True)
+    article = models.OneToOneField(verbose_name='所属文章', to='Article', to_field='nid',on_delete=models.CASCADE)
 
     def __str__(self):
         return self.article.title
@@ -83,8 +83,8 @@ class UpDown(models.Model):
     """
     文章顶或踩
     """
-    article = models.ForeignKey(verbose_name='文章', to='Article', to_field='nid',on_delete=True)
-    user = models.ForeignKey(verbose_name='赞或踩用户', to='UserInfo', to_field='nid',on_delete=True)
+    article = models.ForeignKey(verbose_name='文章', to='Article', to_field='nid',on_delete=models.CASCADE)
+    user = models.ForeignKey(verbose_name='赞或踩用户', to='UserInfo', to_field='nid',on_delete=models.CASCADE)
     up = models.BooleanField(verbose_name='是否赞')
 
     class Meta:
@@ -101,9 +101,9 @@ class Comment(models.Model):
     content = models.CharField(verbose_name='评论内容', max_length=255)
     create_time = models.DateTimeField(verbose_name='创建时间', auto_now_add=True)
 
-    reply = models.ForeignKey(verbose_name='回复评论', to='self', related_name='back', null=True,blank=True,on_delete=True)
-    article = models.ForeignKey(verbose_name='评论文章', to='Article', to_field='nid',on_delete=True)
-    user = models.ForeignKey(verbose_name='评论者', to='UserInfo', to_field='nid',on_delete=True)
+    reply = models.ForeignKey(verbose_name='回复评论', to='self', related_name='back', null=True,blank=True,on_delete=models.CASCADE)
+    article = models.ForeignKey(verbose_name='评论文章', to='Article', to_field='nid',on_delete=models.CASCADE)
+    user = models.ForeignKey(verbose_name='评论者', to='UserInfo', to_field='nid',on_delete=models.CASCADE)
 
     def __str__(self):
         return "%s-%s" % (self.user.nickname,self.content)
@@ -112,7 +112,7 @@ class Comment(models.Model):
 class Tag(models.Model):
     nid = models.AutoField(primary_key=True)
     title = models.CharField(verbose_name='标签名称', max_length=32)
-    blog = models.ForeignKey(verbose_name='所属博客', to='Blog', to_field='nid',on_delete=True)
+    blog = models.ForeignKey(verbose_name='所属博客', to='Blog', to_field='nid',on_delete=models.CASCADE)
 
     def __str__(self):
         return "%s-%s" %(self.blog.title,self.title)
@@ -127,8 +127,8 @@ class Article(models.Model):
     down_count = models.IntegerField(default=0)
     create_time = models.DateTimeField(verbose_name='创建时间', auto_now_add=True)
 
-    blog = models.ForeignKey(verbose_name='所属博客', to='Blog', to_field='nid',on_delete=True)
-    category = models.ForeignKey(verbose_name='文章类型', to='Category', to_field='nid', null=True,on_delete=True)
+    blog = models.ForeignKey(verbose_name='所属博客', to='Blog', to_field='nid',on_delete=models.CASCADE)
+    category = models.ForeignKey(verbose_name='文章类型', to='Category', to_field='nid', null=True,on_delete=models.CASCADE)
 
     type_choices = [
         (1, "Python"),
@@ -149,8 +149,8 @@ class Article(models.Model):
         return "%s-%s" %(self.blog.title,self.title)
 
 class Article2Tag(models.Model):
-    article = models.ForeignKey(verbose_name='文章', to="Article", to_field='nid',on_delete=True)
-    tag = models.ForeignKey(verbose_name='标签', to="Tag", to_field='nid',on_delete=True)
+    article = models.ForeignKey(verbose_name='文章', to="Article", to_field='nid',on_delete=models.CASCADE)
+    tag = models.ForeignKey(verbose_name='标签', to="Tag", to_field='nid',on_delete=models.CASCADE)
 
     class Meta:
         unique_together = [
