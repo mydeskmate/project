@@ -67,7 +67,7 @@ class ArticleForm(Form):
     )
     type = fields.ChoiceField(
         choices=models.Article.type_choices,
-        widget=widgets.Select()
+        widget=widgets.Select(),
     )
     category = fields.ChoiceField(
         widget=widgets.Select(),
@@ -91,9 +91,12 @@ class ArticleForm(Form):
 
 
 
-    def clean_content(self):
-        old = self.cleaned_data['content']
-        from utils.xss import xss
-        return xss(old)
+    # def clean_content(self):
+    #     """
+    #     xss防护
+    #     """
+    #     old = self.cleaned_data['content']
+    #     from utils.xss import xss
+    #     return xss(old)
 
 

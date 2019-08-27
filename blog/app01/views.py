@@ -5,9 +5,11 @@ from django.forms import widgets
 from django.db.models import Count
 from django.db.models import F
 from django.db import transaction
+from django.db.utils import IntegrityError
 from app01 import models
 from utils.pager import PageInfo
 import json
+
 # Create your views here.
 
 def index(request,*args,**kwargs):
@@ -389,9 +391,20 @@ def del_article(request,nid):
     models.Article.objects.filter(nid=nid,blog_id=blog_id).delete()
     return redirect("../shaixuan-0-0-0.html")
 
+
+
 def article_detail(request,nid):
+    """
+    使用编辑取代
+    :param request:
+    :param nid:
+    :return:
+    """
     obj = models.Article.objects.filter(nid=nid).first()
-    return render(request,'article_detail.html',{'obj':obj})
+    return render(request,'back/article_detail.html',{'obj':obj})
+
+
+
 
 
 ## kindeditor使用
@@ -426,7 +439,68 @@ def article_tijiao(request):
                 models.ArticleDetail.objects.create(article_id=article.nid,content=article_detail)
                 for tag in tags_id:
                     models.Article2Tag.objects.create(article_id=article.nid,tag_id=tag)
-            return redirect("shaixuan-0-0-0.html")
+            return redirect("/back/shaixuan-0-0-0.html")
+
+
+def edit_article(request,nid):
+    """
+    编辑文章
+    :param request:
+    :param nid:
+    :return:
+    """
+    blog_id = request.session.get('blog_id')
+    if request.method == "GET":
+        # article = models.Article.objects.filter(nid=nid, blog_id=blog_id).extra(select={'type':'article_type_id','category':'category_id'}).values('title','summary','type',
+        #                                              'category','articledetail__content')
+
+        article = models.Article.objects.filter(nid=nid, blog_id=blog_id).first()
+
+        art_dict = {'title':article.title,'summary':article.summary,'type':article.article_type_id,
+                    'category':article.category_id,'content':article.articledetail.content}
+
+        article_tags = article.tags.values_list('nid')
+        # print(article_tags)
+        # print(list(zip(*article_tags)))
+        # print(list(zip(*article_tags))[0])
+        article_tuple = list(zip(*article_tags))[0] if list(zip(*article_tags)) else []
+        article_list = list(article_tuple)
+        # print(article_list)
+        art_dict['tags'] = article_list
+        # print(art_dict)
+        obj = ArticleForm(request,initial=art_dict)
+        return render(request,'back/edit_article.html',{
+            'obj':obj,
+            'nid':nid
+        })
+    else:
+        obj = ArticleForm(request, request.POST)
+        if obj.is_valid():
+            # print(obj.cleaned_data)
+            article_title = obj.cleaned_data['title']
+            article_summary = obj.cleaned_data['summary']
+            type_id = obj.cleaned_data['type']
+            category_id = obj.cleaned_data['category']
+            tags_id = obj.cleaned_data['tags']
+            article_detail = obj.cleaned_data['content']
+            # print(article_detail)
+            with transaction.atomic():
+                article = models.Article.objects.filter(blog_id=blog_id,nid=nid).update(title=article_title,
+                                            summary=article_summary,article_type_id=type_id, category_id=category_id)
+                models.ArticleDetail.objects.filter(article_id=nid).update(content=article_detail)
+
+                try:
+                    for tag in tags_id:
+                        if not models.Article2Tag.objects.filter(article_id=nid, tag_id=tag).filter():
+                            models.Article2Tag.objects.create(article_id=nid, tag_id=tag)
+                    models.Article2Tag.objects.exclude(article_id=nid, tag_id__in=tags_id).delete()
+                except IntegrityError as e:
+                    print(str(e))
+
+            return redirect("/back/shaixuan-0-0-0.html")
+        else:
+            print('eeeee')
+            return "ffffffffffff"
 
 
 
