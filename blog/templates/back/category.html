@@ -1,0 +1,72 @@
+{% extends 'back/layout.html' %}
+
+{% block css %}
+    <style>
+    .content-box {
+        width: 1000px;
+        margin-left: 20px;
+    }
+    .title {
+        margin-top: 20px;
+        margin-right: 10px;
+        margin-bottom: 20px;
+    }
+    .btn {
+        padding: 3px 12px;
+    }
+    .page {
+        float: left;
+        margin-left: 800px;
+    }
+    </style>
+{% endblock %}
+
+{% block xx %}
+     <ol class="breadcrumb">
+              <li><a href="/back/category.html">分类管理</a></li>
+              <li class="active">分类列表</li>
+    </ol>
+
+    <div class="content-box">
+        <form action="category_add.html" method="POST">
+            {% csrf_token %}
+            <label class="title" for="">分类名称</label>
+            <input type="text" name="title">
+            <input class="btn btn-primary" type="submit" value="添加">
+        </form>
+
+         <table class="table table-bordered table-striped table-hover">
+           <thead>
+            <tr>
+                <td>分类</td>
+                <td>文章个数</td>
+                <td>操作</td>
+            </tr>
+           </thead>
+        {% for row in category_list_page %}
+            <div>
+                    <tr>
+                        {% if row.category__title  %}
+                            <td> <a href="#">{{ row.category__title }}</a></td>
+                        {% else %}
+                             <td> <a href="#">未分类</a></td>
+                        {% endif %}
+                        <td> <a href="#">{{ row.ct }}</a></td>
+                        <td><a href="del_categroy/{{ row.category_id }}.html">删除</a>|<a href="edit_article/{{ row.category_id }}.html">编辑</a></td>
+                    </tr>
+            </div>
+        {% endfor %}
+           </table>
+        </div>
+        <div class="page">
+            {% if category_list_page %}
+                <nav aria-label="Page navigation">
+                  <ul class="pagination">
+                    {{ page_info.pager | safe }}
+                  </ul>
+                </nav>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}

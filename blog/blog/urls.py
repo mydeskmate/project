@@ -39,6 +39,9 @@ urlpatterns = [
     url(r'^back/shaixuan-(?P<article_type_id>\d+)-(?P<category_id>\d+)-(?P<tags__nid>\d+).html$', views.shaixuan),
     url(r'^back/del_article/(\d+).html$', views.del_article),
     url(r'^back/edit_article/(\d+).html$', views.edit_article),
+    url(r'^back/category.html$', views.category),
+    url(r'^back/category_add.html$', views.category_add),
+    url(r'^back/del_categroy/(\d+).html$', views.del_categroy),
 
 
 

@@ -498,9 +498,7 @@ def edit_article(request,nid):
                     print(str(e))
 
             return redirect("/back/shaixuan-0-0-0.html")
-        else:
-            print('eeeee')
-            return "ffffffffffff"
+
 
 
 
@@ -526,3 +524,42 @@ def upload_img(request):
         'message':'错误了'
     }
     return HttpResponse(json.dumps(dic))
+
+
+
+def category(request):
+    path = request.path_info
+    blog_id = request.session.get('blog_id')
+    if request.method == 'GET':
+        # category_list = models.Category.objects.filter(blog_id=blog_id)
+        # print(category_list)
+        category_list = models.Article.objects.filter(blog_id=blog_id).values('category_id', 'category__title').annotate(
+            ct=Count('nid'))
+        # print(category_list)
+
+        # 分页
+        all_count = category_list.count()
+        page_info = PageInfo(request.GET.get('page'), all_count, 5, path, 11)
+        category_list_page = category_list[page_info.start():page_info.end()]
+
+        return render(request,'back/category.html',
+                      {
+                          'category_list_page':category_list_page,
+                          'page_info': page_info,
+                      })
+
+
+def category_add(request):
+    blog_id = request.session.get('blog_id')
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        models.Category.objects.create(title=title,blog_id=blog_id)
+        return redirect('/back/category.html')
+
+
+def del_categroy(request,nid):
+    blog_id = request.session.get('blog_id')
+    if request.method == "GET":
+        models.Category.objects.filter(blog_id=blog_id,nid=nid).delete()
+    return redirect('/back/category.html')
+

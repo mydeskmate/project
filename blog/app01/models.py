@@ -128,7 +128,7 @@ class Article(models.Model):
     create_time = models.DateTimeField(verbose_name='创建时间', auto_now_add=True)
 
     blog = models.ForeignKey(verbose_name='所属博客', to='Blog', to_field='nid',on_delete=models.CASCADE)
-    category = models.ForeignKey(verbose_name='文章类型', to='Category', to_field='nid', null=True,on_delete=models.CASCADE)
+    category = models.ForeignKey(verbose_name='文章类型', to='Category', to_field='nid', null=True,on_delete=models.SET_NULL)
 
     type_choices = [
         (1, "Python"),
