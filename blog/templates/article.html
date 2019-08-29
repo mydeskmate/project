@@ -21,7 +21,12 @@
         <ul>
             {% for item in category_list %}
                 <li>
-                    <a href="/{{ blog.site }}/category/{{ item.category_id }}/"> {{ item.category__title }}({{ item.ct }})</a>
+                    {% if  item.category_id %}
+                        <a href="/{{ blog.site }}/category/{{ item.category_id }}/"> {{ item.category__title }}({{ item.ct }})</a>
+                    {% else %}
+                        <a href="/{{ blog.site }}/category/{{ item.category_id }}/"> 未分类({{ item.ct }})</a>
+                    {% endif %}
+
                 </li>
             {% endfor %}
         </ul>

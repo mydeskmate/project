@@ -42,6 +42,12 @@ urlpatterns = [
     url(r'^back/category.html$', views.category),
     url(r'^back/category_add.html$', views.category_add),
     url(r'^back/del_categroy/(\d+).html$', views.del_categroy),
+    url(r'^back/edit_category/(\d+).html$', views.edit_category),
+    url(r'^back/tag.html$', views.tag),
+    url(r'^back/tag_add.html$', views.tag_add),
+    url(r'^back/del_tag/(\d+).html$', views.del_tag),
+    url(r'^back/edit_tag/(\d+).html$', views.edit_tag),
+    url(r'^back', views.back),
 
 
 

@@ -183,7 +183,11 @@ def filter(request,site,key,val):
     # print(val)
     # 筛选
     if key == 'category':
-        article_list = models.Article.objects.filter(blog=blog,category_id=val)
+        if  not eval(val):
+            # print(val)
+            article_list = models.Article.objects.filter(blog=blog, category_id=None)
+        else:
+            article_list = models.Article.objects.filter(blog=blog, category_id=val)
     elif key == 'tag':
         article_list = models.Article.objects.filter(blog=blog,article2tag__tag=val)
     else:
@@ -531,11 +535,11 @@ def category(request):
     path = request.path_info
     blog_id = request.session.get('blog_id')
     if request.method == 'GET':
-        # category_list = models.Category.objects.filter(blog_id=blog_id)
-        # print(category_list)
-        category_list = models.Article.objects.filter(blog_id=blog_id).values('category_id', 'category__title').annotate(
-            ct=Count('nid'))
-        # print(category_list)
+
+        # category_list = models.Article.objects.filter(blog_id=blog_id).values('category_id', 'category__title').annotate(
+        #     ct=Count('nid'))
+
+        category_list = models.Category.objects.filter(blog_id=blog_id).values('nid','title').annotate(ct = Count('article__nid'))
 
         # 分页
         all_count = category_list.count()
@@ -553,7 +557,8 @@ def category_add(request):
     blog_id = request.session.get('blog_id')
     if request.method == 'POST':
         title = request.POST.get('title')
-        models.Category.objects.create(title=title,blog_id=blog_id)
+        if title:
+            models.Category.objects.create(title=title,blog_id=blog_id)
         return redirect('/back/category.html')
 
 
@@ -563,3 +568,91 @@ def del_categroy(request,nid):
         models.Category.objects.filter(blog_id=blog_id,nid=nid).delete()
     return redirect('/back/category.html')
 
+def edit_category(request,nid):
+    """
+    处理通过ajax提交的数据
+    :param request:
+    :param nid:
+    :return:
+    """
+    blog_id = request.session.get('blog_id')
+    category_obj = models.Category.objects.filter(nid=nid).first()
+    if request.method == 'GET':
+        return render(request,'back/edit_category.html',{'obj':category_obj})
+    else:
+        ret = {'status': 1, 'message': None}
+        try:
+            title = request.POST.get('title')
+            # print(title)
+            models.Category.objects.filter(blog_id=blog_id,nid=nid).update(title=title)
+        except Exception as e:
+            ret['status'] = False
+            ret['message'] = str(e)
+        return HttpResponse(json.dumps(ret))
+
+
+def tag(request):
+    path = request.path_info
+    blog_id = request.session.get('blog_id')
+    if request.method == 'GET':
+        # tag_list = models.Article.objects.filter(blog_id=blog_id).values('tags__nid','tags__title').annotate(
+        #     ct = Count('nid')
+        # )
+
+        tag_list = models.Tag.objects.filter(blog_id=blog_id).values('nid','title').annotate(ct = Count('article2tag__article_id'))
+        # print(tag_list.query)
+
+        # 分页
+        all_count = tag_list.count()
+        page_info = PageInfo(request.GET.get('page'), all_count, 5, path, 11)
+        tag_list_page = tag_list[page_info.start():page_info.end()]
+
+        return render(request, 'back/tag.html',
+                      {
+                          'tag_list_page': tag_list_page,
+                          'page_info': page_info,
+                      })
+
+
+def tag_add(request):
+    msg = ""
+    blog_id = request.session.get('blog_id')
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        if  title:
+            models.Tag.objects.create(title=title,blog_id=blog_id)
+        return redirect('/back/tag.html')
+
+
+def del_tag(request,nid):
+    blog_id = request.session.get('blog_id')
+    if request.method == "GET":
+        models.Tag.objects.filter(blog_id=blog_id,nid=nid).delete()
+    return redirect('/back/tag.html')
+
+
+def edit_tag(request,nid):
+    """
+    处理通过ajax提交的数据
+    :param request:
+    :param nid:
+    :return:
+    """
+    blog_id = request.session.get('blog_id')
+    tag_obj = models.Tag.objects.filter(nid=nid).first()
+    if request.method == 'GET':
+        return render(request,'back/edit_tag.html',{'obj':tag_obj})
+    else:
+        ret = {'status': 1, 'message': None}
+        try:
+            title = request.POST.get('title')
+            # print(title)
+            models.Tag.objects.filter(blog_id=blog_id,nid=nid).update(title=title)
+        except Exception as e:
+            ret['status'] = False
+            ret['message'] = str(e)
+        return HttpResponse(json.dumps(ret))
+
+
+def back(request):
+    return redirect('/back/shaixuan-0-0-0.html')

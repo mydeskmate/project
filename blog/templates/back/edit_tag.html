@@ -1,0 +1,51 @@
+{% extends 'back/layout.html' %}
+
+{% block css %}
+    <style>
+        .content-edit {
+            margin: 20px;
+        }
+        li {
+           list-style: none;
+            display: inline-block;
+            margin-right: 5px;
+        }
+    </style>
+{% endblock %}
+
+{% block xx %}
+    <div class="content-edit">
+        {% csrf_token %}
+          <h1>编辑标签</h1>
+        <p>
+            标签名称:
+            <input id="title" type="text" name="title" value={{ obj.title }}>
+        </p>
+        <input type="button" value="提交" onclick="AjaxTagEdit()"/>
+    </div>
+
+{% endblock %}
+
+{% block js %}
+    <script src="/static/jquery-1.12.4.js"></script>
+    <script src="/static/jquery.cookie.js"></script>
+    <script>
+        function AjaxTagEdit() {
+            var token = $.cookie('csrftoken');
+            $.ajax({
+                url: '/back/edit_tag/{{ obj.nid }}.html',
+                type: 'POST',
+                headers:{'X-CSRFToken':token},
+                data: {'title': $('#title').val()},
+                dataType:'JSON',    //自动转换为json对象
+                success: function (data) {
+                    //console.log(typeof(data))
+                    //console.log(data.status)
+                    if(data.status == 1){
+                        location.href='/back/tag.html'
+                    }
+                }
+            })
+        }
+    </script>
+{% endblock %}
