@@ -3,7 +3,7 @@ from django.forms import Form
 from django.forms import fields
 from django.forms import widgets
 from django.db.models import Count
-from django.db.models import F
+from django.db.models import F,Q
 from django.db import transaction
 from django.db.utils import IntegrityError
 from app01 import models
@@ -120,7 +120,9 @@ def register(request):
         if obj.is_valid():
             obj.cleaned_data.pop('code')
             obj.cleaned_data.pop('password2')
-            models.UserInfo.objects.create(**obj.cleaned_data)
+            user = models.UserInfo.objects.create(**obj.cleaned_data)
+            # models.UserInfo.objects.filter(nid=user.nid).update(avatar="l"+F("avatar"))
+            # models.UserInfo.objects.raw("update user set avatar = concat('//',avatar)")
             return redirect('/login/')
         else:
             print(obj.errors)
@@ -459,7 +461,6 @@ def edit_article(request,nid):
         #                                              'category','articledetail__content')
 
         article = models.Article.objects.filter(nid=nid, blog_id=blog_id).first()
-
         art_dict = {'title':article.title,'summary':article.summary,'type':article.article_type_id,
                     'category':article.category_id,'content':article.articledetail.content}
 
@@ -653,6 +654,35 @@ def edit_tag(request,nid):
             ret['message'] = str(e)
         return HttpResponse(json.dumps(ret))
 
+from app01.forms import UserinfoForm
+def userinfo(request):
+    nid = request.session.get('user_id')
+    blog_id = request.session.get('blog_id')
+    blog = models.Blog.objects.filter(nid=blog_id,user_id=nid).first()
+
+    user_obj = models.UserInfo.objects.filter(nid=nid).first()
+    if request.method == 'GET':
+        user_dict = {
+            'nickname':user_obj.nickname,
+            'email':user_obj.email,
+            'avatar':user_obj.avatar,
+        }
+        if blog:
+            user_dict['site'] = blog.site
+            user_dict['theme'] = blog.theme
+        obj = UserinfoForm(request,initial=user_dict)
+        return render(request,'back/userinfo.html',{'obj':obj,'user_obj':user_obj})
+    else:
+        obj = UserinfoForm(request,request.POST,request.FILES)
+        if obj.is_valid():
+            nickname = obj.cleaned_data['nickname']
+            email = obj.cleaned_data['email']
+            site = obj.cleaned_data['site']
+            theme = obj.cleaned_data['theme']
+            with transaction.atomic():
+                models.UserInfo.objects.filter(nid=nid).update(nickname=nickname,email=email)
+                models.Blog.objects.filter(nid=blog_id,user_id=nid).update(site=site,theme=theme)
+            return redirect('/back/userinfo.html')
 
 def back(request):
     return redirect('/back/shaixuan-0-0-0.html')

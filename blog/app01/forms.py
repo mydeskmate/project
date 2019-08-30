@@ -100,3 +100,41 @@ class ArticleForm(Form):
     #     return xss(old)
 
 
+
+class UserinfoForm(Form):
+    """
+    用户个人信息页
+    """
+    # username = fields.CharField(
+    #     widget=widgets.TextInput(attrs={'class':'form-control'}),
+    #     required=True,  #默认True
+    #     max_length=32,
+    #     min_length=2,
+    #     error_messages = {
+    #         'required': '不能为空',
+    #         'max_length': '太长',
+    #         'min_length': '太短',
+    #     }
+    # )
+    nickname = fields.CharField(
+        widget=widgets.TextInput(attrs={'class': 'form-control'})
+    )
+    email = fields.EmailField(
+        widget=widgets.EmailInput(attrs={'class': 'form-control'})
+    )
+    site = fields.CharField(
+        widget=widgets.TextInput(attrs={'class': 'form-control'})
+    )
+    theme = fields.CharField(
+        widget=widgets.TextInput(attrs={'class': 'form-control'})
+    )
+    avatar = fields.FileField(
+        required=False,
+        widget=widgets.FileInput(attrs={'id':'imgSelect','class':'f1'})
+    )
+
+    # 封装request
+    def __init__(self,request,*args,**kwargs):
+        super(UserinfoForm, self).__init__(*args,**kwargs)
+        self.request = request
+

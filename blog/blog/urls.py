@@ -47,6 +47,7 @@ urlpatterns = [
     url(r'^back/tag_add.html$', views.tag_add),
     url(r'^back/del_tag/(\d+).html$', views.del_tag),
     url(r'^back/edit_tag/(\d+).html$', views.edit_tag),
+    url(r'^back/userinfo.html$', views.userinfo),
     url(r'^back', views.back),
 
 
