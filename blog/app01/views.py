@@ -8,7 +8,11 @@ from django.db import transaction
 from django.db.utils import IntegrityError
 from app01 import models
 from utils.pager import PageInfo
+from pathlib import Path
 import json
+import os
+import uuid
+
 
 # Create your views here.
 
@@ -121,8 +125,8 @@ def register(request):
             obj.cleaned_data.pop('code')
             obj.cleaned_data.pop('password2')
             user = models.UserInfo.objects.create(**obj.cleaned_data)
-            # models.UserInfo.objects.filter(nid=user.nid).update(avatar="l"+F("avatar"))
-            # models.UserInfo.objects.raw("update user set avatar = concat('//',avatar)")
+            # print(user.avatar)
+
             return redirect('/login/')
         else:
             print(obj.errors)
@@ -667,22 +671,48 @@ def userinfo(request):
             'email':user_obj.email,
             'avatar':user_obj.avatar,
         }
+        # 因为数据库存放的是相对路径，无法访问，转换为绝对路径
+        avatar = "/" + str(user_obj.avatar)
+        # print(avatar)
         if blog:
             user_dict['site'] = blog.site
             user_dict['theme'] = blog.theme
         obj = UserinfoForm(request,initial=user_dict)
-        return render(request,'back/userinfo.html',{'obj':obj,'user_obj':user_obj})
+        return render(request,'back/userinfo.html',{'obj':obj,'user_obj':user_obj,'avatar':avatar})
     else:
         obj = UserinfoForm(request,request.POST,request.FILES)
         if obj.is_valid():
+            # 生成随机图片地址
+            file_obj = request.FILES.get('avatar')
+            file_name = file_obj.name
+            ext = file_name.split('.')[-1]
+            file_name_pre = file_name.split('.')[0]
+            file_name = '{}{}.{}'.format(file_name_pre + "_", uuid.uuid4().hex[:7], ext)
+            # 存入图片
+            # file_path = os.path.join('static/images', file_name)
+            file_path = "static/images/" + file_name
+
+            with open(file_path, 'wb') as f:
+                for chunk in file_obj.chunks():
+                    f.write(chunk)
+
+            # 删除原来的图片
+            file_path_old = str(user_obj.avatar)
+            if os.path.isfile(file_path_old):
+                os.remove(file_path_old)
+
             nickname = obj.cleaned_data['nickname']
             email = obj.cleaned_data['email']
             site = obj.cleaned_data['site']
             theme = obj.cleaned_data['theme']
             with transaction.atomic():
-                models.UserInfo.objects.filter(nid=nid).update(nickname=nickname,email=email)
+                models.UserInfo.objects.filter(nid=nid).update(nickname=nickname,email=email,avatar=file_path)
                 models.Blog.objects.filter(nid=blog_id,user_id=nid).update(site=site,theme=theme)
+
             return redirect('/back/userinfo.html')
+        else:
+            return HttpResponse('eeeeee')
+
 
 def back(request):
     return redirect('/back/shaixuan-0-0-0.html')

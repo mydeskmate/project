@@ -123,9 +123,11 @@ class UserinfoForm(Form):
         widget=widgets.EmailInput(attrs={'class': 'form-control'})
     )
     site = fields.CharField(
+        required=False,
         widget=widgets.TextInput(attrs={'class': 'form-control'})
     )
     theme = fields.CharField(
+        required=False,
         widget=widgets.TextInput(attrs={'class': 'form-control'})
     )
     avatar = fields.FileField(
