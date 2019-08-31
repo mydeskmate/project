@@ -44,7 +44,7 @@ def index(request,*args,**kwargs):
 
     #分页
     all_count = article_list.count()
-    page_info = PageInfo(request.GET.get('page'),all_count,5,'/index.html',11)
+    page_info = PageInfo(request.GET.get('page'),all_count,2,'/index.html',11)
     article_list_page = article_list[page_info.start():page_info.end()]
 
     return render(request,'index.html',
