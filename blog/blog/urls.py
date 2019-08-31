@@ -55,6 +55,6 @@ urlpatterns = [
 
     url(r'^(?P<site>\w+)/(?P<nid>\d+).html$',views.article),
     url(r'^(?P<site>\w+)/(?P<key>((tag)|(date)|(category)))/(?P<val>\w+-*\w*)/', views.filter),
-    url(r'^(\w+)/',views.home),
+    url(r'^(\w+)',views.home),
     url(r'^',views.index),
 ]

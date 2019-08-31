@@ -17,13 +17,22 @@ import uuid
 # Create your views here.
 
 def index(request,*args,**kwargs):
-
+    """
+    首页
+    :param request:
+    :param args:
+    :param kwargs:
+    :return:
+    """
     username = request.session.get('username')
     nickname = request.session.get('nickname')
+    avatar = ""
     if not username:
         session_stat = 0
     else:
         session_stat =1
+        user = models.UserInfo.objects.filter(username=username).first()
+        avatar = "/" + str(user.avatar)
 
     #分类查找文章表
     type_choice_list = models.Article.type_choices
@@ -45,7 +54,9 @@ def index(request,*args,**kwargs):
         'article_list_page':article_list_page,
         'page_info': page_info,
         'session_stat':session_stat,
-        'nickname':nickname
+        'nickname':nickname,
+        'user':user,
+        'avatar':avatar
     })
 
 

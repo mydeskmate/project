@@ -39,9 +39,9 @@
 
     {% if session_stat %}
     <ul class="nav navbar-nav navbar-right">
-        <li><a href="/login/">{{ nickname }}</a></li>
-        <li><a href="/login/">我的博客</a></li>
-        <li><a href="/login/">管理</a></li>
+        <li><a href="/{{ user.blog.site }}">{{ nickname }}</a></li>
+        <li><a href="/{{ user.blog.site }}">我的博客</a></li>
+        <li><a href="/back">管理</a></li>
         <li><a href="/login/">退出</a></li>
       </ul>
     {% else %}
@@ -75,7 +75,7 @@
                     <div class="article-item">
                         <h3 class="art-head"><a href="">{{ article.title }}</a></h3>
                     <div class="art-body clearfix">
-                        <a class="left" href=""><img style="width: 48px;height: 48px;" src={{ article.blog.user.avatar }} alt=""></a>
+                        <a class="left" href=""><img style="width: 48px;height: 48px;" src={{ avatar }}></a>
                         {{ article.summary }}
                     </div>
                     <div class="art-foot">
