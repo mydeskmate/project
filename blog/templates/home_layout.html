@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/static/plugin/bootstrap-3.3.7-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/plugin/font-awesome-4.7.0/css/font-awesome.css">
+    <link rel="stylesheet" href="/static/css/common.css">
+    <link rel="stylesheet" href="/static/css/theme/{{ blog.theme }}.css">
+
+    {% block css %}{% endblock %}
+</head>
+<body>
+    <div class="c1">
+        <div class="c11">{{ blog.user.nickname }}</div>
+        <div class="c12">{{ blog.title }}</div>
+    </div>
+
+    <div class="c2">
+         <h3>分类</h3>
+        <ul>
+            {% for item in category_list %}
+                <li>
+                    {% if  item.category_id %}
+                        <a href="/{{ blog.site }}/category/{{ item.category_id }}/"> {{ item.category__title }}({{ item.ct }})</a>
+                    {% else %}
+                        <a href="/{{ blog.site }}/category/{{ item.category_id }}/"> 未分类({{ item.ct }})</a>
+                    {% endif %}
+
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="c3">
+        <h3>标签</h3>
+        <ul>
+            {% for item in tag_list %}
+                <li>
+                    <a href="/{{ blog.site }}/tag/{{ item.tag_id }}/">{{ item.tag__title }}({{ item.ct }})</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div>
+        <h3>时间</h3>
+            <ul>
+               {% for item in date_list%}
+                    <li>
+                        <a href="/{{ blog.site }}/date/{{ item.ctime }}/">{{ item.ctime }}({{ item.ct }})</a>
+                    </li>
+                {% endfor %}
+            </ul>
+    </div>
+
+
+    <div class="c4">
+         <div  class="content">
+            {% block xx %}{% endblock %}
+        </div>
+    </div>
+ {% block js %}{% endblock %}
+</body>
+</html>

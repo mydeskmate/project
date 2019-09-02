@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'app01.apps.App01Config',
     'app02.apps.App02Config',
     'rbac',
+    'app01.templatetags'
 ]
 
 MIDDLEWARE = [
@@ -51,7 +52,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     # 'middleware.md.M1',
-    'rbac.middleware.md.RbacMiddleware',
+    # 'rbac.middleware.md.RbacMiddleware',
 ]
 
 ROOT_URLCONF = 'blog.urls'
@@ -127,3 +128,4 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR,'static'),
 )
+

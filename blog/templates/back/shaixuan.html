@@ -1,0 +1,116 @@
+{% extends 'back/layout.html' %}
+
+{% block css %}
+    <style>
+        .condition a {
+            display: inline-block;
+            padding: 5px;
+        }
+        .condition a.active{
+            background-color: #204d74;
+            color: white;
+        }
+    .content-box {
+        width: 1000px;
+        margin-left: 20px;
+    }
+    .page {
+        float: left;
+        margin-left: 800px;
+    }
+    </style>
+{% endblock %}
+
+{% block xx %}
+     <ol class="breadcrumb">
+              <li><a href="/back/shaixuan-0-0-0.html">文章管理</a></li>
+              <li class="active">文章列表</li>
+    </ol>
+
+    <div class="content-box">
+    <h3>搜索条件</h3>
+    <div class="condition">
+        系统分类：
+        {% if kwargs.article_type_id == 0 %}
+            <a class="active" href="shaixuan-0-{{ kwargs.category_id }}-{{ kwargs.tags__nid }}.html">全部</a>
+        {% else %}
+            <a href="shaixuan-0-{{ kwargs.category_id }}-{{ kwargs.tags__nid }}.html">全部</a>
+        {% endif %}
+
+        {% for row in type_list %}
+            {% if row.0 == kwargs.article_type_id %}
+                <a class="active" href="shaixuan-{{ row.0 }}-{{ kwargs.category_id }}-{{ kwargs.tags__nid }}.html">{{ row.1 }}</a>
+            {% else %}
+                <a href="shaixuan-{{ row.0 }}-{{ kwargs.category_id }}-{{ kwargs.tags__nid }}.html">{{ row.1 }}</a>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div class="condition">
+        个人分类：
+        {% if kwargs.category_id == 0 %}
+             <a class="active" href="shaixuan-{{ kwargs.article_type_id }}-0-{{ kwargs.tags__nid }}.html">全部</a>
+        {% else %}
+            <a  href="shaixuan-{{ kwargs.article_type_id }}-0-{{ kwargs.tags__nid }}.html">全部</a>
+        {% endif %}
+
+        {% for row in category_list %}
+            {% if row.nid == kwargs.category_id %}
+                <a class="active" href="shaixuan-{{ kwargs.article_type_id }}-{{ row.nid }}-{{ kwargs.tags__nid }}.html">{{ row.title }}</a>
+            {% else %}
+                <a href="shaixuan-{{ kwargs.article_type_id }}-{{ row.nid }}-{{ kwargs.tags__nid }}.html">{{ row.title }}</a>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div class="condition">
+        个人标签：
+        {% if kwargs.tags__nid == 0 %}
+            <a class="active" href="shaixuan-{{ kwargs.article_type_id }}-{{ kwargs.category_id }}-0.html">全部</a>
+        {% else %}
+            <a href="shaixuan-{{ kwargs.article_type_id }}-{{ kwargs.category_id }}-0.html">全部</a>
+        {% endif %}
+
+        {% for row in tag_list %}
+            {% if row.nid == kwargs.tags__nid %}
+                <a class="active" href="shaixuan-{{ kwargs.article_type_id }}-{{ kwargs.category_id }}-{{ row.nid}}.html">{{ row.title }}</a>
+            {% else %}
+                <a href="shaixuan-{{ kwargs.article_type_id }}-{{ kwargs.category_id }}-{{ row.nid}}.html">{{ row.title }}</a>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <h3>结果</h3>
+     <div>
+        <a class="btn btn-primary" href="article_tijiao.html">添加</a>
+    </div>
+      <table class="table table-bordered table-striped table-hover">
+       <thead>
+        <tr>
+            <td>文章标题</td>
+            <td>操作</td>
+        </tr>
+       </thead>
+    {% for row in article_list_page %}
+        <div>
+                <tr>
+                    <td> <a href="article_detail-{{ row.nid }}.html">{{ row.title }}</a></td>
+                    <td><a href="del_article/{{ row.nid }}.html">删除</a>|<a href="edit_article/{{ row.nid }}.html">编辑</a></td>
+                </tr>
+        </div>
+    {% endfor %}
+       </table>
+    </div>
+    <div class="page">
+         {% if article_list_page %}
+            <nav aria-label="Page navigation">
+              <ul class="pagination">
+                {{ page_info.pager | safe }}
+              </ul>
+            </nav>
+        {% endif %}
+    </div>
+
+
+
+{% endblock %}
+
+

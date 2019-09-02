@@ -1,0 +1,73 @@
+{% extends 'back/layout.html' %}
+
+
+{% block css %}
+    <style>
+        .content-tijiao {
+            margin: 20px;
+        }
+        li {
+           list-style: none;
+            display: inline-block;
+            margin-right: 5px;
+        }
+        .summary {
+            rows: 3;
+            cols: 20
+        }
+    </style>
+{% endblock %}
+
+{% block xx %}
+    <div class="content-tijiao">
+    <form method="POST" action="article_tijiao.html" novalidate>
+        {% csrf_token %}
+        <p>
+            文章标题:
+            {{ obj.title }}
+        </p>
+        <p>
+            文章摘要:
+            {{ obj.summary }}
+        </p>
+        <p>
+            系统分类：
+            {{obj.type}}
+        </p>
+        <p>
+            个人分类：
+            {{ obj.category }}
+        </p>
+        <p>
+            个人标签：
+            {{ obj.tags }}
+        </p>
+        <div>
+            <div>文章内容:</div>
+            <div>
+                {{ obj.content }}
+            </div>
+        </div>
+        <input type="submit" value="提交" />
+    </form>
+    </div>
+
+{% endblock %}
+
+{% block js %}
+    <script src="/static/kindeditor-4.1.10/kindeditor-all.js"></script>
+    <script>
+        KindEditor.create('#i1',{
+            width: "700px",
+            height: "300px",
+            resizeType:1,
+            uploadJson:'/upload_img.html',
+            extraFileUploadParams:{
+                    "csrfmiddlewaretoken":"{{ csrf_token }}"
+                }
+        })
+    </script>
+{% endblock %}
+
+
+
