@@ -99,3 +99,39 @@
     margin-top: -150px;
 }
 
+
+.header {
+    height: 50px;
+    line-height: 50px;
+    background-color: #2aabd2;
+}
+.header .logo {
+    float: left;
+    font-size: 18px;
+    color: #FFFFFF;
+    width: 200px;
+    padding-left: 20px;
+}
+.header .menu {
+    float: right;
+    position: relative;
+    width: 300px;
+}
+
+.header .menu .first_page{
+    position: absolute;
+    top: 10px;
+    color: white;
+}
+.header .menu .per_page{
+    position: absolute;
+    top: 10px;
+    left: 50px;
+    color: white;
+}
+.header .menu .manage{
+    position: absolute;
+    top: 10px;
+    left: 120px;
+    color: white;
+}

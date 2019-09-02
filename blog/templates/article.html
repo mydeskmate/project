@@ -1,60 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="/static/css/theme/{{ blog.theme }}.css">
+{% extends 'home_layout.html' %}
+
+{% block css %}
     <style>
         .comment{
             margin-left: 30px;
         }
     </style>
-</head>
-<body>
-    <div class="c1">
-        <div class="c11">{{ blog.user.nickname }}</div>
-        <div class="c12">{{ blog.title }}</div>
-    </div>
+{% endblock %}
 
-    <div class="c2">
-         <h3>分类</h3>
-        <ul>
-            {% for item in category_list %}
-                <li>
-                    {% if  item.category_id %}
-                        <a href="/{{ blog.site }}/category/{{ item.category_id }}/"> {{ item.category__title }}({{ item.ct }})</a>
-                    {% else %}
-                        <a href="/{{ blog.site }}/category/{{ item.category_id }}/"> 未分类({{ item.ct }})</a>
-                    {% endif %}
-
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
-
-    <div class="c3">
-        <h3>标签</h3>
-        <ul>
-            {% for item in tag_list %}
-                <li>
-                    <a href="/{{ blog.site }}/tag/{{ item.tag_id }}/">{{ item.tag__title }}({{ item.ct }})</a>
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
-
-    <div>
-        <h3>时间</h3>
-            <ul>
-               {% for item in date_list%}
-                    <li>
-                        <a href="/date/{{ item.ctime }}/">{{ item.ctime }}({{ item.ct }})</a>
-                    </li>
-                {% endfor %}
-            </ul>
-    </div>
-
-
+{% block xx %}
     <div>
         <h3><a href="">{{ obj.title }}</a></h3>
         {{ obj.articledetail.content | safe }}
@@ -73,9 +27,10 @@
 
     </div>
 {#  后端处理多级评论  {{ comment_str | safe }}#}
+{% endblock %}
 
-
-    <script src="/static/jquery-1.12.4.js"></script>
+{% block js %}
+        <script src="/static/jquery-1.12.4.js"></script>
     <script>
          String.prototype.Format = function(arg){
             /*
@@ -140,5 +95,4 @@
             })
         }
     </script>
-</body>
-</html>
+{% endblock %}

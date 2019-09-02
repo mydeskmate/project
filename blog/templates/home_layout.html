@@ -11,54 +11,65 @@
     {% block css %}{% endblock %}
 </head>
 <body>
-    <div class="c1">
-        <div class="c11">{{ blog.user.nickname }}</div>
-        <div class="c12">{{ blog.title }}</div>
+    <div class="header">
+        <div class="logo">博客家</div>
+        <div class="menu">
+            <a href="/" class="first_page">首页</a>
+            <a href="/" class="per_page">个人首页</a>
+            <a href="/back" class="manage">管理</a>
+        </div>
     </div>
+    <div class="filter">
+        <div class="c1">
+            <div class="c11">{{ blog.user.nickname }}</div>
+            <div class="c12">{{ blog.title }}</div>
+        </div>
 
-    <div class="c2">
-         <h3>分类</h3>
-        <ul>
-            {% for item in category_list %}
-                <li>
-                    {% if  item.category_id %}
-                        <a href="/{{ blog.site }}/category/{{ item.category_id }}/"> {{ item.category__title }}({{ item.ct }})</a>
-                    {% else %}
-                        <a href="/{{ blog.site }}/category/{{ item.category_id }}/"> 未分类({{ item.ct }})</a>
-                    {% endif %}
-
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
-
-    <div class="c3">
-        <h3>标签</h3>
-        <ul>
-            {% for item in tag_list %}
-                <li>
-                    <a href="/{{ blog.site }}/tag/{{ item.tag_id }}/">{{ item.tag__title }}({{ item.ct }})</a>
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
-
-    <div>
-        <h3>时间</h3>
+        <div class="c2">
+             <h3>分类</h3>
             <ul>
-               {% for item in date_list%}
+                {% for item in category_list %}
                     <li>
-                        <a href="/{{ blog.site }}/date/{{ item.ctime }}/">{{ item.ctime }}({{ item.ct }})</a>
+                        {% if  item.category_id %}
+                            <a href="/{{ blog.site }}/category/{{ item.category_id }}/"> {{ item.category__title }}({{ item.ct }})</a>
+                        {% else %}
+                            <a href="/{{ blog.site }}/category/{{ item.category_id }}/"> 未分类({{ item.ct }})</a>
+                        {% endif %}
+
                     </li>
                 {% endfor %}
             </ul>
+        </div>
+
+        <div class="c3">
+            <h3>标签</h3>
+            <ul>
+                {% for item in tag_list %}
+                    <li>
+                        <a href="/{{ blog.site }}/tag/{{ item.tag_id }}/">{{ item.tag__title }}({{ item.ct }})</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div>
+            <h3>时间</h3>
+                <ul>
+                   {% for item in date_list%}
+                        <li>
+                            <a href="/{{ blog.site }}/date/{{ item.ctime }}/">{{ item.ctime }}({{ item.ct }})</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+        </div>
     </div>
 
 
-    <div class="c4">
-         <div  class="content">
-            {% block xx %}{% endblock %}
-        </div>
+
+
+
+     <div  class="content">
+        {% block xx %}{% endblock %}
     </div>
  {% block js %}{% endblock %}
 </body>
