@@ -51,8 +51,7 @@ urlpatterns = [
     url(r'^back', views.back),
 
 
-
-
+    # url(r'index.html', views.index),
     url(r'^(?P<site>\w+)/(?P<nid>\d+).html$',views.article),
     url(r'^(?P<site>\w+)/(?P<key>((tag)|(date)|(category)))/(?P<val>\w+-*\w*)/', views.filter),
     url(r'^(\w+)',views.home),

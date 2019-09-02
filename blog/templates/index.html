@@ -1,3 +1,4 @@
+{% load mytags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -75,7 +76,7 @@
                     <div class="article-item">
                         <h3 class="art-head"><a href="">{{ article.title }}</a></h3>
                     <div class="art-body clearfix">
-                        <a class="left" href=""><img style="width: 48px;height: 48px;" src={{ avatar }}></a>
+                        <a class="left" href=""><img class="head_icon" style="width: 48px;height: 48px;" src= {% my_avatar "/" article.blog.user.avatar  %} ></a>
                         {{ article.summary }}
                     </div>
                     <div class="art-foot">
@@ -87,10 +88,10 @@
                     </div>
                 {% endfor %}
             </div>
-            {% if article_list_page %}
+          {% if article_list_page %}
             <nav aria-label="Page navigation">
               <ul class="pagination">
-                {{ page_info.pager | safe }}
+                  {{ page_info.pager|safe }}
               </ul>
             </nav>
             {% endif %}
@@ -116,5 +117,15 @@
         </div>
     </div>
 </div>
+<script src="/static/jquery-1.12.4.js"></script>
+<script>
+    $('.head_icon').each(function () {
+        {#console.log($(this).prop('src'))#}
+        console.log(this.src)
+        var avatar = "/" + $(this).prop('src');
+        {#console.log(avatar)#}
+        $(this).prop('scr',avatar)
+    })
+</script>
 </body>
 </html>

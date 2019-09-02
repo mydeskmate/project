@@ -8,7 +8,6 @@ from django.db import transaction
 from django.db.utils import IntegrityError
 from app01 import models
 from utils.pager import PageInfo
-from pathlib import Path
 import json
 import os
 import uuid
@@ -26,13 +25,13 @@ def index(request,*args,**kwargs):
     """
     username = request.session.get('username')
     nickname = request.session.get('nickname')
-    avatar = ""
+    user = ""
+
     if not username:
         session_stat = 0
     else:
         session_stat =1
         user = models.UserInfo.objects.filter(username=username).first()
-        avatar = "/" + str(user.avatar)
 
     #分类查找文章表
     type_choice_list = models.Article.type_choices
@@ -44,9 +43,11 @@ def index(request,*args,**kwargs):
 
     #分页
     all_count = article_list.count()
-    page_info = PageInfo(request.GET.get('page'),all_count,2,'/index.html',11)
+    # print(request.GET.get('page'))
+    page_info = PageInfo(request.GET.get('page'), all_count, 5, request.path_info, 11)
     article_list_page = article_list[page_info.start():page_info.end()]
 
+    # print(article_list_page)
     return render(request,'index.html',
     {
         'type_id':type_id,
@@ -56,7 +57,6 @@ def index(request,*args,**kwargs):
         'session_stat':session_stat,
         'nickname':nickname,
         'user':user,
-        'avatar':avatar
     })
 
 
