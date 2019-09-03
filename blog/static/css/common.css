@@ -58,7 +58,7 @@
     top: 48px;
     background-color: #dddddd;
 }
-.content{
+.pg-body .content{
     position: absolute;
     left: 200px;
     right: 0;
@@ -134,4 +134,41 @@
     top: 10px;
     left: 120px;
     color: white;
+}
+.filter {
+    float: left;
+    width: 10%;
+}
+.front_content{
+    float: left;
+    width: 90%;
+    margin-top: 15px;
+}
+.front_content .artile_list {
+    border: 1px solid #ccc;
+    border-bottom-width:2px;
+    border-right-width:2px;
+    padding: 4px;
+    margin-bottom: 28px;
+    margin-right: 20px;
+}
+.front_content .artile_list a {
+    color: #235;
+}
+.front_content .artile_list .title {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.front_content .artile_list .postfooter {
+    margin: 0px;
+    margin-top: 14px;
+    color: #aaa;
+    border-top: 1px solid #dddddd;
+    font-size: 14px;
+}
+
+#commentArea {
+}
+#commentArea .content {
 }

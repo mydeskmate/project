@@ -68,7 +68,15 @@
             var comment_str = "<div class='comment'>";
             $.each(commentList,function(k,row){
                 // var temp = "<div class='content'>"+ row.content +"</div>";
-                var temp = "<div class='content'>{content}</div>".Format({content:row.content});
+                //var temp = "<div class='content'>{content}</div>".Format({content:row.content});
+
+
+                var temp = "<div>" +
+                    "<div>"+ row.user__nickname + "</div>" +
+                    "<div>"+ row.create_time_format + "</div>" +
+                    "<div class='content'>"+ row.content +"</div></div>";
+                //无法换行，太长了
+                //var temp = "<div><div>{nickname}</div><div class='content'>{content}</div></div>".Format({nickname:row.user__nickname,content:row.content});
                 comment_str += temp;
                 if(row.child.length>0){
                     comment_str += commentTree(row.child);

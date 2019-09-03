@@ -145,8 +145,8 @@ class Article(models.Model):
         through_fields=('article', 'tag'),
     )
 
-    def __str__(self):
-        return "%s-%s" %(self.blog.title,self.title)
+    # def __str__(self):
+    #     return "%s-%s" %(self.blog.title,self.title)
 
 class Article2Tag(models.Model):
     article = models.ForeignKey(verbose_name='文章', to="Article", to_field='nid',on_delete=models.CASCADE)

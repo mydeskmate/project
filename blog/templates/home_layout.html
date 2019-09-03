@@ -15,14 +15,18 @@
         <div class="logo">博客家</div>
         <div class="menu">
             <a href="/" class="first_page">首页</a>
-            <a href="/" class="per_page">个人首页</a>
+            <a href="/{{ blog.site }}" class="per_page">个人首页</a>
             <a href="/back" class="manage">管理</a>
         </div>
     </div>
     <div class="filter">
-        <div class="c1">
-            <div class="c11">{{ blog.user.nickname }}</div>
-            <div class="c12">{{ blog.title }}</div>
+        <div class="notice">
+            <h3>公告：</h3>
+            <ul>
+                <li class="c11">昵称：{{ blog.user.nickname }}</li>
+                <li class="c12">粉丝; {{ fans }} </li>
+                <li class="c12">关注; {{ follows }}</li>
+            </ul>
         </div>
 
         <div class="c2">
@@ -68,7 +72,7 @@
 
 
 
-     <div  class="content">
+     <div  class="front_content">
         {% block xx %}{% endblock %}
     </div>
  {% block js %}{% endblock %}
