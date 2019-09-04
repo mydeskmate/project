@@ -267,6 +267,7 @@ def article(request,site,nid):
     date_list = models.Article.objects.filter(blog=blog).extra(
         select={'ctime': "strftime('%%Y-%%m',create_time)"}).values('ctime').annotate(ct=Count('nid'))
 
+
     obj = models.Article.objects.filter(blog=blog,nid=nid).first()
 
     # ####################### 评论 #############################
@@ -322,46 +323,68 @@ def comments(request,nid):
     :param nid:
     :return:
     """
-    response = {'status':True,'data':None,'msg':None}
-    try:
-        # msg_list = [
-        #     {'id':1,'content':'写的太好了','parent_id':None},
-        #     {'id':2,'content':'你说得对','parent_id':None},
-        #     {'id':3,'content':'顶楼上','parent_id':None},
-        #     {'id':4,'content':'你眼瞎吗','parent_id':1},
-        #     {'id':5,'content':'我看是','parent_id':4},
-        #     {'id':6,'content':'鸡毛','parent_id':2},
-        #     {'id':7,'content':'你是没呀','parent_id':5},
-        #     {'id':8,'content':'惺惺惜惺惺想寻','parent_id':3},
-        # ]
-
-        # 修改列名 以符合上面的格式
-        # msg_list_queryset = models.Comment.objects.filter(article_id=nid).extra(select={'parent_id':'reply_id','id':'nid'}).values('id','content','parent_id')
-        msg_list_queryset = models.Comment.objects.filter(article_id=nid).extra(select={'parent_id':'reply_id'}
-                             ).values('nid','content','parent_id','user__nickname')
+    if request.method == "GET":
+        nickname = request.session.get('nickname')
+        response = {'status':True,'data':None,'msg':None}
+        try:
+            # msg_list = [
+            #     {'id':1,'content':'写的太好了','parent_id':None},
+            #     {'id':2,'content':'你说得对','parent_id':None},
+            #     {'id':3,'content':'顶楼上','parent_id':None},
+            #     {'id':4,'content':'你眼瞎吗','parent_id':1},
+            #     {'id':5,'content':'我看是','parent_id':4},
+            #     {'id':6,'content':'鸡毛','parent_id':2},
+            #     {'id':7,'content':'你是没呀','parent_id':5},
+            #     {'id':8,'content':'惺惺惜惺惺想寻','parent_id':3},
+            # ]
 
 
-        msg_list = list(msg_list_queryset)
-        # print(msg_list)
+            # 修改列名 以符合上面的格式
+            # msg_list_queryset = models.Comment.objects.filter(article_id=nid).extra(select={'parent_id':'reply_id','id':'nid'}).values('id','content','parent_id')
+            msg_list_queryset = models.Comment.objects.filter(article_id=nid).extra(
+                select={'parent_id':'reply_id','ctime': "strftime('%%Y-%%m-%%d %%H:%%M',app01_comment.create_time)"}
+                                 ).values('nid','content','parent_id','ctime','user__nickname')
+
+            msg_list = list(msg_list_queryset)
+            # print(msg_list)
 
 
-        msg_list_dict = {}
-        for item in msg_list:
-            item['child'] = []
-            msg_list_dict[item['nid']] = item
-        result = []
-        for item in msg_list:
-            pid = item['parent_id']
-            if pid:
-                msg_list_dict[pid]['child'].append(item)
-            else:
-                result.append(item)
-        response['data'] = result
-        print(response['data'])
-    except Exception as e:
-        response['status'] = False
-        response['msg'] = str(e)
-    return HttpResponse(json.dumps(response))
+            msg_list_dict = {}
+            for item in msg_list:
+                item['child'] = []
+                msg_list_dict[item['nid']] = item
+            result = []
+            for item in msg_list:
+                pid = item['parent_id']
+                if pid:
+                    msg_list_dict[pid]['child'].append(item)
+                else:
+                    result.append(item)
+            response['data'] = result
+            # print(response['data'])
+        except Exception as e:
+            response['status'] = False
+            response['msg'] = str(e)
+        return HttpResponse(json.dumps(response))
+    else:
+        content = request.POST.get('content')
+        reply_id = request.POST.get('reply_id')
+        user_id = request.session.get('user_id')
+        blog_id = request.session.get('blog_id')
+        blog = models.Blog.objects.filter(nid=blog_id).first()
+        print(content)
+        print(reply_id)
+        if reply_id:
+            try:
+                models.Comment.objects.create(content=content, article_id=nid, user_id=user_id,reply_id=reply_id)
+            except Exception as e:
+                print(str(e))
+        else:
+            try:
+                models.Comment.objects.create(content=content,article_id=nid,user_id=user_id)
+            except Exception as e:
+                print(str(e))
+        return redirect('/%s/%s.html' % (blog.site,nid))
 
 
 def up(request):
@@ -546,7 +569,7 @@ def edit_article(request,nid):
 
                 try:
                     for tag in tags_id:
-                        print(tag)
+                        # print(tag)
                         if not models.Article2Tag.objects.filter(article_id=nid, tag_id=tag).filter():
                             models.Article2Tag.objects.create(article_id=nid, tag_id=tag)
                     # print(models.Article2Tag.objects.filter(article_id=nid).exclude(tag_id__in=tags_id).query)

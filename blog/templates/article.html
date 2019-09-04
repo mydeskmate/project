@@ -3,7 +3,39 @@
 {% block css %}
     <style>
         .comment{
-            margin-left: 30px;
+            margin-left: 20px;
+        }
+        .comm_head {
+            margin-top: 10px;
+            font-size: 12px;
+            color: #999999;
+        }
+        .nickname {
+            float: left;
+        }
+        .comm_time {
+            float: left;
+            margin-left: 10px;
+        }
+        .comm_huifu {
+            float: left;
+            margin-left: 40px;
+        }
+        .comm_content {
+            clear: left;
+        }
+        .comment_box {
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        #comment_area {
+            float: left;
+        }
+         .submit {
+            float: left;
+        }
+        #commentArea{
+            clear: both;
         }
     </style>
 {% endblock %}
@@ -23,6 +55,15 @@
         <i>{{ obj.down_count }}</i>
     </a>
     <h3>评论</h3>
+    <form action="/comments-{{ obj.nid }}.html" method="POST">
+        {% csrf_token %}
+        <div class="comment_box">
+        <textarea id="comment_area" name="content" id="" cols="100" rows="5"></textarea>
+        <input id="hidden_reply_id" type="text" style="display: none" name="reply_id" value="">
+        <button class="submit">提交</button>
+    </div>
+    </form>
+
     <div id="commentArea">
 
     </div>
@@ -30,7 +71,7 @@
 {% endblock %}
 
 {% block js %}
-        <script src="/static/jquery-1.12.4.js"></script>
+    <script src="/static/jquery-1.12.4.js"></script>
     <script>
          String.prototype.Format = function(arg){
             /*
@@ -48,38 +89,47 @@
             // 发送Ajax请求，获取所有评论信息
             // 列表
             // js生成结构
+
             $.ajax({
                 url:'/comments-{{ obj.nid }}.html',
                 type:'GET',
                 dataType:'JSON',
                 success:function (arg) {
                     if(arg.status){
-                        var comment = commentTree(arg.data);
+                        var comment = commentTree(arg.data,0);
                         $('#commentArea').append(comment)
                     }else{
                         alert(arg.msg)
                     }
                 }
-            })
+            });
         });
 
-        function commentTree(commentList){
+        function commentTree(commentList,status){
             //前端处理多级评论
-            var comment_str = "<div class='comment'>";
+            if (status ==0){
+                var comment_str = "<div>";
+            }
+            else{
+                 var comment_str = "<div class='comment'>";
+            }
+            //var comment_str = "<div class='comment'>";
             $.each(commentList,function(k,row){
                 // var temp = "<div class='content'>"+ row.content +"</div>";
                 //var temp = "<div class='content'>{content}</div>".Format({content:row.content});
 
 
                 var temp = "<div>" +
-                    "<div>"+ row.user__nickname + "</div>" +
-                    "<div>"+ row.create_time_format + "</div>" +
-                    "<div class='content'>"+ row.content +"</div></div>";
+                    "<div class='comm_head'>"+ "<a class='nickname'>" + row.user__nickname + "</a>" + "<span class='comm_time'>" + 
+                    row.ctime +  "</span>" +
+                    "<a   class='comm_huifu' "  + "reply_id=" +  row.nid  + " onclick='huifu(this)'>回复</a>"  +   "</div>"     +
+                    "<div class='comm_content'>"+ row.content +"</div>" +
+                    "</div>";
                 //无法换行，太长了
                 //var temp = "<div><div>{nickname}</div><div class='content'>{content}</div></div>".Format({nickname:row.user__nickname,content:row.content});
                 comment_str += temp;
                 if(row.child.length>0){
-                    comment_str += commentTree(row.child);
+                    comment_str += commentTree(row.child,1);
                 }
             });
             comment_str += '</div>';
@@ -101,6 +151,14 @@
                     }
                 }
             })
+        }
+
+        function huifu(ths) {
+            //回复评论
+            var reply_id = $(ths).attr('reply_id');
+
+            $("#hidden_reply_id").attr('value',reply_id);
+            $("#comment_area").focus()
         }
     </script>
 {% endblock %}
