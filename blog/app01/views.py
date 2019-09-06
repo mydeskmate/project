@@ -249,6 +249,19 @@ def filter(request,site,key,val):
 
 
 def article(request,site,nid):
+    """
+    文章显示
+    :param request:
+    :param site:
+    :param nid:
+    :return:
+    """
+    username = request.session.get('username')
+    if not username:
+        session_stat = 0
+    else:
+        session_stat = 1
+
     blog = models.Blog.objects.filter(site=site).first()
     if not blog:
         return redirect('/')
@@ -311,7 +324,8 @@ def article(request,site,nid):
             'obj':obj,
             "comment_str":comment_str,
             'fans':fans,
-            'follows':follows
+            'follows':follows,
+            'session_stat':session_stat,
         }
     )
 
@@ -372,8 +386,12 @@ def comments(request,nid):
         user_id = request.session.get('user_id')
         blog_id = request.session.get('blog_id')
         blog = models.Blog.objects.filter(nid=blog_id).first()
-        print(content)
-        print(reply_id)
+        # print(content)
+        # print(reply_id)
+
+        if not user_id:
+            # return render(request,)
+            pass
         if reply_id:
             try:
                 models.Comment.objects.create(content=content, article_id=nid, user_id=user_id,reply_id=reply_id)
@@ -787,3 +805,9 @@ def userinfo(request):
 
 def back(request):
     return redirect('/back/shaixuan-0-0-0.html')
+
+def cal_read_counts(request):
+    """计算阅读数"""
+    nid = request.POST.get('nid')
+    models.Article.objects.filter(nid=nid).update(read_count=F("read_count")+1)
+    return HttpResponse('OK')

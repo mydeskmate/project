@@ -5,7 +5,7 @@
         {% for row in article_list_page %}
             <div class="artile_list">
                 <div class="title">
-                     <a href="/{{ blog.site }}/{{ row.nid }}.html">{{ row.title }}</a>
+                     <a onclick="return cal_read_counts(this,{{ row.nid }});" href="/{{ blog.site }}/{{ row.nid }}.html">{{ row.title }}</a>
                 </div>
                 <div>{{ row.summary }}</div>
                 <div class="postfooter">
@@ -24,5 +24,25 @@
             {% endif %}
     </div>
 
+{% endblock %}
+
+{% block js %}
+    <script src="/static/jquery-1.12.4.js"></script>
+    <script>
+        function cal_read_counts(ths,nid) {
+            $.ajax({
+                url:'/cal_read_counts.html',
+                data:{'nid':nid,'csrfmiddlewaretoken':'{{  csrf_token }}'},
+                type:'POST',
+                success:function (arg) {
+                    if(arg == "OK"){
+                        return true;
+                    }else{
+
+                    }
+                }
+            })
+        }
+    </script>
 {% endblock %}
 

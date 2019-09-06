@@ -53,6 +53,7 @@ urlpatterns = [
 
     # url(r'index.html', views.index),
     url(r'^(?P<site>\w+)/(?P<nid>\d+).html$',views.article),
+    url(r'^cal_read_counts.html$',views.cal_read_counts),
     url(r'^(?P<site>\w+)/(?P<key>((tag)|(date)|(category)))/(?P<val>\w+-*\w*)/', views.filter),
     url(r'^(\w+)',views.home),
     url(r'^',views.index),

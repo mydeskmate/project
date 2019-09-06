@@ -25,14 +25,14 @@
             clear: left;
         }
         .comment_box {
-            margin-bottom: 20px;
+            width: 780px;
             overflow: hidden;
         }
         #comment_area {
             float: left;
         }
          .submit {
-            float: left;
+            float: right;
         }
         #commentArea{
             clear: both;
@@ -55,15 +55,17 @@
         <i>{{ obj.down_count }}</i>
     </a>
     <h3>评论</h3>
-    <form action="/comments-{{ obj.nid }}.html" method="POST">
+    {% if session_stat %}
+        <form class="comment_form" action="/comments-{{ obj.nid }}.html" method="POST">
         {% csrf_token %}
-        <div class="comment_box">
+    <div class="comment_box">
         <textarea id="comment_area" name="content" id="" cols="100" rows="5"></textarea>
         <input id="hidden_reply_id" type="text" style="display: none" name="reply_id" value="">
-        <button class="submit">提交</button>
+         <button class="submit">提交</button>
     </div>
     </form>
-
+    {% endif %}
+     <span style="color: red;float: left; display: block;margin-bottom: 20px;">注册用户登录后才能发表评论</span>
     <div id="commentArea">
 
     </div>
