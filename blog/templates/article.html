@@ -1,60 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="/static/css/theme/{{ blog.theme }}.css">
+{% extends 'home_layout.html' %}
+
+{% block css %}
     <style>
         .comment{
-            margin-left: 30px;
+            margin-left: 20px;
+        }
+        .comm_head {
+            margin-top: 10px;
+            font-size: 12px;
+            color: #999999;
+        }
+        .nickname {
+            float: left;
+        }
+        .comm_time {
+            float: left;
+            margin-left: 10px;
+        }
+        .comm_huifu {
+            float: left;
+            margin-left: 40px;
+        }
+        .comm_content {
+            clear: left;
+        }
+        .comment_box {
+            width: 780px;
+            overflow: hidden;
+        }
+        #comment_area {
+            float: left;
+        }
+         .submit {
+            float: right;
+        }
+        #commentArea{
+            clear: both;
         }
     </style>
-</head>
-<body>
-    <div class="c1">
-        <div class="c11">{{ blog.user.nickname }}</div>
-        <div class="c12">{{ blog.title }}</div>
-    </div>
+{% endblock %}
 
-    <div class="c2">
-         <h3>分类</h3>
-        <ul>
-            {% for item in category_list %}
-                <li>
-                    {% if  item.category_id %}
-                        <a href="/{{ blog.site }}/category/{{ item.category_id }}/"> {{ item.category__title }}({{ item.ct }})</a>
-                    {% else %}
-                        <a href="/{{ blog.site }}/category/{{ item.category_id }}/"> 未分类({{ item.ct }})</a>
-                    {% endif %}
-
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
-
-    <div class="c3">
-        <h3>标签</h3>
-        <ul>
-            {% for item in tag_list %}
-                <li>
-                    <a href="/{{ blog.site }}/tag/{{ item.tag_id }}/">{{ item.tag__title }}({{ item.ct }})</a>
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
-
-    <div>
-        <h3>时间</h3>
-            <ul>
-               {% for item in date_list%}
-                    <li>
-                        <a href="/date/{{ item.ctime }}/">{{ item.ctime }}({{ item.ct }})</a>
-                    </li>
-                {% endfor %}
-            </ul>
-    </div>
-
-
+{% block xx %}
     <div>
         <h3><a href="">{{ obj.title }}</a></h3>
         {{ obj.articledetail.content | safe }}
@@ -69,12 +55,24 @@
         <i>{{ obj.down_count }}</i>
     </a>
     <h3>评论</h3>
+    {% if session_stat %}
+        <form class="comment_form" action="/comments-{{ obj.nid }}.html" method="POST">
+        {% csrf_token %}
+    <div class="comment_box">
+        <textarea id="comment_area" name="content" id="" cols="100" rows="5"></textarea>
+        <input id="hidden_reply_id" type="text" style="display: none" name="reply_id" value="">
+         <button class="submit">提交</button>
+    </div>
+    </form>
+    {% endif %}
+     <span style="color: red;float: left; display: block;margin-bottom: 20px;">注册用户登录后才能发表评论</span>
     <div id="commentArea">
 
     </div>
 {#  后端处理多级评论  {{ comment_str | safe }}#}
+{% endblock %}
 
-
+{% block js %}
     <script src="/static/jquery-1.12.4.js"></script>
     <script>
          String.prototype.Format = function(arg){
@@ -93,30 +91,47 @@
             // 发送Ajax请求，获取所有评论信息
             // 列表
             // js生成结构
+
             $.ajax({
                 url:'/comments-{{ obj.nid }}.html',
                 type:'GET',
                 dataType:'JSON',
                 success:function (arg) {
                     if(arg.status){
-                        var comment = commentTree(arg.data);
+                        var comment = commentTree(arg.data,0);
                         $('#commentArea').append(comment)
                     }else{
                         alert(arg.msg)
                     }
                 }
-            })
+            });
         });
 
-        function commentTree(commentList){
+        function commentTree(commentList,status){
             //前端处理多级评论
-            var comment_str = "<div class='comment'>";
+            if (status ==0){
+                var comment_str = "<div>";
+            }
+            else{
+                 var comment_str = "<div class='comment'>";
+            }
+            //var comment_str = "<div class='comment'>";
             $.each(commentList,function(k,row){
                 // var temp = "<div class='content'>"+ row.content +"</div>";
-                var temp = "<div class='content'>{content}</div>".Format({content:row.content});
+                //var temp = "<div class='content'>{content}</div>".Format({content:row.content});
+
+
+                var temp = "<div>" +
+                    "<div class='comm_head'>"+ "<a class='nickname'>" + row.user__nickname + "</a>" + "<span class='comm_time'>" + 
+                    row.ctime +  "</span>" +
+                    "<a   class='comm_huifu' "  + "reply_id=" +  row.nid  + " onclick='huifu(this)'>回复</a>"  +   "</div>"     +
+                    "<div class='comm_content'>"+ row.content +"</div>" +
+                    "</div>";
+                //无法换行，太长了
+                //var temp = "<div><div>{nickname}</div><div class='content'>{content}</div></div>".Format({nickname:row.user__nickname,content:row.content});
                 comment_str += temp;
                 if(row.child.length>0){
-                    comment_str += commentTree(row.child);
+                    comment_str += commentTree(row.child,1);
                 }
             });
             comment_str += '</div>';
@@ -139,6 +154,13 @@
                 }
             })
         }
+
+        function huifu(ths) {
+            //回复评论
+            var reply_id = $(ths).attr('reply_id');
+
+            $("#hidden_reply_id").attr('value',reply_id);
+            $("#comment_area").focus()
+        }
     </script>
-</body>
-</html>
+{% endblock %}

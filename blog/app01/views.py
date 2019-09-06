@@ -149,16 +149,25 @@ def home(request,site):
     if not blog:
         return redirect('/')
 
+    fans = models.UserFans.objects.filter(user=blog.user).count()
+    follows = models.UserFans.objects.filter(follower=blog.user).count()
+
     # 分类
     category_list = models.Article.objects.filter(blog=blog).values('category_id','category__title').annotate(ct=Count('nid'))
+
     # 标签
     tag_list = models.Article2Tag.objects.filter(article__blog=blog).values('tag_id','tag__title').annotate(ct=Count('id'))
 
     # 时间
     date_list = models.Article.objects.filter(blog=blog).extra(select={'ctime':"strftime('%%Y-%%m',create_time)"}).values('ctime').annotate(ct=Count('nid'))
 
-    article_list = models.Article.objects.all()
+    article_list = models.Article.objects.filter(blog=blog).extra(select={'create_time_format':"strftime('%%Y-%%m-%%d %%M:%%S',create_time)"})
 
+    # 分页
+    all_count = article_list.count()
+    # print(request.GET.get('page'))
+    page_info = PageInfo(request.GET.get('page'), all_count, 5, request.path_info, 11)
+    article_list_page = article_list[page_info.start():page_info.end()]
     return render(
         request,
         'home.html',
@@ -167,7 +176,10 @@ def home(request,site):
             'category_list':category_list,
             'tag_list':tag_list,
             'date_list':date_list,
-            'article_list':article_list,
+            'article_list_page':article_list_page,
+            'page_info':page_info,
+            'fans':fans,
+            'follows':follows,
         }
     )
 
@@ -184,6 +196,9 @@ def filter(request,site,key,val):
     blog = models.Blog.objects.filter(site=site).first()
     if not blog:
         return redirect('/')
+
+    fans = models.UserFans.objects.filter(user=blog.user).count()
+    follows = models.UserFans.objects.filter(follower=blog.user).count()
 
     # 分类
     category_list = models.Article.objects.filter(blog=blog).values('category_id', 'category__title').annotate(
@@ -202,14 +217,21 @@ def filter(request,site,key,val):
     if key == 'category':
         if  not eval(val):
             # print(val)
-            article_list = models.Article.objects.filter(blog=blog, category_id=None)
+            article_list = models.Article.objects.filter(blog=blog, category_id=None).extra(select={'create_time_format':"strftime('%%Y-%%m-%%d %%M:%%S',create_time)"})
         else:
-            article_list = models.Article.objects.filter(blog=blog, category_id=val)
+            article_list = models.Article.objects.filter(blog=blog, category_id=val).extra(select={'create_time_format':"strftime('%%Y-%%m-%%d %%M:%%S',create_time)"})
     elif key == 'tag':
-        article_list = models.Article.objects.filter(blog=blog,article2tag__tag=val)
+        article_list = models.Article.objects.filter(blog=blog,article2tag__tag=val).extra(select={'create_time_format':"strftime('%%Y-%%m-%%d %%M:%%S',create_time)"})
     else:
-        article_list = models.Article.objects.filter(blog=blog).extra(where=["strftime('%%Y-%%m',create_time)=%s"]
+        article_list = models.Article.objects.filter(blog=blog).extra(select={'create_time_format':"strftime('%%Y-%%m-%%d %%M:%%S',create_time)"},where=["strftime('%%Y-%%m',create_time)=%s"]
                                                                       ,params=[val,])
+
+        # 分页
+    all_count = article_list.count()
+    # print(request.GET.get('page'))
+    page_info = PageInfo(request.GET.get('page'), all_count, 5, request.path_info, 11)
+    article_list_page = article_list[page_info.start():page_info.end()]
+
     return render(
         request,
         'filter.html',
@@ -218,16 +240,34 @@ def filter(request,site,key,val):
             'category_list': category_list,
             'tag_list': tag_list,
             'date_list': date_list,
-            'article_list': article_list,
+            'article_list_page': article_list_page,
+            'page_info':page_info,
+            'fans':fans,
+            'follows':follows,
         }
     )
 
 
 def article(request,site,nid):
+    """
+    文章显示
+    :param request:
+    :param site:
+    :param nid:
+    :return:
+    """
+    username = request.session.get('username')
+    if not username:
+        session_stat = 0
+    else:
+        session_stat = 1
+
     blog = models.Blog.objects.filter(site=site).first()
     if not blog:
         return redirect('/')
 
+    fans = models.UserFans.objects.filter(user=blog.user).count()
+    follows = models.UserFans.objects.filter(follower=blog.user).count()
     # 分类
     category_list = models.Article.objects.filter(blog=blog).values('category_id', 'category__title').annotate(
         ct=Count('nid'))
@@ -239,6 +279,7 @@ def article(request,site,nid):
     # 时间
     date_list = models.Article.objects.filter(blog=blog).extra(
         select={'ctime': "strftime('%%Y-%%m',create_time)"}).values('ctime').annotate(ct=Count('nid'))
+
 
     obj = models.Article.objects.filter(blog=blog,nid=nid).first()
 
@@ -281,10 +322,14 @@ def article(request,site,nid):
             'tag_list': tag_list,
             'date_list': date_list,
             'obj':obj,
-            "comment_str":comment_str
+            "comment_str":comment_str,
+            'fans':fans,
+            'follows':follows,
+            'session_stat':session_stat,
         }
     )
 
+from django.db.models import functions
 def comments(request,nid):
     """
     前端处理多级评论，将层级结构传递给前端
@@ -292,41 +337,72 @@ def comments(request,nid):
     :param nid:
     :return:
     """
-    response = {'status':True,'data':None,'msg':None}
-    try:
-        # msg_list = [
-        #     {'id':1,'content':'写的太好了','parent_id':None},
-        #     {'id':2,'content':'你说得对','parent_id':None},
-        #     {'id':3,'content':'顶楼上','parent_id':None},
-        #     {'id':4,'content':'你眼瞎吗','parent_id':1},
-        #     {'id':5,'content':'我看是','parent_id':4},
-        #     {'id':6,'content':'鸡毛','parent_id':2},
-        #     {'id':7,'content':'你是没呀','parent_id':5},
-        #     {'id':8,'content':'惺惺惜惺惺想寻','parent_id':3},
-        # ]
-
-        # 修改列名 以符合上面的格式
-        msg_list_queryset = models.Comment.objects.filter(article_id=nid).extra(select={'parent_id':'reply_id','id':'nid'}).values('id','content','parent_id')
-        msg_list = list(msg_list_queryset)
-        # print(msg_list)
+    if request.method == "GET":
+        nickname = request.session.get('nickname')
+        response = {'status':True,'data':None,'msg':None}
+        try:
+            # msg_list = [
+            #     {'id':1,'content':'写的太好了','parent_id':None},
+            #     {'id':2,'content':'你说得对','parent_id':None},
+            #     {'id':3,'content':'顶楼上','parent_id':None},
+            #     {'id':4,'content':'你眼瞎吗','parent_id':1},
+            #     {'id':5,'content':'我看是','parent_id':4},
+            #     {'id':6,'content':'鸡毛','parent_id':2},
+            #     {'id':7,'content':'你是没呀','parent_id':5},
+            #     {'id':8,'content':'惺惺惜惺惺想寻','parent_id':3},
+            # ]
 
 
-        msg_list_dict = {}
-        for item in msg_list:
-            item['child'] = []
-            msg_list_dict[item['id']] = item
-        result = []
-        for item in msg_list:
-            pid = item['parent_id']
-            if pid:
-                msg_list_dict[pid]['child'].append(item)
-            else:
-                result.append(item)
-        response['data'] = result
-    except Exception as e:
-        response['status'] = False
-        response['msg'] = str(e)
-    return HttpResponse(json.dumps(response))
+            # 修改列名 以符合上面的格式
+            # msg_list_queryset = models.Comment.objects.filter(article_id=nid).extra(select={'parent_id':'reply_id','id':'nid'}).values('id','content','parent_id')
+            msg_list_queryset = models.Comment.objects.filter(article_id=nid).extra(
+                select={'parent_id':'reply_id','ctime': "strftime('%%Y-%%m-%%d %%H:%%M',app01_comment.create_time)"}
+                                 ).values('nid','content','parent_id','ctime','user__nickname')
+
+            msg_list = list(msg_list_queryset)
+            # print(msg_list)
+
+
+            msg_list_dict = {}
+            for item in msg_list:
+                item['child'] = []
+                msg_list_dict[item['nid']] = item
+            result = []
+            for item in msg_list:
+                pid = item['parent_id']
+                if pid:
+                    msg_list_dict[pid]['child'].append(item)
+                else:
+                    result.append(item)
+            response['data'] = result
+            # print(response['data'])
+        except Exception as e:
+            response['status'] = False
+            response['msg'] = str(e)
+        return HttpResponse(json.dumps(response))
+    else:
+        content = request.POST.get('content')
+        reply_id = request.POST.get('reply_id')
+        user_id = request.session.get('user_id')
+        blog_id = request.session.get('blog_id')
+        blog = models.Blog.objects.filter(nid=blog_id).first()
+        # print(content)
+        # print(reply_id)
+
+        if not user_id:
+            # return render(request,)
+            pass
+        if reply_id:
+            try:
+                models.Comment.objects.create(content=content, article_id=nid, user_id=user_id,reply_id=reply_id)
+            except Exception as e:
+                print(str(e))
+        else:
+            try:
+                models.Comment.objects.create(content=content,article_id=nid,user_id=user_id)
+            except Exception as e:
+                print(str(e))
+        return redirect('/%s/%s.html' % (blog.site,nid))
 
 
 def up(request):
@@ -511,9 +587,11 @@ def edit_article(request,nid):
 
                 try:
                     for tag in tags_id:
+                        # print(tag)
                         if not models.Article2Tag.objects.filter(article_id=nid, tag_id=tag).filter():
                             models.Article2Tag.objects.create(article_id=nid, tag_id=tag)
-                    models.Article2Tag.objects.exclude(article_id=nid, tag_id__in=tags_id).delete()
+                    # print(models.Article2Tag.objects.filter(article_id=nid).exclude(tag_id__in=tags_id).query)
+                    models.Article2Tag.objects.filter(article_id=nid).exclude(tag_id__in=tags_id).delete()
                 except IntegrityError as e:
                     print(str(e))
 
@@ -727,3 +805,9 @@ def userinfo(request):
 
 def back(request):
     return redirect('/back/shaixuan-0-0-0.html')
+
+def cal_read_counts(request):
+    """计算阅读数"""
+    nid = request.POST.get('nid')
+    models.Article.objects.filter(nid=nid).update(read_count=F("read_count")+1)
+    return HttpResponse('OK')
