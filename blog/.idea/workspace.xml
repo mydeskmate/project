@@ -1,40 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="45d5b06a-9915-4a33-9f9f-0d6c857f46a3" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/app01/templatetags/mytags.py" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/images/icon1.jpg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/templates/back/article_tijiao.html" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/templates/back/category.html" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/templates/back/edit_article.html" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/templates/back/edit_category.html" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/templates/back/edit_tag.html" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/templates/back/layout.html" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/templates/back/shaixuan.html" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/templates/back/tag.html" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/templates/back/userinfo.html" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/templates/home_layout.html" />
-      <change beforePath="$PROJECT_DIR$/app01/forms.py" afterPath="$PROJECT_DIR$/app01/forms.py" />
-      <change beforePath="$PROJECT_DIR$/app01/migrations/0001_initial.py" afterPath="$PROJECT_DIR$/app01/migrations/0001_initial.py" />
-      <change beforePath="$PROJECT_DIR$/app01/models.py" afterPath="$PROJECT_DIR$/app01/models.py" />
-      <change beforePath="$PROJECT_DIR$/app01/views.py" afterPath="$PROJECT_DIR$/app01/views.py" />
-      <change beforePath="$PROJECT_DIR$/app02/migrations/0001_initial.py" afterPath="$PROJECT_DIR$/app02/migrations/0001_initial.py" />
-      <change beforePath="$PROJECT_DIR$/app02/models.py" afterPath="$PROJECT_DIR$/app02/models.py" />
-      <change beforePath="$PROJECT_DIR$/blog/settings.py" afterPath="$PROJECT_DIR$/blog/settings.py" />
-      <change beforePath="$PROJECT_DIR$/blog/urls.py" afterPath="$PROJECT_DIR$/blog/urls.py" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
-      <change beforePath="$PROJECT_DIR$/rbac/models.py" afterPath="$PROJECT_DIR$/rbac/models.py" />
-      <change beforePath="$PROJECT_DIR$/readme" afterPath="$PROJECT_DIR$/readme" />
-      <change beforePath="$PROJECT_DIR$/static/css/common.css" afterPath="$PROJECT_DIR$/static/css/common.css" />
-      <change beforePath="$PROJECT_DIR$/static/images/head.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/templates/article.html" afterPath="$PROJECT_DIR$/templates/article.html" />
-      <change beforePath="$PROJECT_DIR$/templates/article_tijiao.html" afterPath="$PROJECT_DIR$/templates/article_tijiao_bak.html" />
-      <change beforePath="$PROJECT_DIR$/templates/filter.html" afterPath="$PROJECT_DIR$/templates/filter.html" />
-      <change beforePath="$PROJECT_DIR$/templates/home.html" afterPath="$PROJECT_DIR$/templates/home.html" />
-      <change beforePath="$PROJECT_DIR$/templates/index.html" afterPath="$PROJECT_DIR$/templates/index.html" />
-      <change beforePath="$PROJECT_DIR$/templates/shaixuan.html" afterPath="$PROJECT_DIR$/templates/shaixuan_bak.html" />
-      <change beforePath="$PROJECT_DIR$/utils/xss.py" afterPath="$PROJECT_DIR$/utils/xss.py" />
-    </list>
+    <list default="true" id="45d5b06a-9915-4a33-9f9f-0d6c857f46a3" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -81,8 +48,8 @@
       <file leaf-file-name="readme" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/readme">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="95">
-              <caret line="27" column="0" lean-forward="false" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+            <state relative-caret-position="570">
+              <caret line="61" column="0" lean-forward="true" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -181,6 +148,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
@@ -198,7 +166,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -732,8 +699,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/readme">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="27" column="0" lean-forward="false" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+        <state relative-caret-position="570">
+          <caret line="61" column="0" lean-forward="true" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
           <folding />
         </state>
       </provider>
