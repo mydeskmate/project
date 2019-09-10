@@ -14,8 +14,6 @@ class Disk(object):
         return cls()
 
     def process(self, command_func, debug):
-        return "111111111111111111"
-
         if debug:
             output = open(os.path.join(settings.BASEDIR, 'files/disk.out'), 'r', encoding='utf-8').read()
         else:

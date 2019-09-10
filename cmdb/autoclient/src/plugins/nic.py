@@ -14,7 +14,6 @@ class Nic(object):
         return cls()
 
     def process(self, command_func, debug):
-        return '666666666666'
         if debug:
             output = open(os.path.join(settings.BASEDIR, 'files/nic.out'), 'r', encoding='utf-8').read()
             interfaces_info = self._interfaces_ip(output)

@@ -1,8 +1,5 @@
 import importlib
-import os
-import sys
-BASEDIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.append(BASEDIR)
+import traceback
 
 from lib.conf.config import settings
 
@@ -17,7 +14,7 @@ class PluginManager(object):
             self.ssh_user = settings.SSH_USER
             self.ssh_port = settings.SSH_PORT
             self.ssh_pwd = settings.SSH_PWD
-
+            self.ssh_key = settings.SSH_KEY
 
     def exec_plugin(self):
         """
@@ -26,15 +23,21 @@ class PluginManager(object):
         """
         response = {}
         for k,v in self.plugin_dict.items():
-            module_path,class_name = v.rsplit('.',1)
-            m = importlib.import_module(module_path)
-            cls = getattr(m,class_name)
-            if hasattr(cls,'initial'):
-                obj = cls.initial()
-            else:
-                obj = cls()
-            result = obj.process(self.command,self.debug)
-            response[k] = result
+            ret = {'status':True,'data':None}
+            try:
+                module_path,class_name = v.rsplit('.',1)
+                m = importlib.import_module(module_path)
+                cls = getattr(m,class_name)
+                if hasattr(cls,'initial'):
+                    obj = cls.initial()
+                else:
+                    obj = cls()
+                result = obj.process(self.command,self.debug)
+                ret['data'] = result
+            except Exception as e:
+                ret['status'] = False
+                ret['data'] = "[%s][%s]采集数据出现错误：%s" % (self.hostname if self.hostname else "AGENT",k,traceback.format_exc())
+            response[k] = ret
         return response
 
     def command(self,cmd):

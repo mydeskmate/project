@@ -1,7 +1,9 @@
 """
 用户自定义配置文件
 """
+import os
 
+BASEDIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 USER = 'root'
 PWD = '123456'
@@ -23,3 +25,8 @@ PLUGINS_DICT = {
     'memory': "src.plugins.memory.Memory",
     'nic': "src.plugins.nic.Nic",
 }
+
+
+API = "http://127.0.0.1:8000/api/asset.html"
+
+CERT_PATH = os.path.join(BASEDIR,'config','cert')

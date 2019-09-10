@@ -14,7 +14,6 @@ class Memory(object):
         return cls()
 
     def process(self, command_func, debug):
-        return '555555555555'
         if debug:
             output = open(os.path.join(settings.BASEDIR, 'files/memory.out'), 'r', encoding='utf-8').read()
 

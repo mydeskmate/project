@@ -12,7 +12,6 @@ class Cpu(object):
         return cls()
 
     def process(self, command_func, debug):
-        return "4444444444444"
         if debug:
             output = open(os.path.join(settings.BASEDIR, 'files/cpuinfo.out'), 'r', encoding='utf-8').read()
         else:
