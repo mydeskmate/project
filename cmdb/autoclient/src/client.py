@@ -14,7 +14,8 @@ class Base(object):
         :param server_info:
         :return:
         """
-        requests.post(settings.API,json=server_info)
+        r = requests.post(settings.API,json=server_info)
+        print(r.text)
 
 class Agent(Base):
     """
