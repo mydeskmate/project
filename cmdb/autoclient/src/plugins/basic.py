@@ -16,7 +16,7 @@ class Basic(object):
             output = {
                 'os_platform': "linux",
                 'os_version': "CentOS release 6.6 (Final)\nKernel \r on an \m",
-                'hostname': 'c1.com'
+                'hostname': 'c2.com'
             }
         else:
             output = {
