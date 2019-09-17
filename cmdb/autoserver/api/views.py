@@ -1,24 +1,77 @@
 import json
+import hashlib
+import time
 from django.shortcuts import render,HttpResponse
 from repository import models
 from django.conf import settings
 
+#api key列表，过期删除
+api_key_record = {
+# "1b96b89695f52ec9de8292a5a7945e38|1501472467.4977243":1501472477.4977243
+}
+
+def decrypt(msg):
+    from Crypto.Cipher import AES
+    key = b'dfdsdfsasdfdsdfs'
+    cipher = AES.new(key, AES.MODE_CBC, key)
+    result = cipher.decrypt(msg) # result = b'\xe8\xa6\x81\xe5\x8a\xa0\xe5\xaf\x86\xe5\x8a\xa0\xe5\xaf\x86\xe5\x8a\xa0sdfsd\t\t\t\t\t\t\t\t\t'
+    data = result[0:-result[-1]]
+    return str(data,encoding='utf-8')
+
 # Create your views here.
 def asset(request):
-    for k,v in request.META.items():
-        print(k,v)
-    key = request.META.get('HTTP_OPENKEY')
-    if key != settings.AUTH_KEY:
-        return HttpResponse('认证失败....')
+    # for k,v in request.META.items():
+    #     print(k,v)
+    client_md5_time_key = request.META.get('HTTP_OPENKEY')
+    client_md5_key,client_time = client_md5_time_key.split('|')
+    client_time = float(client_time)
+    server_time = time.time()
+
+    # 第一关
+    if server_time - client_time > 10:
+        return HttpResponse('[第一关] 时间太长了，骗谁呢？')
+    # 第二关
+    temp = "%s|%s" %(settings.AUTH_KEY,client_time)
+    m = hashlib.md5()
+    m.update(bytes(temp,encoding='utf-8'))
+    server_md5_key = m.hexdigest()
+    if server_md5_key != client_md5_key:
+        return HttpResponse('[第二关] key变了，你改内容了吧，哈哈')
+    # 删除过期的key
+    for k in list(api_key_record.keys()):
+        v = api_key_record[k]
+        if server_time > v:
+            del api_key_record[k]
+
+
+    # 第三关  key已经被用过
+    if client_md5_time_key in api_key_record:
+        return HttpResponse('[第三关] 有人已经用过这个key了，不能重复使用，嘻嘻')
+    else:
+        api_key_record[client_md5_time_key] = client_time + 10
+
+
+    # 静态令牌
+    # key = request.META.get('HTTP_OPENKEY')
+    # if key != settings.AUTH_KEY:
+    #     return HttpResponse('认证失败....')
+    # 动态令牌
+    # if server_md5_key != client_md5_key:
+    #     return HttpResponse('认证失败...')
 
     if request.method == "GET":
         return HttpResponse('重要数据，没有权限不能查看')
     if request.method == "POST":
         # print(request.POST)
         # print(request.body)
+        # return HttpResponse('Post收到了')
 
+        server_info = decrypt(request.body)
+        server_info = json.loads(server_info)
+        # print(server_info)
+        # return HttpResponse('Post收到了')
         # 新资产信息
-        server_info = json.loads(request.body.decode('utf-8'))
+        # server_info = json.loads(request.body.decode('utf-8'))
         hostname = server_info['basic']['data']['hostname']
 
         # for k,v in server_info.items():
