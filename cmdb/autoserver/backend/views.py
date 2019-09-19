@@ -9,16 +9,45 @@ def curd(requests):
 def curd_json(requests):
     # 自定义表格数据配置
     table_config = [
-        {'q':'id','title':'ID'},
-        {'q':'hostname','title':'主机名'},
-        {'q': 'create_at', 'title': '创建时间'},
-        {'q': 'asset__cabinet_num', 'title': '机柜号'},
-        {'q': 'asset__business_unit__name', 'title': '业务线名称'},
+        {
+            'q':'id',
+            'title':'ID',
+            'display':False,
+            'text':
+                {
+                    'tpl':"n1",
+                    'kwargs':{'n1':'@id'}
+                }
+        },
+        {
+            'q':'hostname',
+            'title':'主机名',
+            'display':True,
+            'text':
+                {
+                    'tpl':"{n1}-{n2}",
+                    'kwargs':{'n1':'@hostname','n2':'@id'}
+                }
+        },
+        {
+            'q':None,
+            'title':'操作',
+            'display':True,
+            'text':
+                {
+                    'tpl':"<a href='/del?nid={nid}'>删除</a>",
+                    'kwargs':{'nid':'@id'}
+                }
+        },
     ]
 
     # 获取表字段，和数据库中字段保持一致,可以跨表
+    # 普通值：原值存放即可
+    # @值  ： 根据id，根据获取当前行对应数据
     values_list = []
     for row in table_config:
+        if not row['q']:
+            continue
         values_list.append(row['q'])
 
     from datetime import datetime
