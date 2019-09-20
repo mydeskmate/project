@@ -22,4 +22,6 @@ urlpatterns = [
     url(r'^curd.html$',views.curd),
     url(r'^curd_json.html$',views.curd_json),          # 通过ajax动态获取后端数据
 
+    url(r'^asset.html$', views.asset),
+    url(r'^asset_json.html$', views.asset_json),
 ]

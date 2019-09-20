@@ -4,7 +4,7 @@
 
 // 自执行函数
 (function (jq) {
-
+    //全局字典，存放choicesz文本数据
     var GLOBAL_DICT = {};
     /*
     {
@@ -89,6 +89,7 @@
          {'id': 1, 'hostname':c2.com, create_at: xxxx-xx-xx-},
          ]
          */
+        console.log('11111')
         $.each(serverList, function (k, row) {
             // row: {'id': 1, 'hostname':c2.com, create_at: xxxx-xx-xx-}
             /*
@@ -103,6 +104,7 @@
                 // kk: 1  rrow:{'q':'id','title':'ID'},         // rrow.q = "id"
                 // kk: .  rrow:{'q':'hostname','title':'主机名'},// rrow.q = "hostname"
                 // kk: .  rrow:{'q':'create_at','title':'创建时间'}, // rrow.q = "create_at"
+
                 if (rrow.display) {
                     var td = document.createElement('td');
                     /*
@@ -115,6 +117,7 @@
                     // rrow['text']
                     // rrow.text.tpl = "asdf{n1}sdf"
                     // rrow.text.kwargs = {'n1':'@id','n2':'@@123'}
+                     /* 在td标签中添加内容 */
                     var newKwargs = {}; // {'n1':'1','n2':'123'}           //存放处理特殊字符，进行数据库操作后的新字典
                     $.each(rrow.text.kwargs, function (kkk, vvv) {
                         var av = vvv;
@@ -135,6 +138,18 @@
                     });
                     var newText = rrow.text.tpl.format(newKwargs);
                     td.innerHTML = newText;
+
+                     /* 在td标签中添加属性 */
+                    $.each(rrow.attrs,function(atkey,atval){
+                        // 如果@
+                        if (atval[0] == '@') {
+                            td.setAttribute(atkey, row[atval.substring(1, atval.length)]);
+                        }else{
+                            td.setAttribute(atkey,atval);
+                        }
+                    });
+
+
                     $(tr).append(td);
                 }
             });
@@ -146,6 +161,7 @@
     //定义新函数xx
     jq.extend({
         xx: function (url) {
+            console.log(11111)
             initial(url);
         }
     })

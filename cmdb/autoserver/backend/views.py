@@ -1,6 +1,20 @@
 import json
 from django.shortcuts import render,HttpResponse
 from repository import models
+from datetime import datetime
+from datetime import date
+
+
+# json 扩展; 支持时间序列化
+class JsonCustomEncoder(json.JSONEncoder):
+
+    def default(self, value):
+        if isinstance(value, datetime):
+            return value.strftime('%Y-%m-%d %H:%M:%S')
+        elif isinstance(value, date):
+            return value.strftime('%Y-%m-%d')
+        else:
+            return json.JSONEncoder.default(self, value)
 
 # Create your views here.
 def curd(requests):
@@ -17,7 +31,8 @@ def curd_json(requests):
                 {
                     'tpl':"n1",
                     'kwargs':{'n1':'@id'}
-                }
+                },
+            'attrs':{'k1':'v1','k2':'@hostname'}
         },
         {
             'q':'hostname',
@@ -27,7 +42,8 @@ def curd_json(requests):
                 {
                     'tpl':"{n1}-{n2}",
                     'kwargs':{'n1':'@hostname','n2':'@id'}
-                }
+                },
+            'attrs':{'k1':'v1','k2':'@hostname'}
         },
         {
             'q':None,
@@ -37,6 +53,94 @@ def curd_json(requests):
                 {
                     'tpl':"<a href='/del?nid={nid}'>删除</a>",
                     'kwargs':{'nid':'@id'}
+                },
+            'attrs':{'k1':'v11111','k2':'@hostname'}
+        },
+    ]
+
+    # 获取表字段，和数据库中字段保持一致,可以跨表
+    # 普通值：原值存放即可
+    # @值  ： 根据id，根据获取当前行对应数据
+    values_list = []
+    for row in table_config:
+        if not row['q']:
+            continue
+        values_list.append(row['q'])
+
+    server_list = models.Server.objects.values(*values_list)
+    ret = {
+        'server_list':list(server_list),
+        'table_config':table_config
+    }
+
+    data = json.dumps(ret,cls=JsonCustomEncoder)               # 自定义json 序列化类
+    return HttpResponse(data)
+
+
+def asset(requests):
+    return render(requests,'asset.html')
+
+def asset_json(requests):
+    # 自定义表格数据配置
+    table_config = [
+        {
+            'q': 'id',
+            'title': 'ID',
+            'display': False,
+            'text':
+                {
+                    'tpl': "n1",
+                    'kwargs': {'n1': '@id'}
+                }
+        },
+        {
+            'q': 'device_type_id',
+            'title': '资产类型',
+            'display': True,
+            'text':
+                {
+                    'tpl': "{n1}",
+                    'kwargs': {'n1': '@@device_type_choices'}
+                }
+        },
+        {
+            'q': 'device_status_id',
+            'title': '状态',
+            'display': True,
+            'text':
+                {
+                    'tpl': "{n1}",
+                    'kwargs': {'n1': '@@device_status_choices'}
+                }
+        },
+        {
+            'q': 'cabinet_num',
+            'title': '机柜号',
+            'display': True,
+            'text':
+                {
+                    'tpl': "{n1}",
+                    'kwargs': {'n1': '@cabinet_num'}
+                }
+        },
+        {
+            'q': 'idc__name',
+            'title': '机房',
+            'display': True,
+            'text':
+                {
+                    'tpl': "{n1}",
+                    'kwargs': {'n1': '@idc__name'}
+                }
+        },
+        {
+            'q': None,
+            'title': '操作',
+            'display': True,
+            'text':
+                {
+                    'tpl': "<a href='/del?nid={nid}'>删除</a>",
+                    'kwargs': {'nid': '@id'}
                 }
         },
     ]
@@ -50,23 +154,14 @@ def curd_json(requests):
             continue
         values_list.append(row['q'])
 
-    from datetime import datetime
-    from datetime import date
-    # json 扩展; 支持时间序列化
-    class JsonCustomEncoder(json.JSONEncoder):
-
-        def default(self, value):
-            if isinstance(value, datetime):
-                return value.strftime('%Y-%m-%d %H:%M:%S')
-            elif isinstance(value, date):
-                return value.strftime('%Y-%m-%d')
-            else:
-                return json.JSONEncoder.default(self, value)
-
-    server_list = models.Server.objects.values(*values_list)
+    server_list = models.Asset.objects.values(*values_list)
     ret = {
-        'server_list':list(server_list),
-        'table_config':table_config
+        'server_list': list(server_list),
+        'table_config': table_config,
+        'global_dict':{
+            'device_type_choices':models.Asset.device_type_choices,
+            'device_status_choices':models.Asset.device_status_choices
+        }
     }
-    data = json.dumps(ret,cls=JsonCustomEncoder)               # 自定义json 序列化类
+    data = json.dumps(ret, cls=JsonCustomEncoder)  # 自定义json 序列化类
     return HttpResponse(data)
