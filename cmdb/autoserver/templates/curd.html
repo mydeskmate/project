@@ -2,27 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title></title>
     <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.css" />
 </head>
 <body>
-     <div style="width: 700px;margin: 0 auto">
-         <h1>服务器列表</h1>
-        <table class="table table-bordered table-striped">
-            <thead id="tbHead">
-            <tr>
 
-            </tr>
-            </thead>
-            <tbody id="tbBody">
-            </tbody>
-        </table>
-     </div>
+
+    <div style="width: 700px;margin: 0 auto">
+        <h1>服务器列表</h1>
+
+        {% include 'table-search.html' %}
+        {% include 'table-tpl.html' %}
+
+
+    </div>
 
     <script src="/static/jquery-1.12.4.js"></script>
-     <script src="/static/customize-table.js"></script>
-     <script>
-         $.xx('/backend/curd_json.html');
-     </script>
+    <script src="/static/bootstrap/js/bootstrap.js"></script>
+    <script src="/static/customize-table.js"></script>
+    <script>
+        $.xx('/backend/curd_json.html');
+    </script>
 </body>
 </html>
