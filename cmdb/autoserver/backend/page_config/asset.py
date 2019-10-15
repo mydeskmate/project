@@ -82,7 +82,7 @@ table_config = [
 ]
 
 search_config =  [
-    #{'name': 'cabinet_num', 'text': '机柜号', 'search_type': 'input'},
+    {'name': 'cabinet_num', 'text': '机柜号', 'search_type': 'input'},
     {'name': 'device_type_id', 'text': '资产类型', 'search_type': 'select', 'global_name': 'device_type_choices'},
     {'name': 'device_status_id', 'text': '资产状态', 'search_type': 'select', 'global_name': 'device_status_choices'},
 ]
