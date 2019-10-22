@@ -27,6 +27,7 @@ def get_data_list(request,model_cls,table_config):
 
     condition = request.GET.get('condition')
     condition_dict = json.loads(condition)
+    print(condition_dict)
 
     con = Q()
     for name,values in condition_dict.items():
@@ -136,3 +137,16 @@ def idc_json(request):
 
         }
         return HttpResponse(json.dumps(ret, cls=JsonCustomEncoder))
+
+
+
+def chart(request):
+    return render(request,'chart.html')
+
+
+
+
+
+
+
+

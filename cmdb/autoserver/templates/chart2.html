@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <div id="i1"></div>
+
+    <script src="/static/jquery-1.12.4.js"></script>
+    <script src="/static/Highcharts-5.0.12/code/highcharts.js"></script>
+    <script>
+        // jQuery == $
+         Highcharts.setOptions({
+            global: {
+                useUTC: false
+            }
+        });
+
+        var chart = new Highcharts.Chart('i1',{
+            title: {
+                text: '大标题',
+                x: 0
+            },
+            subtitle: {
+                text: '数据来源: WorldClimate.com',
+                x: 0
+            },
+            chart: {
+                    events: {
+                        load: function (e) {
+                            // 图标加载时，执行的函数
+                        }
+                    }
+            },
+            credits: {
+                enable: true,
+                position: {
+                    align: 'right',
+                    verticalAlign: 'bottom'
+                },
+                text: '老男孩',
+                href: 'http://www.oldboyedu.com'
+            },
+
+            xAxis: {
+                // 适用于固定x轴
+                categories: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月']
+            },
+            yAxis: {
+                title: {
+                    text: '数值'
+                }
+            },
+            tooltip: {
+                pointFormatter: function (e) {
+                    var tpl = '<span style="color:' + this.series.color + '">哦哦哦哦哦小</span> ' + this.series.name + ': <b>' + this.y + '个</b><br/>';
+                    return tpl;
+                },
+                useHTML: true
+            },
+            plotOptions: {
+                    series: {
+                        cursor: 'pointer',
+                        events: {
+                            click: function (event) {
+                                // 点击某个指定点时，执行的事件
+                                console.log(this.name, event.point.x, event.point.y);
+                            }
+                        }
+                    }
+                },
+            series: [{
+                    name: '东京',
+                    data: [7.0, 6.9, 5, 14.5, 10.2, 21.5, 25.2, 26.5, 2.3, 18.3, 13.9, 19.6]
+                },
+                {
+                    name: '洛杉矶',
+                    data: [7.0, 6.9, 15, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
+                },
+                {
+                    name: '南京',
+                    data: [17.0, 62.9, 15, 4.5, 8.2, 1.5, 25.2, 2.5, 13.3, 8.3, 13.9, 9.6]
+                }
+            ]
+        });
+
+        // chart.addSeries({name:'北京',data: [216.4, 194.1, 95.6, 54.4, 29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5]});
+
+        // 参数：数值；是否重绘; isShift; 是否动画
+        // chart.series[0].addPoint(18);
+    </script>
+</body>
+</html>

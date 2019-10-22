@@ -34,11 +34,14 @@
             /* 获取所有搜索条件 */
             var name = $(this).attr('name');
             var value = $(this).val();
-            if(condition[name]){
+            if (value.trim()){
+                if(condition[name]){
                 condition[name].push(value);
-            }else{
-                condition[name] = [value];
+                }else{
+                    condition[name] = [value];
+                }
             }
+
 
         });
         return condition;

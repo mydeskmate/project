@@ -25,4 +25,6 @@ urlpatterns = [
 
     url(r'^idc.html$', views.idc),
     url(r'^idc_json.html$', views.idc_json),
+
+    url(r'^chart.html$', views.chart),
 ]

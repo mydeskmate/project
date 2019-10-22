@@ -2,9 +2,9 @@ import json
 import hashlib
 import time
 from django.shortcuts import render,HttpResponse
+from django.http import JsonResponse
 from repository import models
 from django.conf import settings
-
 #api key列表，过期删除
 api_key_record = {
 # "1b96b89695f52ec9de8292a5a7945e38|1501472467.4977243":1501472477.4977243
@@ -142,3 +142,27 @@ def asset(request):
             print(k,v)
         # 写入到数据
     return HttpResponse('...')
+
+
+def servers(request):
+    if request.method == 'GET':
+        v = models.Server.objects.values('id','hostname')
+        server_list = list(v)
+        # 加上safe才能返回对象类型
+        return JsonResponse(server_list,safe=False)
+    elif request.method == 'POST':
+        # request.POST.get('...')
+        # models.Server.objects.create(。。。。、)
+        return JsonResponse(status=201)
+
+
+def servers_detail(request,nid):
+    if request.method == 'GET':
+        obj = models.Server.objects.filter(id=nid).first()
+        return HttpResponse('...')
+    elif request.method == "DELETE":
+        models.Server.objects.filter(id=nid).delete()
+        return HttpResponse()
+    elif request.method == 'PUT':
+        request.body
+        models.Server.objects.filter(id=nid).update()

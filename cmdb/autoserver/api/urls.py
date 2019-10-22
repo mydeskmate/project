@@ -20,4 +20,9 @@ from api import views
 
 urlpatterns = [
     url(r'^asset.html$', views.asset),
+
+    # 实现restful api
+    url(r'^servers.html$', views.servers),
+    url(r'^servers/(\d+).html$', views.servers_detail),
+
 ]
