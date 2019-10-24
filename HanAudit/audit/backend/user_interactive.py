@@ -1,6 +1,9 @@
 __author__ = 'Administrator'
 import subprocess,random,string
 from django.contrib.auth import authenticate
+from django.conf import settings
+# from audit import models
+from audit.backend import ssh_interactive
 
 
 class UserShell(object):
@@ -59,15 +62,16 @@ class UserShell(object):
                                 if choice2 >=0 and choice2 < len(host_bind_list):
                                     selected_host = host_bind_list[choice2]
                                     print("selected host",selected_host)
-
-                                    cmd = "sshpass -p %s ssh %s@%s -p %s -o StrictHostKeyChecking=no -Z %s" %(selected_host.host_user.password,selected_host.host_user.username,selected_host.host.ip_addr,selected_host.host.port ,random_tag)
+                                    # 调用 ssh_interactive  根据paramiko 修改
+                                    ssh_interactive.ssh_session(selected_host, self.user)
+                                    # cmd = "sshpass -p %s ssh %s@%s -p %s -o StrictHostKeyChecking=no -Z %s" %(selected_host.host_user.password,selected_host.host_user.username,selected_host.host.ip_addr,selected_host.host.port ,random_tag)
                                     # #start strace ,and sleep 1 random_tag, session_obj.id
                                     # session_tracker_script = "/bin/sh %s %s %s " %(settings.SESSION_TRACKER_SCRIPT,random_tag,session_obj.id)
                                     #
                                     # session_tracker_obj =subprocess.Popen(session_tracker_script, shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
                                     #
-                                    print(cmd)
-                                    ssh_channel = subprocess.run(cmd,shell=True)
+                                    # print(cmd)
+                                    # ssh_channel = subprocess.run(cmd,shell=True)
                             elif choice2 == 'b':
                                 break
 

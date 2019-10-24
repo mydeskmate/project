@@ -1,2 +1,5 @@
 workspace.xml
 HanAudit/audit/migrations/
+HanAudit/.idea/
+HanAudit/__pycache__
+HanAudit/log/
