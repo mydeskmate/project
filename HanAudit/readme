@@ -3,3 +3,7 @@ admin  root  1234qwer
 
 
 1. 将shellinabox 地址写入settings  通过login 跳转
+
+
+主机管理:
+    批量命令,定时一直拉取结果  没有终止任务

@@ -86,7 +86,7 @@
                     <h3 class="panel-title">命令</h3>
                 </div>
                 <div class="panel-body">
-                    ddd
+                    <div id="task_result">
                 </div>
             </div>
         </div>
@@ -114,6 +114,27 @@
         return selected_host_count
     }
 
+
+    function GetTaskResult(task_id) {
+        $.getJSON("{% url 'get_task_result' %}",{'task_id':task_id},function(callback){
+
+            console.log(callback)
+
+            var result_ele = ''
+            $.each(callback,function (index,i) {
+                var p_ele = "<p>" + i.host_user_bind__host__hostname + "(" +i.host_user_bind__host__ip_addr +") ------" +
+                    i.status + "</p>"
+                var res_ele = "<pre>" + i.result +"</pre>"
+
+                var single_result = p_ele + res_ele
+                result_ele += single_result
+            })
+            $("#task_result").html(result_ele)
+
+
+        });//end getJSON
+
+    }
 
 
     function  PostTask(task_type) {
@@ -146,6 +167,13 @@
         $.post("{% url 'multitask' %}",{'csrfmiddlewaretoken':"{{ csrf_token }}",'task_data':JSON.stringify(task_data)},
             function(callback){
                     console.log(callback) ;// task id
+                    var callback = JSON.parse(callback)
+
+                    GetTaskResult(callback.task_id)
+                    var result_timer = setInterval(function () {
+                        GetTaskResult(callback.task_id)
+                    },2000)
+
 
             } );//end post
 

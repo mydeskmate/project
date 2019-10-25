@@ -56,7 +56,6 @@ if __name__ == "__main__":
 
     task_obj = models.Task.objects.get(id=task_id)
 
-
     pool = multiprocessing.Pool(processes=10)
 
     if task_obj.task_type == 0:#cmd
