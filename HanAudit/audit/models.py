@@ -46,6 +46,19 @@ class HostUser(models.Model):
     class Meta:
         unique_together = ('username','password')
 
+class Token(models.Model):
+    host_user_bind = models.ForeignKey("HostUserBind",on_delete=models.CASCADE)
+    val = models.CharField(max_length=128,unique=True)
+    account = models.ForeignKey("Account",on_delete=models.CASCADE)
+    expire = models.IntegerField("超时时间(s)",default=300)
+    date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return "%s-%s" %(self.host_user_bind,self.val)
+
+    # class Meta:
+    #     unique_together = ('host_user_bind','val')
+
 
 class HostUserBind(models.Model):
     """绑定主机和用户"""
@@ -91,3 +104,33 @@ class Account(models.Model):
     host_user_binds = models.ManyToManyField("HostUserBind",blank=True)
     host_groups = models.ManyToManyField("HostGroup",blank=True)
 
+
+# 主机管理
+
+class Task(models.Model):
+    """存储任务信息"""
+    task_type_choices = ((0,'cmd'),(1,'file_transfer'))
+    task_type = models.SmallIntegerField(choices=task_type_choices)
+    #host_user_binds = models.ManyToManyField("HostUserBind")
+    content = models.TextField("任务内容")
+    timeout = models.IntegerField("任务超时",default=300)
+    account = models.ForeignKey("Account",on_delete=models.CASCADE)
+    date = models.DateTimeField(auto_now_add=True)
+    # success_num = models.SmallIntegerField()
+    # total_num = models.SmallIntegerField()
+    # failed_num = models.SmallIntegerField()
+
+    def __str__(self):
+        return "%s-%s-%s" %(self.id,self.get_task_type_display(),self.content)
+
+class TaskLog(models.Model):
+    """子任务"""
+    task = models.ForeignKey("Task",on_delete=models.CASCADE)
+    host_user_bind = models.ForeignKey("HostUserBind",on_delete=models.CASCADE)
+    result = models.TextField()
+    date = models.DateTimeField(auto_now_add=True)
+    status_choices = ((0,'成功'),(1,'失败'),(2,'超时'))
+    status = models.SmallIntegerField(choices=status_choices)
+
+    class Meta:
+        unique_together = ('task','host_user_bind')

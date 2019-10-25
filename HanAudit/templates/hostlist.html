@@ -54,21 +54,17 @@
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <thead>
-                            <tr>
+                           <tr>
                                 <th>Hostname</th>
                                 <th>IP</th>
                                 <th>IDC</th>
                                 <th>Port</th>
                                 <th>Username</th>
                                 <th>Login</th>
+                                <th>Token</th>
                             </tr>
                         </thead>
                         <tbody id="hostlist">
-                            <tr>
-                                <td><a href="#fakelink" class="btn-link">Order #53451</a></td>
-                                <td>Scott S. Calabrese</td>
-                                <td>$24.98</td>
-                            </tr>
 
                         </tbody>
                     </table>
@@ -83,6 +79,15 @@
 
 <script>
 
+function  GetToken(self,bind_host_id) {
+
+    $.post("{% url 'get_token' %}", {'bind_host_id':bind_host_id,'csrfmiddlewaretoken':"{{ csrf_token }}"},function(callback){
+        console.log(callback)
+        var data = JSON.parse(callback)
+        $(self).parent().next().text(data.token);
+    });//end post
+}
+
 function GetHostlist(gid,self) {
 
     $.get("{% url 'get_host_list' %}",{'gid':gid},function(callback){
@@ -92,11 +97,13 @@ function GetHostlist(gid,self) {
         var trs = ''
         $.each(data,function (index,i) {
             var tr = "<tr><td>" + i.host__hostname + "</td><td>" + i.host__ip_addr +"</td><td>" + i.host__idc__name
-                    +"</td><td>" + i.host__port  + "</td><td>" + i.host_user__username+ "</td><td>Login</td></tr>";
+                    +"</td><td>" + i.host__port  + "</td><td>" + i.host_user__username+ "</td><td><a class='btn btn-info' onclick=GetToken(this,'"+i.id +"')>Token</a>Login</td><td ></td></tr>";
             trs += tr
 
         })
         $("#hostlist").html(trs);
+
+
 
     });//end get
     $(self).addClass("active").siblings().removeClass('active');

@@ -127,5 +127,9 @@ STATICFILES_DIRS = (
 # 未登录时跳转的登录页  django自带认证
 LOGIN_URL = '/login/'
 
+# 多任务运行脚本  通过系统命令调用,独立运行
+MULTI_TASK_SCRIPT = os.path.join(BASE_DIR,'multitask.py')
+
+
 # 会话检测脚本   修改ssh源代码方式
 SESSION_TRACKER_SCRIPT = os.path.join(BASE_DIR,'audit/backend/session_tracker.sh')

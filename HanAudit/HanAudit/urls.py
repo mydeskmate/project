@@ -23,6 +23,9 @@ urlpatterns = [
     url(r'^logout/$', views.acc_logout),
 
     url(r'^hostlist/$', views.host_list,name="host_list"),
+    url(r'^multitask/$', views.multitask, name="multitask"),   #执行多任务命令
+    url(r'^multitask/cmd/$', views.multi_cmd ,name="multi_cmd"),   # 返回命令页面
 
     url(r'^api/hostlist/$', views.get_host_list ,name="get_host_list"),
+    url(r'^api/token/$', views.get_token, name="get_token"),
 ]
