@@ -1,11 +1,16 @@
 from django.shortcuts import render,redirect,HttpResponse
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
-import json
+from django.views.decorators.csrf import csrf_exempt
+import json,os
 from audit import models
 import random,string
 import datetime
 from audit import task_handler
+from django import conf
+import zipfile
+from wsgiref.util import FileWrapper #from django.core.servers.basehttp import FileWrapper
+
 
 
 # Create your views here.
@@ -82,11 +87,68 @@ def multi_cmd(request):
 
 
 @login_required
+def multi_file_transfer(request):
+    random_str = ''.join(random.sample(string.ascii_lowercase + string.digits, 8))
+    #return render(request,'multi_file_transfer.html',{'random_str':random_str})
+    return render(request,'multi_file_transfer.html',locals())
+
+
+@login_required
+@csrf_exempt
+def task_file_upload(request):
+    random_str = request.GET.get('random_str')
+    upload_to = "%s/%s/%s" %(conf.settings.FILE_UPLOADS,request.user.account.id,random_str)
+    if not os.path.isdir(upload_to):
+        os.makedirs(upload_to,exist_ok=True)
+
+    file_obj = request.FILES.get('file')
+    f = open("%s/%s"%(upload_to,file_obj.name),'wb')
+    for chunk in file_obj.chunks():
+        f.write(chunk)
+    f.close()
+    print(file_obj)
+
+    return HttpResponse(json.dumps({'status':0}))
+
+
+
+
+def send_zipfile(request,task_id,file_path):
+    """
+    Create a ZIP file on disk and transmit it in chunks of 8KB,
+    without loading the whole file into memory. A similar approach can
+    be used for large dynamic PDF files.
+    """
+    zip_file_name = 'task_id_%s_files' % task_id
+    archive = zipfile.ZipFile(zip_file_name , 'w', zipfile.ZIP_DEFLATED)
+    file_list = os.listdir(file_path)
+    for filename in file_list:
+        archive.write('%s/%s' %(file_path,filename),arcname=filename)
+    archive.close()
+
+
+    wrapper = FileWrapper(open(zip_file_name,'rb'))
+    response = HttpResponse(wrapper, content_type='application/zip')
+    response['Content-Disposition'] = 'attachment; filename=%s.zip' % zip_file_name
+    response['Content-Length'] = os.path.getsize(zip_file_name)
+    #temp.seek(0)
+    return response
+
+@login_required
+def task_file_download(request):
+    task_id = request.GET.get('task_id')
+    print(task_id)
+    task_file_path = "%s/%s"%( conf.settings.FILE_DOWNLOADS,task_id)
+    return send_zipfile(request,task_id,task_file_path)
+
+
+@login_required
 def multitask(request):
+
     task_obj = task_handler.Task(request)
     if task_obj.is_valid():
-        result = task_obj.run()
-        return HttpResponse(json.dumps({'task_id':result}))
+        task_obj = task_obj.run()
+        return HttpResponse(json.dumps({'task_id':task_obj.id,'timeout':task_obj.timeout}))
     return HttpResponse(json.dumps(task_obj.errors))
 
 

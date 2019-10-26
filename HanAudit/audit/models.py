@@ -124,8 +124,8 @@ class Task(models.Model):
         return "%s-%s-%s" %(self.id,self.get_task_type_display(),self.content)
 
 class TaskLog(models.Model):
-    task = models.ForeignKey("Task")
-    host_user_bind = models.ForeignKey("HostUserBind")
+    task = models.ForeignKey("Task",on_delete=models.CASCADE)
+    host_user_bind = models.ForeignKey("HostUserBind",on_delete=models.CASCADE)
     result = models.TextField(default='init....')
     date = models.DateTimeField(auto_now_add=True)
     status_choices = ((0,'成功'),(1,'失败'),(2,'超时'),(3,'初始化'))
