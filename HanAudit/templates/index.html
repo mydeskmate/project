@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 
+
 {% block body %}
+    {% block extra-css %}
+    {% endblock %}
     <div id="container" class="effect mainnav-lg mainnav-fixed navbar-fixed">
         
         <!--NAVBAR-->
@@ -550,7 +553,7 @@
 						                <!--Submenu-->
 						                <ul class="collapse ">
 						                    <li><a href={% url 'multi_cmd' %}>批量命令</a></li>
-											<li class="active-link"><a href="#">批量文件</a></li>
+											<li class="active-link"><a href="{% url 'multi_file_transfer' %}">批量文件</a></li>
 
 
 						                </ul>
@@ -697,37 +700,7 @@
 
         
 
-        <!-- FOOTER -->
-        <!--===================================================-->
-        <footer id="footer">
 
-            <!-- Visible when footer positions are fixed -->
-            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-            <div class="show-fixed pull-right">
-                You have <a href="#" class="text-bold text-main"><span class="label label-danger">3</span> pending action.</a>
-            </div>
-
-
-
-            <!-- Visible when footer positions are static -->
-            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-            <div class="hide-fixed pull-right pad-rgt">
-                14GB of <strong>512GB</strong> Free.
-            </div>
-
-
-
-            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-            <!-- Remove the class "show-fixed" and "hide-fixed" to make the content always appears. -->
-            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
-            <p class="pad-lft">&#0169; 2017 Your Company</p>
-
-
-
-        </footer>
-        <!--===================================================-->
-        <!-- END FOOTER -->
 
 
         <!-- SCROLL PAGE BUTTON -->

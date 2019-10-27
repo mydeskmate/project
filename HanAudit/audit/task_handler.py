@@ -95,7 +95,8 @@ class Task(object):
             )
         models.TaskLog.objects.bulk_create(tasklog_objs,100)
 
-        cmd_str = "python %s %s" % (settings.MULTI_TASK_SCRIPT,task_obj.id)
+        # cmd_str = "python %s %s" % (settings.MULTI_TASK_SCRIPT,task_obj.id)
+        cmd_str = ["python", settings.MULTI_TASK_SCRIPT, str(task_obj.id)]
         multitask_obj = subprocess.Popen(cmd_str,
                                          stdout=subprocess.PIPE,
                                          stderr=subprocess.PIPE )

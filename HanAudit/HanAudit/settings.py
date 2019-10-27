@@ -130,6 +130,9 @@ LOGIN_URL = '/login/'
 # 多任务运行脚本  通过系统命令调用,独立运行
 MULTI_TASK_SCRIPT = os.path.join(BASE_DIR,'multitask.py')
 
+# 文件上传 下载路径
+FILE_UPLOADS = os.path.join(BASE_DIR,'uploads')
+FILE_DOWNLOADS = os.path.join(BASE_DIR,'downloads')
 
 # 会话检测脚本   修改ssh源代码方式
 SESSION_TRACKER_SCRIPT = os.path.join(BASE_DIR,'audit/backend/session_tracker.sh')

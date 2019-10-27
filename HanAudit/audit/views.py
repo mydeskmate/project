@@ -96,6 +96,11 @@ def multi_file_transfer(request):
 @login_required
 @csrf_exempt
 def task_file_upload(request):
+    """
+    本地文件上传到堡垒机
+    :param request:
+    :return:
+    """
     random_str = request.GET.get('random_str')
     upload_to = "%s/%s/%s" %(conf.settings.FILE_UPLOADS,request.user.account.id,random_str)
     if not os.path.isdir(upload_to):
