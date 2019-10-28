@@ -1,9 +1,9 @@
 workspace.xml
 HanAudit/audit/migrations/
 HanAudit/.idea/
-HanAudit/__pycache__
+HanAudit/HanAudit/__pycache__
 HanAudit/log/
 pro_admin/audit/migrations/
 pro_admin/.idea/
-pro_admin/__pycache__
+pro_admin/pro_admin/__pycache__
 pro_admin/log/
