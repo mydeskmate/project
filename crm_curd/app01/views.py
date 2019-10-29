@@ -17,8 +17,8 @@ def test(request):
     # url = reverse('tt')
     # print(url)
 
-    # /yg/app01/userinfo/add/
-    # /yg/app02/xx/add/
+    # /curd_admin/app01/userinfo/add/
+    # /curd_admin/app02/xx/add/
     url = reverse('curd_admin:app02_xx_add')
     print(url)
 

@@ -37,9 +37,9 @@ class BaseCurdAdmin(object):
         context = {
             'result_list': result_list,
             'list_display': self.list_display,
-            "ygadmin_obj": self
+            "curd_admin_obj": self
         }
-        return render(request, 'yg/change_list.html', context)
+        return render(request, 'curd_admin/change_list.html', context)
 
     def add_view(self, reuqest):
         """
