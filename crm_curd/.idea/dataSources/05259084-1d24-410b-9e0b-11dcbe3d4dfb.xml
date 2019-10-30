@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="db">
-  <database-model serializer="dbm" rdbms="SQLITE" format-version="4.7">
-    <root id="1"/>
+  <database-model serializer="dbm" rdbms="SQLITE" format-version="4.8">
+    <root id="1">
+      <ServerVersion>3.20.1</ServerVersion>
+    </root>
     <schema id="2" parent="1" name="main">
       <Current>1</Current>
       <Visible>1</Visible>
@@ -10,189 +12,268 @@
     <collation id="4" parent="1" name="NOCASE"/>
     <collation id="5" parent="1" name="RTRIM"/>
     <table id="6" parent="2" name="app01_role"/>
-    <table id="7" parent="2" name="app01_userinfo"/>
-    <table id="8" parent="2" name="app02_oo"/>
-    <table id="9" parent="2" name="app02_xx"/>
-    <table id="10" parent="2" name="django_content_type"/>
-    <table id="11" parent="2" name="django_migrations"/>
-    <table id="12" parent="2" name="django_session"/>
-    <table id="13" parent="2" name="sqlite_master">
+    <table id="7" parent="2" name="app01_usergroup"/>
+    <table id="8" parent="2" name="app01_userinfo"/>
+    <table id="9" parent="2" name="app01_userinfo_mmm"/>
+    <table id="10" parent="2" name="app02_oo"/>
+    <table id="11" parent="2" name="app02_xx"/>
+    <table id="12" parent="2" name="django_content_type"/>
+    <table id="13" parent="2" name="django_migrations"/>
+    <table id="14" parent="2" name="django_session"/>
+    <table id="15" parent="2" name="sqlite_master">
       <System>1</System>
     </table>
-    <table id="14" parent="2" name="sqlite_sequence">
+    <table id="16" parent="2" name="sqlite_sequence">
       <System>1</System>
     </table>
-    <column id="15" parent="6" name="id">
+    <column id="17" parent="6" name="id">
       <Position>1</Position>
-      <DataType>integer|0</DataType>
+      <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="16" parent="6" name="name">
+    <column id="18" parent="6" name="name">
       <Position>2</Position>
-      <DataType>varchar(32)|0</DataType>
+      <DataType>varchar(32)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <key id="17" parent="6">
+    <key id="19" parent="6">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="18" parent="7" name="id">
+    <column id="20" parent="7" name="id">
       <Position>1</Position>
-      <DataType>integer|0</DataType>
+      <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="19" parent="7" name="username">
+    <column id="21" parent="7" name="title">
       <Position>2</Position>
-      <DataType>varchar(32)|0</DataType>
+      <DataType>varchar(32)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="20" parent="7" name="email">
+    <key id="22" parent="7">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="23" parent="8" name="id">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="24" parent="8" name="username">
+      <Position>2</Position>
+      <DataType>varchar(32)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="25" parent="8" name="email">
       <Position>3</Position>
-      <DataType>varchar(32)|0</DataType>
+      <DataType>varchar(32)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <key id="21" parent="7">
+    <column id="26" parent="8" name="ug_id">
+      <Position>4</Position>
+      <DataType>integer|0s</DataType>
+    </column>
+    <index id="27" parent="8" name="app01_userinfo_ug_id_e02988bd">
+      <ColNames>ug_id</ColNames>
+      <ColumnCollations></ColumnCollations>
+    </index>
+    <key id="28" parent="8">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="22" parent="8" name="id">
+    <foreign-key id="29" parent="8">
+      <ColNames>ug_id</ColNames>
+      <RefTableName>app01_usergroup</RefTableName>
+      <RefColNames>id</RefColNames>
+      <Deferrable>1</Deferrable>
+      <InitiallyDeferred>1</InitiallyDeferred>
+    </foreign-key>
+    <column id="30" parent="9" name="id">
       <Position>1</Position>
-      <DataType>integer|0</DataType>
+      <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="23" parent="8" name="title">
+    <column id="31" parent="9" name="userinfo_id">
       <Position>2</Position>
-      <DataType>varchar(32)|0</DataType>
+      <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <key id="24" parent="8">
-      <ColNames>id</ColNames>
-      <Primary>1</Primary>
-    </key>
-    <column id="25" parent="9" name="id">
-      <Position>1</Position>
-      <DataType>integer|0</DataType>
-      <NotNull>1</NotNull>
-      <SequenceIdentity>1</SequenceIdentity>
-    </column>
-    <column id="26" parent="9" name="title">
-      <Position>2</Position>
-      <DataType>varchar(32)|0</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <key id="27" parent="9">
-      <ColNames>id</ColNames>
-      <Primary>1</Primary>
-    </key>
-    <column id="28" parent="10" name="id">
-      <Position>1</Position>
-      <DataType>integer|0</DataType>
-      <NotNull>1</NotNull>
-      <SequenceIdentity>1</SequenceIdentity>
-    </column>
-    <column id="29" parent="10" name="app_label">
-      <Position>2</Position>
-      <DataType>varchar(100)|0</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="30" parent="10" name="model">
+    <column id="32" parent="9" name="role_id">
       <Position>3</Position>
-      <DataType>varchar(100)|0</DataType>
+      <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="31" parent="10" name="django_content_type_app_label_model_76bd3d3b_uniq">
-      <ColNames>app_label
-model</ColNames>
-      <ColumnCollations>
-</ColumnCollations>
+    <index id="33" parent="9" name="app01_userinfo_mmm_userinfo_id_role_id_92f0fe05_uniq">
+      <ColNames>userinfo_id
+role_id</ColNames>
+      <ColumnCollations></ColumnCollations>
       <Unique>1</Unique>
     </index>
-    <key id="32" parent="10">
+    <index id="34" parent="9" name="app01_userinfo_mmm_userinfo_id_b4a110e4">
+      <ColNames>userinfo_id</ColNames>
+      <ColumnCollations></ColumnCollations>
+    </index>
+    <index id="35" parent="9" name="app01_userinfo_mmm_role_id_637774aa">
+      <ColNames>role_id</ColNames>
+      <ColumnCollations></ColumnCollations>
+    </index>
+    <key id="36" parent="9">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="33" parent="11" name="id">
+    <foreign-key id="37" parent="9">
+      <ColNames>userinfo_id</ColNames>
+      <RefTableName>app01_userinfo</RefTableName>
+      <RefColNames>id</RefColNames>
+      <Deferrable>1</Deferrable>
+      <InitiallyDeferred>1</InitiallyDeferred>
+    </foreign-key>
+    <foreign-key id="38" parent="9">
+      <ColNames>role_id</ColNames>
+      <RefTableName>app01_role</RefTableName>
+      <RefColNames>id</RefColNames>
+      <Deferrable>1</Deferrable>
+      <InitiallyDeferred>1</InitiallyDeferred>
+    </foreign-key>
+    <column id="39" parent="10" name="id">
       <Position>1</Position>
-      <DataType>integer|0</DataType>
+      <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="34" parent="11" name="app">
+    <column id="40" parent="10" name="title">
       <Position>2</Position>
-      <DataType>varchar(255)|0</DataType>
+      <DataType>varchar(32)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="35" parent="11" name="name">
-      <Position>3</Position>
-      <DataType>varchar(255)|0</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="36" parent="11" name="applied">
-      <Position>4</Position>
-      <DataType>datetime|0</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <key id="37" parent="11">
+    <key id="41" parent="10">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="38" parent="12" name="session_key">
+    <column id="42" parent="11" name="id">
       <Position>1</Position>
-      <DataType>varchar(40)|0</DataType>
+      <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="39" parent="12" name="session_data">
+    <column id="43" parent="11" name="title">
       <Position>2</Position>
-      <DataType>text|0</DataType>
+      <DataType>varchar(32)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="40" parent="12" name="expire_date">
+    <key id="44" parent="11">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="45" parent="12" name="id">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="46" parent="12" name="app_label">
+      <Position>2</Position>
+      <DataType>varchar(100)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="47" parent="12" name="model">
       <Position>3</Position>
-      <DataType>datetime|0</DataType>
+      <DataType>varchar(100)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="41" parent="12" name="sqlite_autoindex_django_session_1">
+    <index id="48" parent="12" name="django_content_type_app_label_model_76bd3d3b_uniq">
+      <ColNames>app_label
+model</ColNames>
+      <ColumnCollations></ColumnCollations>
+      <Unique>1</Unique>
+    </index>
+    <key id="49" parent="12">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="50" parent="13" name="id">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="51" parent="13" name="app">
+      <Position>2</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="52" parent="13" name="name">
+      <Position>3</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="53" parent="13" name="applied">
+      <Position>4</Position>
+      <DataType>datetime|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="54" parent="13">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="55" parent="14" name="session_key">
+      <Position>1</Position>
+      <DataType>varchar(40)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="56" parent="14" name="session_data">
+      <Position>2</Position>
+      <DataType>text|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="57" parent="14" name="expire_date">
+      <Position>3</Position>
+      <DataType>datetime|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="58" parent="14" name="sqlite_autoindex_django_session_1">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>session_key</ColNames>
       <ColumnCollations></ColumnCollations>
       <Unique>1</Unique>
     </index>
-    <index id="42" parent="12" name="django_session_expire_date_a5c62663">
+    <index id="59" parent="14" name="django_session_expire_date_a5c62663">
       <ColNames>expire_date</ColNames>
       <ColumnCollations></ColumnCollations>
     </index>
-    <key id="43" parent="12">
+    <key id="60" parent="14">
       <ColNames>session_key</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>sqlite_autoindex_django_session_1</UnderlyingIndexName>
     </key>
-    <column id="44" parent="13" name="type">
+    <column id="61" parent="15" name="type">
       <Position>1</Position>
-      <DataType>text|0</DataType>
+      <DataType>text|0s</DataType>
     </column>
-    <column id="45" parent="13" name="name">
+    <column id="62" parent="15" name="name">
       <Position>2</Position>
-      <DataType>text|0</DataType>
+      <DataType>text|0s</DataType>
     </column>
-    <column id="46" parent="13" name="tbl_name">
+    <column id="63" parent="15" name="tbl_name">
       <Position>3</Position>
-      <DataType>text|0</DataType>
+      <DataType>text|0s</DataType>
     </column>
-    <column id="47" parent="13" name="rootpage">
+    <column id="64" parent="15" name="rootpage">
       <Position>4</Position>
-      <DataType>integer|0</DataType>
+      <DataType>integer|0s</DataType>
     </column>
-    <column id="48" parent="13" name="sql">
+    <column id="65" parent="15" name="sql">
       <Position>5</Position>
-      <DataType>text|0</DataType>
+      <DataType>text|0s</DataType>
     </column>
-    <column id="49" parent="14" name="name">
+    <column id="66" parent="16" name="name">
       <Position>1</Position>
     </column>
-    <column id="50" parent="14" name="seq">
+    <column id="67" parent="16" name="seq">
       <Position>2</Position>
     </column>
   </database-model>
