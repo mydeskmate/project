@@ -1,6 +1,10 @@
 <table border="1">
     <thead>
-
+        <tr>
+            {% for row in header_list %}
+                <th>{{ row }}</th>
+            {% endfor %}
+        </tr>
     </thead>
     <tbody>
     {% for item in xxxxx %}

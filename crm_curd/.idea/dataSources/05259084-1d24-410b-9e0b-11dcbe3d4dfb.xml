@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="db">
-  <database-model serializer="dbm" rdbms="SQLITE" format-version="4.8">
-    <root id="1">
-      <ServerVersion>3.20.1</ServerVersion>
-    </root>
+  <database-model serializer="dbm" rdbms="SQLITE" format-version="4.7">
+    <root id="1"/>
     <schema id="2" parent="1" name="main">
       <Current>1</Current>
       <Visible>1</Visible>
@@ -26,13 +24,13 @@
     </table>
     <column id="15" parent="6" name="id">
       <Position>1</Position>
-      <DataType>integer|0s</DataType>
+      <DataType>integer|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
     <column id="16" parent="6" name="name">
       <Position>2</Position>
-      <DataType>varchar(32)|0s</DataType>
+      <DataType>varchar(32)|0</DataType>
       <NotNull>1</NotNull>
     </column>
     <key id="17" parent="6">
@@ -41,18 +39,18 @@
     </key>
     <column id="18" parent="7" name="id">
       <Position>1</Position>
-      <DataType>integer|0s</DataType>
+      <DataType>integer|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
     <column id="19" parent="7" name="username">
       <Position>2</Position>
-      <DataType>varchar(32)|0s</DataType>
+      <DataType>varchar(32)|0</DataType>
       <NotNull>1</NotNull>
     </column>
     <column id="20" parent="7" name="email">
       <Position>3</Position>
-      <DataType>varchar(32)|0s</DataType>
+      <DataType>varchar(32)|0</DataType>
       <NotNull>1</NotNull>
     </column>
     <key id="21" parent="7">
@@ -61,13 +59,13 @@
     </key>
     <column id="22" parent="8" name="id">
       <Position>1</Position>
-      <DataType>integer|0s</DataType>
+      <DataType>integer|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
     <column id="23" parent="8" name="title">
       <Position>2</Position>
-      <DataType>varchar(32)|0s</DataType>
+      <DataType>varchar(32)|0</DataType>
       <NotNull>1</NotNull>
     </column>
     <key id="24" parent="8">
@@ -76,13 +74,13 @@
     </key>
     <column id="25" parent="9" name="id">
       <Position>1</Position>
-      <DataType>integer|0s</DataType>
+      <DataType>integer|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
     <column id="26" parent="9" name="title">
       <Position>2</Position>
-      <DataType>varchar(32)|0s</DataType>
+      <DataType>varchar(32)|0</DataType>
       <NotNull>1</NotNull>
     </column>
     <key id="27" parent="9">
@@ -91,24 +89,25 @@
     </key>
     <column id="28" parent="10" name="id">
       <Position>1</Position>
-      <DataType>integer|0s</DataType>
+      <DataType>integer|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
     <column id="29" parent="10" name="app_label">
       <Position>2</Position>
-      <DataType>varchar(100)|0s</DataType>
+      <DataType>varchar(100)|0</DataType>
       <NotNull>1</NotNull>
     </column>
     <column id="30" parent="10" name="model">
       <Position>3</Position>
-      <DataType>varchar(100)|0s</DataType>
+      <DataType>varchar(100)|0</DataType>
       <NotNull>1</NotNull>
     </column>
     <index id="31" parent="10" name="django_content_type_app_label_model_76bd3d3b_uniq">
       <ColNames>app_label
 model</ColNames>
-      <ColumnCollations></ColumnCollations>
+      <ColumnCollations>
+</ColumnCollations>
       <Unique>1</Unique>
     </index>
     <key id="32" parent="10">
@@ -117,23 +116,23 @@ model</ColNames>
     </key>
     <column id="33" parent="11" name="id">
       <Position>1</Position>
-      <DataType>integer|0s</DataType>
+      <DataType>integer|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
     <column id="34" parent="11" name="app">
       <Position>2</Position>
-      <DataType>varchar(255)|0s</DataType>
+      <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
     </column>
     <column id="35" parent="11" name="name">
       <Position>3</Position>
-      <DataType>varchar(255)|0s</DataType>
+      <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
     </column>
     <column id="36" parent="11" name="applied">
       <Position>4</Position>
-      <DataType>datetime|0s</DataType>
+      <DataType>datetime|0</DataType>
       <NotNull>1</NotNull>
     </column>
     <key id="37" parent="11">
@@ -142,17 +141,17 @@ model</ColNames>
     </key>
     <column id="38" parent="12" name="session_key">
       <Position>1</Position>
-      <DataType>varchar(40)|0s</DataType>
+      <DataType>varchar(40)|0</DataType>
       <NotNull>1</NotNull>
     </column>
     <column id="39" parent="12" name="session_data">
       <Position>2</Position>
-      <DataType>text|0s</DataType>
+      <DataType>text|0</DataType>
       <NotNull>1</NotNull>
     </column>
     <column id="40" parent="12" name="expire_date">
       <Position>3</Position>
-      <DataType>datetime|0s</DataType>
+      <DataType>datetime|0</DataType>
       <NotNull>1</NotNull>
     </column>
     <index id="41" parent="12" name="sqlite_autoindex_django_session_1">
@@ -172,23 +171,23 @@ model</ColNames>
     </key>
     <column id="44" parent="13" name="type">
       <Position>1</Position>
-      <DataType>text|0s</DataType>
+      <DataType>text|0</DataType>
     </column>
     <column id="45" parent="13" name="name">
       <Position>2</Position>
-      <DataType>text|0s</DataType>
+      <DataType>text|0</DataType>
     </column>
     <column id="46" parent="13" name="tbl_name">
       <Position>3</Position>
-      <DataType>text|0s</DataType>
+      <DataType>text|0</DataType>
     </column>
     <column id="47" parent="13" name="rootpage">
       <Position>4</Position>
-      <DataType>integer|0s</DataType>
+      <DataType>integer|0</DataType>
     </column>
     <column id="48" parent="13" name="sql">
       <Position>5</Position>
-      <DataType>text|0s</DataType>
+      <DataType>text|0</DataType>
     </column>
     <column id="49" parent="14" name="name">
       <Position>1</Position>

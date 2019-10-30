@@ -1,5 +1,5 @@
 from django.shortcuts import HttpResponse, render
-
+from django.urls import reverse
 
 class BaseCurdAdmin(object):
     """
@@ -13,6 +13,9 @@ class BaseCurdAdmin(object):
         self.model_class = model_class
         self.site = site
         self.request = None
+
+        self.app_label = model_class._meta.app_label
+        self.model_name = model_class._meta.model_name
 
     @property
     def urls(self):
@@ -32,12 +35,22 @@ class BaseCurdAdmin(object):
         :param reuqest:
         :return:
         """
+        # 生成页面上：添加按钮
+        from django.http.request import QueryDict
+        param_dict = QueryDict(mutable=True)
+        if request.GET:
+            param_dict['_changelistfilter'] = request.GET.urlencode()
+
+        base_add_url = reverse("{2}:{0}_{1}_add".format(self.app_label, self.model_name, self.site.namespace))
+        add_url = "{0}?{1}".format(base_add_url, param_dict.urlencode())
+
         self.request = request
         result_list = self.model_class.objects.all()
         context = {
             'result_list': result_list,
             'list_display': self.list_display,
-            "curd_admin_obj": self
+            "curd_admin_obj": self,
+            'add_url': add_url
         }
         return render(request, 'curd_admin/change_list.html', context)
 
