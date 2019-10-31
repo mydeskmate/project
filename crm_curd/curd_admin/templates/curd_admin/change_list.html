@@ -8,8 +8,20 @@
     <link rel="stylesheet" href="{% static 'curd_admin/plugins/bootstrap-3.3.7-dist/css/bootstrap.css' %}" />
 </head>
 <body>
+<div class="container">
     <h1>数据列表</h1>
-    <a href="{{ add_url }}">添加</a>
+    {% if action_list %}
+        <div class="row">
+            <select name="action" class="form-control" style="display: inline-block;width: 200px;" >
+                {% for item in action_list %}
+                    <option value="{{ item.name }}">{{ item.text }}</option>
+                {% endfor %}
+
+            </select>
+            <input type="submit" class="btn btn-primary" value="执行" />
+        </div>
+    {% endif %}
+    <a class="btn btn-success" style="float: right" href="{{ add_url }}">添加</a>
     <!-- 数据表格 开始 -->
     {% func result_list list_display curd_admin_obj%}
     <!-- 数据表格 结束 -->
@@ -19,5 +31,6 @@
         {{ page_str|safe }}
     </ul>
     <!-- 分页结束 -->
+</div>
 </body>
 </html>

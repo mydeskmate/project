@@ -26,7 +26,7 @@ class CurdAdminUserInfo(v1.BaseCurdAdmin):
             return "选项"
             # return mark_safe("<input type='checkbox'/>")
         else:
-            tag = "<input type='checkbox' value='{0}' />".format(obj.pk)
+            tag = "<input name='pk' type='checkbox' value='{0}' />".format(obj.pk)
             return mark_safe(tag)
 
     def comb(self,obj=None,is_header=False):
@@ -36,6 +36,26 @@ class CurdAdminUserInfo(v1.BaseCurdAdmin):
             return "%s-%s" %(obj.username,obj.email,)
 
     list_display = [checkbox,'id','username','email',comb,func,]
+
+    def initial(self,request):
+        """
+        :param request:
+        :return:
+            True, /yg/app01/userinfo/?page=1&id=666&name=fangshaowei
+            False, /yg/app01/userinfo/
+        """
+        pk_list = request.POST.getlist('pk')
+        models.UserInfo.objects.filter(pk__in=pk_list).update(username='友情并')
+        return True
+
+    initial.text = "初始化"
+
+    def multi_del(self,request):
+        pass
+
+    multi_del.text = "批量删除"
+
+    action_list = [initial,multi_del]
 
 v1.site.register(models.UserInfo,CurdAdminUserInfo)
 # v1.site.register(models.UserInfo)

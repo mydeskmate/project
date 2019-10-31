@@ -7,7 +7,8 @@ class BaseCurdAdmin(object):
     modle管理类
     """
     list_display = "__all__"
-
+    action_list = []
+    filter_list = []
     # list_display = ['id','name','title']
 
     add_or_edit_model_form = None
@@ -63,7 +64,7 @@ class BaseCurdAdmin(object):
         add_url = "{0}?{1}".format(base_add_url, param_dict.urlencode())
 
         self.request = request
-        # 分页 开始
+        # ############# 分页 #############
         condition = {}
 
         from utils.my_page import PageInfo
@@ -75,15 +76,30 @@ class BaseCurdAdmin(object):
         page_obj = PageInfo(request.GET.get('page'), all_count, base_page_url, page_param_dict)
         result_list = self.model_class.objects.filter(**condition)[page_obj.start:page_obj.end]
 
-        # 分页结束
 
+        # ############# Action操作 #############
+        # get请求，显示下拉框
+        action_list = []
+        for item in self.action_list:
+            tpl = {'name': item.__name__, 'text': item.text}
+            action_list.append(tpl)
+        if request.method == 'POST':
+            # 1. 获取action
+            func_name_str = request.POST.get('action')
+            ret = getattr(self, func_name_str)(request)
+            action_page_url = reverse(
+                "{2}:{0}_{1}_changelist".format(self.app_label, self.model_name, self.site.namespace))
+            if ret:
+                action_page_url = "{0}?{1}".format(action_page_url, request.GET.urlencode())
+            return redirect(action_page_url)
 
         context = {
             'result_list': result_list,
             'list_display': self.list_display,
             "curd_admin_obj": self,
             'add_url': add_url,
-            'page_str': page_obj.pager()
+            'page_str': page_obj.pager(),
+            'action_list': action_list,
         }
         return render(request, 'curd_admin/change_list.html', context)
 
