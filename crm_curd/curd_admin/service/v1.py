@@ -1,3 +1,4 @@
+import copy
 from django.shortcuts import HttpResponse,render,redirect
 from django.urls import reverse
 
@@ -62,12 +63,27 @@ class BaseCurdAdmin(object):
         add_url = "{0}?{1}".format(base_add_url, param_dict.urlencode())
 
         self.request = request
-        result_list = self.model_class.objects.all()
+        # 分页 开始
+        condition = {}
+
+        from utils.my_page import PageInfo
+        all_count = self.model_class.objects.filter(**condition).count()
+        base_page_url = reverse("{2}:{0}_{1}_changelist".format(self.app_label, self.model_name, self.site.namespace))
+        page_param_dict = copy.deepcopy(request.GET)
+        page_param_dict._mutable = True
+
+        page_obj = PageInfo(request.GET.get('page'), all_count, base_page_url, page_param_dict)
+        result_list = self.model_class.objects.filter(**condition)[page_obj.start:page_obj.end]
+
+        # 分页结束
+
+
         context = {
             'result_list': result_list,
             'list_display': self.list_display,
             "curd_admin_obj": self,
-            'add_url': add_url
+            'add_url': add_url,
+            'page_str': page_obj.pager()
         }
         return render(request, 'curd_admin/change_list.html', context)
 
@@ -79,31 +95,29 @@ class BaseCurdAdmin(object):
         """
         if request.method == 'GET':
             model_form_obj = self.get_add_or_edit_model_form()()
+            context = {
+                'form': model_form_obj
+            }
+            return render(request, 'curd_admin/add.html', context)
         else:
             model_form_obj = self.get_add_or_edit_model_form()(data=request.POST,files=request.FILES)
             if model_form_obj.is_valid():
-                model_form_obj.save()
-                # 添加成功,进行跳转
-                # /yg/app01/userinfo/  +  request.GET.get('_changelistfilter')
-                base_list_url = reverse("{2}:{0}_{1}_changelist".format(self.app_label, self.model_name, self.site.namespace))
-                list_url = "{0}?{1}".format(base_list_url,request.GET.get('_changelistfilter') )
-                return redirect(list_url)
-        context = {
-            'form': model_form_obj
-        }
+                obj = model_form_obj.save()
+                # 如果是popup，
+                popid = request.GET.get('popup')
+                if popid:
+                    return render(request,'curd_admin/popup_response.html',{'data_dict':{ 'pk': obj.pk,'text': str(obj),'popid': popid} })
+                else:
+                    # 添加成功,进行跳转
+                    # /yg/app01/userinfo/  +  request.GET.get('_changelistfilter')
+                    base_list_url = reverse("{2}:{0}_{1}_changelist".format(self.app_label, self.model_name, self.site.namespace))
+                    list_url = "{0}?{1}".format(base_list_url,request.GET.get('_changelistfilter') )
+                    return redirect(list_url)
 
-        # 不使用as_p 取module_form对象中获取需要的数据
-        # print(model_form_obj)
-        from django.forms.boundfield import BoundField
-        for item in model_form_obj:
-            # 1. 如何换成中文
-            # 2. 如何显示错误信息 xx.errors.0
-            # print(self.model_class._meta.get_field(item.name).verbose_name)
-            # print(item.name,item.field,type(item))
-            pass
-
-
-        return render(request,'curd_admin/add.html',context)
+            context = {
+                'form': model_form_obj
+            }
+            return render(request,'curd_admin/add.html',context)
 
     def delete_view(self,reuqest,pk):
         """

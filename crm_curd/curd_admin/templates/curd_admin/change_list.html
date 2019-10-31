@@ -1,9 +1,11 @@
 {% load curd_admin_list %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="{% static 'curd_admin/plugins/bootstrap-3.3.7-dist/css/bootstrap.css' %}" />
 </head>
 <body>
     <h1>数据列表</h1>
@@ -12,5 +14,10 @@
     {% func result_list list_display curd_admin_obj%}
     <!-- 数据表格 结束 -->
 
+     <!-- 分页开始 -->
+    <ul class="pagination">
+        {{ page_str|safe }}
+    </ul>
+    <!-- 分页结束 -->
 </body>
 </html>

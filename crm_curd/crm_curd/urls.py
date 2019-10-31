@@ -30,5 +30,5 @@ urlpatterns = [
     #                 ],"appname",'namespace')),
     # include,如果参数是模块路径？导入模块,找打urlpatterns对象的列表
     url(r'^curd_admin/', v1.site.urls),
-    url(r'^ttttttt/', views.tttttt,name='tt'),
+    # url(r'^ttttttt/', views.tttttt,name='tt'),
 ]

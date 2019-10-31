@@ -35,12 +35,13 @@ class CurdAdminUserInfo(v1.BaseCurdAdmin):
         else:
             return "%s-%s" %(obj.username,obj.email,)
 
-    list_display = [checkbox,'id','username','email',func,comb]
+    list_display = [checkbox,'id','username','email',comb,func,]
 
 v1.site.register(models.UserInfo,CurdAdminUserInfo)
 # v1.site.register(models.UserInfo)
 
 class CurdAdminRole(v1.BaseCurdAdmin):
     list_display = ['id','name',]
-
 v1.site.register(models.Role,CurdAdminRole)
+
+v1.site.register(models.UserGroup)

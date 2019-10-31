@@ -5,10 +5,10 @@ curd_admin
     显示表头
 
  - 实现删除  删除数据    delete_view
- - 不使用as_p  add_view
-  1. 中文
-  2. 错误信息
-  3. inclusion_tags + yield
+ - 不使用as_p 从modulefome获取数据 add_view
+
+      2. 错误信息  中文
+      3. inclusion_tags + yield
 
 
    不带参数进入 编辑和添加后，然后返回参数不正确

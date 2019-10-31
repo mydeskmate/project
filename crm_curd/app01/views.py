@@ -1,25 +1,43 @@
 from django.shortcuts import render,HttpResponse
 from django.urls import reverse
 # Create your views here.
-
-def tttttt(request):
-    return HttpResponse('....')
+#
+# def tttttt(request):
+#     return HttpResponse('....')
+#
+# from app01 import models
+#
+#
+# def test(request):
+#     user_group_list = models.UserGroup.objects.all()
+#
+#     return render(request,'test.html',{'user_group_list':user_group_list})
+#
+# def add_test(request):
+#     if request.method == "GET":
+#         return render(request,'add_test.html')
+#     else:
+#         popid = request.GET.get('popup')
+#         if popid:
+#             # 通过popup新创建了一个页面进来
+#             title = request.POST.get('title')
+#             obj = models.UserGroup.objects.create(title=title)
+#             # response = {'id':obj.id,'title': obj.title}
+#             # 1. 关闭popup页面
+#             # 2. 将新增的数据添加，传送到原来发送pop页面中的ugID标签位置 popid = ugID
+#             return render(request,'popup_response.html',{'id':obj.id,'title':obj.title,'popid':popid })
+#         else:
+#             title = request.POST.get('title')
+#             models.UserGroup.objects.create(title=title)
+#             return HttpResponse('重定向列表页面：所有用户组')
+#
+#
+# def xxxxx(request):
+#     if request.method == "GET":
+#         return render(request,'xxxxx.html')
 
 
 def test(request):
-    # 反向生成URL
-    # include导入其他文件路径include('app01.urls',namespace='aaa')
-    # app01.urls
-    #           xxxx  name=xxx,
-    # url = reverse('curd_admin:login')
-    # print(url)
-
-    # url = reverse('tt')
-    # print(url)
-
-    # /curd_admin/app01/userinfo/add/
-    # /curd_admin/app02/xx/add/
-    url = reverse('curd_admin:app02_xx_add')
-    print(url)
-
-    return HttpResponse('...')
+    import json
+    # return render(request,'test.html',{'kkkkk': json.dumps({'k1':'v1','k2':'v2'})})
+    return render(request,'test.html',{'kkkkk': {'k1':'v1','k2':'v2'}})
