@@ -45,7 +45,7 @@ class CurdAdminUserInfo(v1.BaseCurdAdmin):
             False, /yg/app01/userinfo/
         """
         pk_list = request.POST.getlist('pk')
-        models.UserInfo.objects.filter(pk__in=pk_list).update(username='友情并')
+        models.UserInfo.objects.filter(pk__in=pk_list).update(username='默认名字')
         return True
 
     initial.text = "初始化"
@@ -57,6 +57,31 @@ class CurdAdminUserInfo(v1.BaseCurdAdmin):
 
     action_list = [initial,multi_del]
 
+    from curd_admin.utils.filter_code import FilterOption
+
+    def email(self, option, request):
+        from curd_admin.utils.filter_code import FilterList
+        queryset = models.UserInfo.objects.filter(id__gt=2)
+        return FilterList(option, queryset, request)
+
+    filter_list = [
+        FilterOption('username', False, text_func_name="text_username", val_func_name="value_username"),
+        FilterOption(email, False, text_func_name="text_email", val_func_name="value_email"),
+        FilterOption('ug', True),
+        FilterOption('mmm', False),
+    ]
+    # 1.取数据，放在页面上？
+    #  username -> UserInfo表取数据
+    #  ug       -> UserGroup表
+    #  mmm      -> Role表
+    # 2.单选和多选自定义
+    # reuqest.GET    {'fk': [6,],'username': ['大刘']}
+    # reuqest.GET.urlencode()
+    # 注意注意注意：
+    # 保留当前URL条件 + 自身条件
+    # - 单选： /arya/app01/userinfo/?mm=2&fk=2&username=大刘
+    # - 多选： /arya/app01/userinfo/?mm=2&fk=2&username=大刘     fk=7
+    # reverse + reuqest.GET.urlencode()
 v1.site.register(models.UserInfo,CurdAdminUserInfo)
 # v1.site.register(models.UserInfo)
 

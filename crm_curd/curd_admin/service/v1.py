@@ -67,7 +67,7 @@ class BaseCurdAdmin(object):
         # ############# 分页 #############
         condition = {}
 
-        from utils.my_page import PageInfo
+        from curd_admin.utils.my_page import PageInfo
         all_count = self.model_class.objects.filter(**condition).count()
         base_page_url = reverse("{2}:{0}_{1}_changelist".format(self.app_label, self.model_name, self.site.namespace))
         page_param_dict = copy.deepcopy(request.GET)
@@ -93,6 +93,28 @@ class BaseCurdAdmin(object):
                 action_page_url = "{0}?{1}".format(action_page_url, request.GET.urlencode())
             return redirect(action_page_url)
 
+        # ############ 组合搜索操作 ##############
+        from curd_admin.utils.filter_code import FilterList
+        filter_list = []
+        for option in self.filter_list:
+            if option.is_func:         # 筛选项是函数
+                data_list = option.field_or_func(self, option, request)
+            else:                      # 筛选项是字段对应字符串
+                from django.db.models import ForeignKey, ManyToManyField
+                field = self.model_class._meta.get_field(option.field_or_func)  # 根据字符串获取字段对象
+                # print(type(field))
+                if isinstance(field, ForeignKey):
+                    # print(field.rel.model) # ug       -> UserGroup表
+                    # data_list = FilterList(option, field.rel.model.objects.all(), request)  # 类封装了筛选项, 筛选值(queryset)  request(包含了url,作为a链接)
+                    data_list = FilterList(option, field.remote_field.model.objects.all(), request)  # 类封装了筛选项, 筛选值(queryset)  request(包含了url,作为a链接)
+                elif isinstance(field, ManyToManyField):
+                    # print(field.rel.model) # mmm      -> Role表
+                    data_list = FilterList(option, field.remote_field.model.objects.all(), request)
+                else:
+                    # print(field.model, self.model_class)
+                    data_list = FilterList(option, field.model.objects.all(), request)
+            filter_list.append(data_list)
+
         context = {
             'result_list': result_list,
             'list_display': self.list_display,
@@ -100,6 +122,7 @@ class BaseCurdAdmin(object):
             'add_url': add_url,
             'page_str': page_obj.pager(),
             'action_list': action_list,
+            'filter_list': filter_list,
         }
         return render(request, 'curd_admin/change_list.html', context)
 
