@@ -30,8 +30,8 @@ class Course(models.Model):
 class ClassList(models.Model):
     """存储班级信息"""
 
-    branch = models.ForeignKey("Branch", verbose_name="校区")
-    course = models.ForeignKey("Course", verbose_name="课程")
+    branch = models.ForeignKey("Branch", verbose_name="校区",on_delete=models.CASCADE)
+    course = models.ForeignKey("Course", verbose_name="课程",on_delete=models.CASCADE)
     class_type_choices = ((0, '面授'), (1, '随到随学网络'))
     class_type = models.SmallIntegerField(choices=class_type_choices, default=0)
     total_class_nums = models.PositiveIntegerField("课程总节次", default=10)
@@ -47,9 +47,9 @@ class ClassList(models.Model):
 
 # 管理员
 class UserProfile(models.Model):
-    user_obj = models.OneToOneField(User)
+    user_obj = models.OneToOneField(User,on_delete=models.CASCADE)
     name = models.CharField(max_length=32)
-    branch = models.ForeignKey("Branch", verbose_name="所属校区", blank=True, null=True)
+    branch = models.ForeignKey("Branch", verbose_name="所属校区", blank=True, null=True,on_delete=models.CASCADE)
     memo = models.TextField('备注', blank=True, null=True, default=None)
     date_joined = models.DateTimeField(blank=True, null=True, auto_now_add=True)
 
@@ -58,10 +58,10 @@ class UserProfile(models.Model):
 class CourseRecord(models.Model):
     """存储各班级的上课记录"""
     # 讲师创建上课纪录时要选择是上哪个班的课
-    course = models.ForeignKey(ClassList, verbose_name="班级(课程)")
+    course = models.ForeignKey(ClassList, verbose_name="班级(课程)",on_delete=models.CASCADE)
     day_num = models.IntegerField("节次", help_text="此处填写第几节课或第几天课程...,必须为数字")
     date = models.DateField(auto_now_add=True, verbose_name="上课日期")
-    teacher = models.ForeignKey("UserProfile", verbose_name="讲师")
+    teacher = models.ForeignKey("UserProfile", verbose_name="讲师",on_delete=models.CASCADE)
     has_homework = models.BooleanField(default=True, verbose_name="本节有作业")
     homework_title = models.CharField(max_length=128, blank=True, null=True)
     homework_requirement = models.TextField(blank=True, null=True)
@@ -101,9 +101,9 @@ class Customer(models.Model):
     source = models.CharField(u'客户来源', max_length=64, choices=source_type, default='qq')
     # 我们的很多新客户都是老学员转介绍来了，如果是转介绍的，就在这里纪录是谁介绍的他，前提这个介绍人必须是我们的老学员噢，要不然系统里找不到
     referral_from = models.ForeignKey('self', verbose_name=u"转介绍自学员", help_text=u"若此客户是转介绍自内部学员,请在此处选择内部＼学员姓名",
-                                      blank=True, null=True, related_name="internal_referral")
+                                      blank=True, null=True, related_name="internal_referral",on_delete=models.CASCADE)
     # 已开设的课程单独搞了张表，客户想咨询哪个课程，直接在这里关联就可以
-    course = models.ForeignKey("Course", verbose_name=u"咨询课程")
+    course = models.ForeignKey("Course", verbose_name=u"咨询课程",on_delete=models.CASCADE)
     class_type_choices = (('online', u'网络班'),
                           ('offline_weekend', u'面授班(周末)',),
                           ('offline_fulltime', u'面授班(脱产)',),
@@ -118,7 +118,7 @@ class Customer(models.Model):
     status = models.CharField(u"状态", choices=status_choices, max_length=64, default=u"unregistered",
                               help_text=u"选择客户此时的状态")
     # 课程顾问很得要噢，每个招生老师录入自己的客户
-    consultant = models.ForeignKey("UserProfile", verbose_name=u"课程顾问")
+    consultant = models.ForeignKey("UserProfile", verbose_name=u"课程顾问",on_delete=models.CASCADE)
     date = models.DateField(u"咨询日期", auto_now_add=True)
 
     def __str__(self):
@@ -129,11 +129,11 @@ class Enrollment(models.Model):
     '''存储学员报名的信息'''
 
     # 所有报名的学生 肯定是来源于客户信息表的，先咨询，后报名嘛
-    customer = models.ForeignKey(Customer)
-    school = models.ForeignKey('Branch', verbose_name='校区')
+    customer = models.ForeignKey(Customer,on_delete=models.CASCADE)
+    school = models.ForeignKey('Branch', verbose_name='校区',on_delete=models.CASCADE)
 
     # 选择他报的班级，班级是关联课程的，比如python开发10期
-    course_grade = models.ForeignKey("ClassList", verbose_name="所报班级")
+    course_grade = models.ForeignKey("ClassList", verbose_name="所报班级",on_delete=models.CASCADE)
     why_us = models.TextField("为什么报名老男孩", max_length=1024, default=None, blank=True, null=True)
     your_expectation = models.TextField("学完想达到的具体期望", max_length=1024, blank=True, null=True)
     contract_agreed = models.BooleanField("我已认真阅读完培训协议并同意全部协议内容")
@@ -155,7 +155,7 @@ class Enrollment(models.Model):
 # 销售
 class CustomerFollowUp(models.Model):
     '''存储客户的后续跟进信息'''
-    customer = models.ForeignKey(Customer, verbose_name=u"所咨询客户")
+    customer = models.ForeignKey(Customer, verbose_name=u"所咨询客户",on_delete=models.CASCADE)
     note = models.TextField(u"跟进内容...")
     status_choices = ((1, u"近期无报名计划"),
                       (2, u"2个月内报名"),
@@ -168,7 +168,7 @@ class CustomerFollowUp(models.Model):
                       )
     status = models.IntegerField(u"状态", choices=status_choices, help_text=u"选择客户此时的状态")
 
-    consultant = models.ForeignKey("UserProfile", verbose_name=u"跟踪人")
+    consultant = models.ForeignKey("UserProfile", verbose_name=u"跟踪人",on_delete=models.CASCADE)
     date = models.DateField(u"跟进日期", auto_now_add=True)
 
     def __str__(self):
@@ -182,8 +182,8 @@ class CustomerFollowUp(models.Model):
 # 班主任，助教，老师
 class StudyRecord(models.Model):
     '''存储所有学员的详细的学习成绩情况'''
-    student = models.ForeignKey("Customer", verbose_name=u"学员")
-    course_record = models.ForeignKey(CourseRecord, verbose_name=u"第几天课程")
+    student = models.ForeignKey("Customer", verbose_name=u"学员",on_delete=models.CASCADE)
+    course_record = models.ForeignKey(CourseRecord, verbose_name=u"第几天课程",on_delete=models.CASCADE)
     record_choices = (('checked', u"已签到"),
                       ('late', u"迟到"),
                       ('noshow', u"缺勤"),
@@ -214,7 +214,7 @@ class StudyRecord(models.Model):
 # 网络学员，面授学员
 class StuAccount(models.Model):
     '''存储学员账户信息'''
-    account = models.OneToOneField("Customer")
+    account = models.OneToOneField("Customer",on_delete=models.CASCADE)
     password = models.CharField(max_length=128)
     valid_start = models.DateTimeField("账户有效期开始", blank=True, null=True)
     valid_end = models.DateTimeField("账户有效期截止", blank=True, null=True)
@@ -224,7 +224,7 @@ class StuAccount(models.Model):
 
 # 销售，财务
 class PaymentRecord(models.Model):
-    enrollment = models.ForeignKey("Enrollment")
+    enrollment = models.ForeignKey("Enrollment",on_delete=models.CASCADE)
     pay_type_choices = (('deposit', u"订金/报名费"),
                         ('tution', u"学费"),
                         ('refund', u"退款"),
@@ -233,7 +233,7 @@ class PaymentRecord(models.Model):
     paid_fee = models.IntegerField("费用数额", default=0)
     note = models.TextField("备注", blank=True, null=True)
     date = models.DateTimeField("交款日期", auto_now_add=True)
-    consultant = models.ForeignKey(UserProfile, verbose_name="负责老师", help_text="谁签的单就选谁")
+    consultant = models.ForeignKey(UserProfile, verbose_name="负责老师", help_text="谁签的单就选谁",on_delete=models.CASCADE)
 
     def __str__(self):
         return "%s, 类型:%s,数额:%s" % (self.enrollment.customer, self.pay_type, self.paid_fee)

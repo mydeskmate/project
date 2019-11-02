@@ -175,9 +175,9 @@ class ChangeList(object):
             else:
                 _field = self.model_cls._meta.get_field(option.field_or_func)
                 if isinstance(_field, ForeignKey):
-                    data_list = FilterList(option, self, _field.rel.model.objects.all(), self.request.GET)
+                    data_list = FilterList(option, self, _field.remote_field.model.objects.all(), self.request.GET)
                 elif isinstance(_field, ManyToManyField):
-                    data_list = FilterList(option, self, _field.rel.model.objects.all(), self.request.GET)
+                    data_list = FilterList(option, self, _field.remote_field.model.objects.all(), self.request.GET)
                 else:
                     data_list = FilterList(option, self, _field.model.objects.all(), self.request.GET)
             yield data_list
