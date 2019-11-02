@@ -1,29 +1,23 @@
-# from types import FunctionType
-# def yuhao():
-#     # print(obj.user)
-#     return '小于浩'
+# #!/usr/bin/env python
+# # -*- coding:utf-8 -*-
 #
-# list_display = ('user', 'email', yuhao)
 #
-# for item in list_display:
-#     # print(item,callable(item),isinstance(item,FunctionType))
-#     if isinstance(item,FunctionType):
-#         print(item())
-#     else:
-#         print(item)
+# class Foo(object):
+#
+#     def __iter__(self):
+#         yield 1
+#         yield 2
+#
+#
+#
+# for i in Foo():
+#     print(i)
 
+import re
 
-def func(request, queryset):
-    # print(request,queryset)
-    return 111
+path_info = "/arya/arya/permission/1/change"
 
+pattern = "/arya/arya/peission/\d+/change"
 
-func.short_description = "大于号"
-actions = [func, ]
-
-for item in actions:
-    # Func, item(2,3)
-    if hasattr(item,'short_description'):
-        print(item.short_description,item(1,2))
-    else:
-        print(item.__name__.title(), item(1, 2))
+v = re.match(pattern,path_info)
+print(v)
