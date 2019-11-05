@@ -16,8 +16,8 @@ from wsgiref.util import FileWrapper #from django.core.servers.basehttp import F
 # Create your views here.
 @login_required
 def index(request):
-    return render(request,'index.html')
-
+    # return render(request,'index.html')
+    return redirect('/hostlist/')
 def acc_login(request):
     error = ''
     if request.method == "POST":

@@ -1,32 +1,37 @@
 {% extends 'index.html' %}
 
+{% block extra-css %}
+    <style>
+        #container .list-group-item .badge-success {
+            background-color:#8bc34a;
+        }
+    </style>
 
+{% endblock %}
 
 {% block content-container %}
     <div id="page-title">
-        <h1 class="page-header text-overflow">主机列表</h1>
+    <!--Breadcrumb-->
+    <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+    <ol class="breadcrumb">
+        <li class="page-header active">主机列表</li>
+    </ol>
+    <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+    <!--End breadcrumb-->
 
-        <!--Searchbox-->
-        <div class="searchbox">
+    <div class="searchbox">
             <div class="input-group custom-search-form">
                 <input type="text" class="form-control" placeholder="Search..">
                 <span class="input-group-btn">
                     <button class="text-muted" type="button"><i class="pli-magnifi-glass"></i></button>
                 </span>
             </div>
-        </div>
+    </div>
+
     </div>
     <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
     <!--End page title-->
-        <!--Breadcrumb-->
-    <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-    <ol class="breadcrumb">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Library</a></li>
-        <li class="active">主机列表</li>
-    </ol>
-    <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-    <!--End breadcrumb-->
+
 
     <div id="page-content">
 

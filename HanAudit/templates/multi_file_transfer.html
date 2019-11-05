@@ -2,12 +2,26 @@
 {% block extra-css %}
         <link href="/static/plugins/dropzone/dropzone.css" rel="stylesheet">
         <script src="/static/plugins/dropzone/dropzone.js"></script>
+        <style>
+        .breadcrumb li.active a {
+            color: #777;!important;
+        }
+        </style>
 {% endblock %}
 
 
 {% block content-container %}
     <div id="page-title">
-        <h1 class="page-header text-overflow">主机列表</h1>
+        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <!--End page title-->
+            <!--Breadcrumb-->
+        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <ol class="breadcrumb">
+            <li class="page-header"><a href="#">主机管理</a></li>
+            <li class="page-header active"><a href="#">批量传输文件</a></li>
+        </ol>
+        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <!--End breadcrumb-->
 
         <!--Searchbox-->
         <div class="searchbox">
@@ -19,17 +33,6 @@
             </div>
         </div>
     </div>
-    <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-    <!--End page title-->
-        <!--Breadcrumb-->
-    <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-    <ol class="breadcrumb">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Library</a></li>
-        <li class="active">主机列表</li>
-    </ol>
-    <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-    <!--End breadcrumb-->
     <div id="page-content">
         {% include 'components/hostgroups.html' %}
         <div class="col-lg-9">

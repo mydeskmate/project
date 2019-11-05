@@ -1,11 +1,27 @@
 {% extends 'index.html' %}
 
 
+{% block extra-css %}
+    <style>
+        .breadcrumb li.active a {
+            color: #777;!important;
+        }
+    </style>
+{% endblock %}
 
 {% block content-container %}
 {#    {% csrf_token %}#}
     <div id="page-title">
-        <h1 class="page-header text-overflow">主机列表</h1>
+        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <!--End page title-->
+            <!--Breadcrumb-->
+        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <ol class="breadcrumb">
+            <li class="page-header"><a href="#">主机管理</a></li>
+            <li class="page-header active"><a href="#">批量执行命令</a></li>
+        </ol>
+        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <!--End breadcrumb-->
 
         <!--Searchbox-->
         <div class="searchbox">
@@ -17,17 +33,7 @@
             </div>
         </div>
     </div>
-    <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-    <!--End page title-->
-        <!--Breadcrumb-->
-    <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-    <ol class="breadcrumb">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Library</a></li>
-        <li class="active">主机列表</li>
-    </ol>
-    <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-    <!--End breadcrumb-->
+
 
     <div id="page-content">
         {% include 'components/hostgroups.html' %}
