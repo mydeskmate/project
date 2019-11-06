@@ -24,7 +24,8 @@ urlpatterns = [
 
     url(r'^hostlist/$', views.host_list,name="host_list"),
     url(r'^multitask/$', views.multitask, name="multitask"),   #执行多任务命令
-    url(r'^multitask/result/$', views.multitask_result ,name="get_task_result"),
+    url(r'^multitask/result/$', views.multitask_result ,name="get_task_result"),  #获取多任务命令执行结果
+    url(r'^multitask/stop/', views.multitask_stop, name="multitask_stop"),  # 终止多任务命令
     url(r'^multitask/cmd/$', views.multi_cmd ,name="multi_cmd"),   # 返回命令页面
     url(r'^multitask/file_transfer/$', views.multi_file_transfer, name="multi_file_transfer"),
 

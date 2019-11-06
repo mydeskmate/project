@@ -31,6 +31,7 @@ import traceback
 from paramiko.py3compat import input
 from audit import models
 import paramiko
+from paramiko import SSHClient
 
 try:
     import interactive
@@ -122,7 +123,8 @@ def ssh_session(bind_host_user, user_obj):
             sys.exit(1)
 
         chan = t.open_session()
-        chan.get_pty()  # terminal
+        # chan.get_pty()  # terminal
+        chan.get_pty("vt100", 80, 24, 0, 0)  # terminal
         chan.invoke_shell()
         print('*** Here we go!\n')
 
@@ -141,5 +143,13 @@ def ssh_session(bind_host_user, user_obj):
         except:
             pass
         sys.exit(1)
+
+
+
+
+# 测试代码  引入webssh
+
+
+
 
 

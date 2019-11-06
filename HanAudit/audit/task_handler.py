@@ -68,11 +68,13 @@ class Task(object):
         #
         # cmd_str = "python %s %s" % (settings.MULTI_TASK_SCRIPT,task_obj.id)   该命令再linux执行出错
         cmd_str = ["python", settings.MULTI_TASK_SCRIPT, str(task_obj.id)]
-        multitask_obj = subprocess.Popen(cmd_str,
+        pid = subprocess.Popen(cmd_str,
                                          stdout=subprocess.PIPE,
                                          stderr=subprocess.PIPE )
         # print("task result :",multitask_obj.stdout.read(),multitask_obj.stderr.read().decode('gbk'))
         # print(cmd_str)
+        # tasklog_obj = models.TaskLog.objects.get(id=tasklog_id)
+
         return  task_obj
 
     def file_transfer(self):

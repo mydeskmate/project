@@ -126,6 +126,7 @@ class Task(models.Model):
 class TaskLog(models.Model):
     task = models.ForeignKey("Task",on_delete=models.CASCADE)
     host_user_bind = models.ForeignKey("HostUserBind",on_delete=models.CASCADE)
+    process_id = models.IntegerField(null=True,blank=True)
     result = models.TextField(default='init....')
     date = models.DateTimeField(auto_now_add=True)
     status_choices = ((0,'成功'),(1,'失败'),(2,'超时'),(3,'初始化'))

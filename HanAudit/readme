@@ -1,16 +1,21 @@
 admin  root  1234qwer
        alex   1234qwer!@#$
 
-
-1. 完善前端页面
-
-1. 将shellinabox 地址写入settings  通过login 跳转
+远程登陆:
+1. 完善前端页面  完成
+2. 用webssh替换shellinabo 通过参数传递实现自动登陆到跳板机  http://172.16.1.109:8888/?hostname=172.16.1.109&username=audit&password=dGZlZHU2MTg4   完成
+3. 将webssh地址写入settings  通过login 跳转      完成
+4. 问题:  没办法,先这样吧,有时间可以考虑基于webssh改造
+    1. vim效果不好 没有颜色
+    2. 上下箭头切换命令不好用
 
 
 主机管理:
     批量命令,定时一直拉取结果  没有终止任务
     下载时远程没有log.log  本地创建了一个空文件log.log
     最好能先检测是否执行完成  再下载到本地
+
+
     待优化: (crm)
     权限配置  热插拔
     自定义用户认证  不用django的user

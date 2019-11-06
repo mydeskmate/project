@@ -134,5 +134,9 @@ MULTI_TASK_SCRIPT = os.path.join(BASE_DIR,'multitask.py')
 FILE_UPLOADS = os.path.join(BASE_DIR,'uploads')
 FILE_DOWNLOADS = os.path.join(BASE_DIR,'downloads')
 
+
+# webssh地址
+WEB_SSH = 'http://172.16.1.109:8888/?hostname=172.16.1.109&username=audit&password=dGZlZHU2MTg4'
+
 # 会话检测脚本   修改ssh源代码方式
 SESSION_TRACKER_SCRIPT = os.path.join(BASE_DIR,'audit/backend/session_tracker.sh')

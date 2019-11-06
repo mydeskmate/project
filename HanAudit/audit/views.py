@@ -39,7 +39,7 @@ def acc_logout(request):
 
 @login_required
 def host_list(request):
-    return render(request,'hostlist.html')
+    return render(request,'hostlist.html',{'WEB_SSH':conf.settings.WEB_SSH})
 
 
 
@@ -178,3 +178,8 @@ def multitask_result(request):
                                 ))
 
     return HttpResponse(json.dumps(results))
+
+@login_required
+def multitask_stop(request):
+    task_id = request.GET.get('task_id')
+    return HttpResponse(task_id)

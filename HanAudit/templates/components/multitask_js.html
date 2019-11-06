@@ -74,7 +74,7 @@
 
     }
 
-
+    task_id = "";
     function  PostTask(task_type) {
         //1. 验证主机列表已选，命令已输入
         //2. 提交任务到后台
@@ -137,9 +137,15 @@
 
                     //diplay download file btn
                     $("#file-download-btn").removeClass("hide").attr('href', "{% url 'task_file_download' %}?task_id="+callback.task_id);
-
+                    task_id = callback.task_id;
 
             } );//end post
 
+    }
+    
+    function StopTask() {
+        $.getJSON("{% url 'multitask_stop' %}",{'task_id':task_id},function(callback) {
+            console.log(callback)
+        })
     }
 </script>
