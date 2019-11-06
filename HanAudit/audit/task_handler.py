@@ -23,6 +23,8 @@ class Task(object):
             if self.task_data.get('task_type') == 'cmd':
                 if self.task_data.get('cmd') and self.task_data.get('selected_host_ids'):
                     return True
+                elif self.task_data.get('cmd') and self.task_data.get('dest') == 'stop':
+                    return True
                 self.errors.append({'invalid_argument': 'cmd or host_list is empty.'})
             elif self.task_data.get('task_type') == 'file_transfer':
                 return True #self.errors.append({'invalid_argument':'cmd or host_list is empty.'})
@@ -34,21 +36,35 @@ class Task(object):
     def run(self):
         """start task , and return task id """
         task_func = getattr(self, self.task_data.get('task_type'))
+        task_dest = self.task_data.get('dest')
+        if task_dest:
+            task_obj = task_func(task_dest)
         task_obj = task_func()
         return task_obj
 
     @atomic
-    def cmd(self):
+    def cmd(self,*args):
         """批量任务"""
         #print("run multi task.....")
+        print(args)
+        selected_host_ids = []
+        if args == 'stop':
+            stop_task_id = self.task_data.get('task_id')
+            stop_task_obj = models.Task.objects.filter(id=stop_task_id).first()
+            for host_user in  stop_task_obj.tasklog_set.host_user_bind:
+                selected_host_ids.append(selected_host_ids.host_id)
+            print(selected_host_ids)
+
         task_obj = models.Task.objects.create(
             task_type = 0,
             account = self.request.user.account ,
             content = self.task_data.get('cmd'),
             #host_user_binds =
         )
+
+        selected_host_ids = self.task_data.get("selected_host_ids")
         tasklog_objs = []
-        host_ids = set(self.task_data.get("selected_host_ids"))
+        host_ids = set(selected_host_ids)
         for host_id in host_ids:
             tasklog_objs.append(
                 models.TaskLog(task_id=task_obj.id,

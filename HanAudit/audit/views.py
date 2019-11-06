@@ -181,5 +181,8 @@ def multitask_result(request):
 
 @login_required
 def multitask_stop(request):
-    task_id = request.GET.get('task_id')
-    return HttpResponse(task_id)
+    task_obj = task_handler.Task(request)
+    if task_obj.is_valid():
+        task_obj = task_obj.run()
+        return HttpResponse(json.dumps({'task_id': task_obj.id, 'timeout': task_obj.timeout}))
+    return HttpResponse(json.dumps(task_obj.errors))
