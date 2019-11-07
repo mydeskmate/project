@@ -1,0 +1,146 @@
+报障系统
+	1. 数据库设计
+	2. 功能开发：
+		a. 主页
+		b. 登录
+			
+		今日任务：
+			- 主页：筛选，分页，登录成功显示个人信息
+			- 登录：验证码，Django Form组件
+			- 注册：验证码，Django Form组件，上传个人头像【可选】
+		
+		c. 个人博客
+			- 个人首页
+				- URL：http://127.0.0.1:9000/wupeiqi.html
+				 查找：
+						obj1 = models.Blog.objects.filter(site='wupeiqi').frist()
+						obj1.article_set.all('....')
+						
+						
+						models.Article.objects.filter(blog__site='wupeiqi')
+						
+						obj1 = models.Blog.objects.filter(site='wupeiqi').frist()
+			- 分类
+				- 
+					http://127.0.0.1:9000/wupeiqi/tag/1.html
+					http://127.0.0.1:9000/wupeiqi/category/2.html
+					http://127.0.0.1:9000/wupeiqi/date/2017-02.html
+					
+			- 文章详细
+				- 赞
+				- 评论（多级评论）
+				
+				
+			注意：主题定制
+				
+				
+				
+		今日任务：
+			1. 注册
+				   position:
+					
+					
+				   <form>
+						用户名
+						密码
+						邮箱
+						<input value='/static/imgs/a.png'/> 隐藏，头像路径
+						
+						<input subnut>
+				   </form>
+					
+				   <form id='f2'>
+						<iframe></form>
+						<input type='file' onchange='uploadImg()'/>
+				   </form>
+				
+					function uploadImg(){
+						dco....submt()
+					}
+				
+			2. 个人博客
+				- 主页
+				
+					
+				
+		d. 
+			- 本地上传预览图片
+				
+			- Form组件中通过构造方法可以封装自己想要值
+				
+				class RegisterForm(Form):
+					username = fields.CharField(
+						widget=widgets.TextInput(attrs={'class':'form-control'})
+					)
+					password = fields.CharField(
+						widget=widgets.PasswordInput(attrs={'class':'form-control'})
+					)
+					password2 = fields.CharField(
+						widget=widgets.PasswordInput(attrs={'class':'form-control'})
+					)
+					avatar = fields.FileField(widget=widgets.FileInput(attrs={'id':"imgSelect",'class':"f1"  }))
+					code = fields.CharField(
+						widget=widgets.TextInput(attrs={'class':'form-control'})
+					)
+
+					def __init__(self,request,*args,**kwargs):
+						super(RegisterForm,self).__init__(*args,**kwargs)
+						self.request = request
+								
+			- 对于Form组件错误信息
+				{
+					__all__: [错误1，错误2]
+					user: [错误1，错误2]
+					password: [错误1，错误2]
+				}
+					
+				# 获取整体错误信息
+					- 后台 
+						print(obj.errors['__all__'])
+						print(obj.errors[NON_FIELD_ERRORS])
+					- 模板
+						{{ obj.non_field_errors }}
+						
+				PS: 
+					self.add_error('字段名称',错误异常对象)
+				
+			- 个人主站（无需登录）
+			
+			- 一对一
+				    obj = models.UserInfo.objects.filter(username='sw').first()
+					print(obj.blog.site)
+				
+		今日任务：
+			1. 注册
+			
+			2. 个人主页：
+				- group by
+				
+			3. 个人博客筛选：分类，标签，时间
+			
+			4. 博客详细页面（点赞）
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+				
+				
+				
+				
+				
+				
+				

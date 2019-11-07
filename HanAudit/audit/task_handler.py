@@ -39,20 +39,25 @@ class Task(object):
         task_dest = self.task_data.get('dest')
         if task_dest:
             task_obj = task_func(task_dest)
-        task_obj = task_func()
+        else:
+            task_obj = task_func()
         return task_obj
 
     @atomic
-    def cmd(self,*args):
+    def cmd(self,*task_dest):
         """批量任务"""
         #print("run multi task.....")
-        print(args)
-        selected_host_ids = []
-        if args == 'stop':
+
+        selected_host_ids = self.task_data.get("selected_host_ids") if self.task_data.get("selected_host_ids") else []
+        if  task_dest and task_dest[0] == 'stop':
             stop_task_id = self.task_data.get('task_id')
             stop_task_obj = models.Task.objects.filter(id=stop_task_id).first()
-            for host_user in  stop_task_obj.tasklog_set.host_user_bind:
-                selected_host_ids.append(selected_host_ids.host_id)
+            for tasklog in stop_task_obj.tasklog_set.all():
+                if tasklog.status != 0:
+                    selected_host_ids.append(tasklog.host_user_bind_id)
+                    tasklog.status = 1
+                    tasklog.result =  '手动终止....'
+                    tasklog.save()
             print(selected_host_ids)
 
         task_obj = models.Task.objects.create(
@@ -62,7 +67,6 @@ class Task(object):
             #host_user_binds =
         )
 
-        selected_host_ids = self.task_data.get("selected_host_ids")
         tasklog_objs = []
         host_ids = set(selected_host_ids)
         for host_id in host_ids:

@@ -170,7 +170,6 @@ def multitask_result(request):
 
 
     task_obj = models.Task.objects.get(id=task_id)
-
     results = list(task_obj.tasklog_set.values('id','status',
                                 'host_user_bind__host__hostname',
                                 'host_user_bind__host__ip_addr',
@@ -181,8 +180,10 @@ def multitask_result(request):
 
 @login_required
 def multitask_stop(request):
+    task_data = json.loads(request.POST.get('task_data'))
+    old_task_id = task_data['task_id']
     task_obj = task_handler.Task(request)
     if task_obj.is_valid():
         task_obj = task_obj.run()
-        return HttpResponse(json.dumps({'task_id': task_obj.id, 'timeout': task_obj.timeout}))
+        return HttpResponse(json.dumps({'task_id': task_obj.id, 'timeout': task_obj.timeout,'old_task_id':old_task_id}))
     return HttpResponse(json.dumps(task_obj.errors))

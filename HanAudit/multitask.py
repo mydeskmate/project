@@ -28,7 +28,8 @@ def cmd_run(tasklog_id,task_id,cmd_str):
         ssh.close()
 
         tasklog_obj.result = result or 'cmd has no result output .'
-        tasklog_obj.status = 0
+        if str(tasklog_obj.status) != "1":
+            tasklog_obj.status = 0
         tasklog_obj.save()
 
     except Exception as e:
@@ -84,7 +85,7 @@ def file_transfer(tasklog_id,task_id,task_content):
 if __name__ == "__main__":
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))) )
     sys.path.append(BASE_DIR)
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "LuffyAudit.settings")
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "HanAudit.settings")
 
     import django
     django.setup()

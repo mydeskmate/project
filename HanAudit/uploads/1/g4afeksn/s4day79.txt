@@ -1,0 +1,152 @@
+http://www.cnblogs.com/wupeiqi/articles/5703697.html
+
+上节回顾：
+	1. Form验证流程
+		- 字段字段正则
+		- 单独字段方法
+		- clean	
+	2. 问题
+		class TeacherForm(Form):
+			tname = fields.CharField(min_length=2)
+			# xx = form_model.ModelMultipleChoiceField(queryset=models.Classes.objects.all())
+			# xx = form_model.ModelChoiceField(queryset=models.Classes.objects.all())
+
+			xx = fields.MultipleChoiceField(
+				# choices=models.Classes.objects.values_list('id','title'),
+				widget=widgets.SelectMultiple()
+			)
+			def __init__(self,*args,**kwargs
+	):
+				super(TeacherForm,self).__init__(*args,**kwargs)
+				self.fields['xx'].choices = models.Classes.objects.values_list('id','title')
+	3. 文件上传
+	
+		Form上传，页面刷新
+	
+
+今日内容：Ajax
+	Ajax
+		- 偷偷向后台发请求
+		
+		
+		1. Ajax, 
+			a. XMLHttpRequest
+				
+				GET请求：
+					var xhr = new XMLHttpRequest();
+					xhr.onreadystatechange = function(){
+						if(xhr.readyState == 4){
+							alert(xhr.responseText);
+						}
+					};
+					xhr.open('GET','/add2/?i1=12&i2=19');
+					xhr.send();
+				
+				
+				POST请求：
+					var xhr = new XMLHttpRequest();
+					xhr.onreadystatechange = function(){
+						if(xhr.readyState == 4){
+							alert(xhr.responseText);
+						}
+					};
+					xhr.open('POST','/add2/');
+					xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+					xhr.send("i1=12&i2=19");
+			
+			
+			b. jQuery Ajax，内部基于“原生Ajax”
+				
+				$.ajax({
+					url:
+					type:
+					successs:
+				})
+
+		2. 伪Ajax，非XMLHttpRequest
+			技术：
+				iframe标签，不刷新发送HTTP请求
+				<form>....</form>
+			
+			示例：
+				<form id="f1" method="POST" action="/fake_ajax/" target="ifr">
+					<iframe id="ifr" name="ifr" style="display: none"></iframe>
+					<input type="text" name="user" />
+					<a onclick="submitForm();">提交</a>
+				</form>
+
+				<script>
+					function submitForm(){
+						document.getElementById('ifr').onload = loadIframe;
+						document.getElementById('f1').submit();
+
+					}
+					function loadIframe(){
+						var content = document.getElementById('ifr').contentWindow.document.body.innerText;
+						alert(content);
+					}
+				</script>
+	基于Ajax上传文件：
+		1. XMLHttpRequest
+			- 原生: FormData
+			- jQuery: FormData
+		2. 伪造
+			- 兼容性
+	
+	总结：
+		1. 上传文件
+			伪造
+		2. 数据
+			- jQuery
+			- XMLHttpRequest(伪造)
+			
+		3. 不要被好看的上传按钮迷惑
+		
+
+	JSONP
+		技巧，技术。。。
+		Ajax存在：
+			访问自己域名URL
+			访问其他域名URL - 被阻止
+		
+		浏览器：同源策略，
+		
+			- 禁止：Ajax跨域发送请求时，再回来时浏览器拒绝接受
+			- 允许：script标签没禁止
+		
+		JSONP：钻空子
+			# http://www.baidu.com?p=1&name=xx
+			0. function list(arg){
+				console.log(arg);
+			  }
+			
+			1. 发送：
+				把数据拼接成，script放在html
+				<script src='http://www.jxntv.cn/data/jmd-jxtv2.html?callback=list&_=1454376870403'></script>
+				list({......})
+			
+			
+			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

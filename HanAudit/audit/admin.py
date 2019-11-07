@@ -11,7 +11,7 @@ class SessionLogAdmin(admin.ModelAdmin):
     list_filter = ['start_date','account']
 
 class TaskLogAdmin(admin.ModelAdmin):
-    list_display = ['id','task_id','host_user_bind_id', 'result','date' ]
+    list_display = ['id','task_id','host_user_bind_id', 'result','date','status']
     list_filter = ['result',]
 
 admin.site.register(models.Host)

@@ -66,7 +66,6 @@
                     <button  class="btn btn-danger ">终止</button>
                     <a id="file-download-btn" class="btn btn-info hide" href="" >下载任务文件到本地</a>
 
-
                 </div>
             </div>
             {% include 'components/taskresult.html' %}
@@ -108,14 +107,12 @@
 
 
     function  ToggleUploadEle(self) {
-
-        console.log($(self).val())
+        console.log($(self).val());
         if ( $(self).val() == 'get'){
-            $(self).next().addClass("hide")
+            $('#file-download-btn').removeClass("hide")
         }else {
-            $(self).next().removeClass('hide')
+            $('#file-download-btn').addClass('hide')
         }
-
     }
 
 </script>
